@@ -1,0 +1,42 @@
+(library
+ (name slack_lib)
+ (public_name slack.lib)
+ (libraries
+  atdgen
+  atdgen-runtime
+  biniou
+  cstruct
+  devkit
+  extlib
+  hex
+  lwt
+  nocrypto
+  re2
+  uri
+  yojson)
+ (preprocess
+  (pps lwt_ppx)))
+
+(rule
+ (targets config_t.ml config_t.mli)
+ (deps config.atd)
+ (action
+  (run atdgen -t %{deps})))
+
+(rule
+ (targets config_j.ml config_j.mli)
+ (deps config.atd)
+ (action
+  (run atdgen -j -j-std %{deps})))
+
+(rule
+ (targets slack_t.ml slack_t.mli)
+ (deps slack.atd)
+ (action
+  (run atdgen -t %{deps})))
+
+(rule
+ (targets slack_j.ml slack_j.mli)
+ (deps slack.atd)
+ (action
+  (run atdgen -j -j-std %{deps})))

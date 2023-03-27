@@ -1,0 +1,43 @@
+{
+    "ok": true,
+    "channel": {
+        "id": "C04CXBYNC68",
+        "name": "mpdm-sewen.thy--bot1--bot2",
+        "is_channel": true,
+        "is_group": false,
+        "is_im": false,
+        "is_mpim": true,
+        "is_private": true,
+        "created": 1669703508,
+        "is_archived": false,
+        "is_general": false,
+        "unlinked": 0,
+        "name_normalized": "mpdm-sewen.thy--bot1--bot2",
+        "is_shared": false,
+        "is_org_shared": false,
+        "is_pending_ext_shared": false,
+        "pending_shared": [],
+        "context_team_id": "SOMETEAMID",
+        "updated": 1669703508487,
+        "parent_conversation": null,
+        "creator": "U046XN0M2R5",
+        "is_ext_shared": false,
+        "shared_team_ids": [
+            "SOMETEAMID"
+        ],
+        "pending_connected_team_ids": [],
+        "is_member": true,
+        "last_read": "0000000000.000000",
+        "is_open": false,
+        "topic": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+        },
+        "purpose": {
+            "value": "Group messaging with: @sewen.thy @bot1 @bot2",
+            "creator": "U046XN0M2R5",
+            "last_set": 1669703508
+        }
+    }
+}

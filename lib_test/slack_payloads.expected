@@ -1,0 +1,470 @@
+simple_test--------channel: channel1--------
+will notify #channel1
+{ "channel": "channel1", "text": "msgblah" }
+simple_test--------channel: otherone--------
+will notify #otherone
+{ "channel": "otherone", "text": "mrkdown here _msgblah_ " }
+simple_test--------channel: otherone--------
+will notify #otherone
+{ "channel": "otherone", "text": "new line \n  _msgblah_ " }
+as_user_test--------channel: channel1--------
+will notify #channel1
+{
+  "channel": "channel1",
+  "text": "msgblah",
+  "username": "me",
+  "icon_url": "https://example.com/some.jpg",
+  "icon_emoji": ":thumbsup:"
+}
+as_user_test--------channel: otherone--------
+will notify #otherone
+{
+  "channel": "otherone",
+  "text": "mrkdown here _msgblah_ ",
+  "username": "me",
+  "icon_url": "https://example.com/some.jpg",
+  "icon_emoji": ":thumbsup:"
+}
+as_user_test--------channel: otherone--------
+will notify #otherone
+{
+  "channel": "otherone",
+  "text": "new line \n  _msgblah_ ",
+  "username": "me",
+  "icon_url": "https://example.com/some.jpg",
+  "icon_emoji": ":thumbsup:"
+}
+get_user_test--------user: U046XN0M2R5--------
+{
+  "ok": true,
+  "user": {
+    "id": "U046XN0M2R5",
+    "is_admin": true,
+    "is_app_user": false,
+    "is_bot": false,
+    "is_owner": true,
+    "is_restricted": false,
+    "is_ultra_restricted": false,
+    "profile": {
+      "display_name": "",
+      "display_name_normalized": "",
+      "email": "sewen.thy@ahrefs.com",
+      "first_name": "sewen.thy",
+      "phone": "",
+      "real_name": "sewen.thy",
+      "real_name_normalized": "sewen.thy",
+      "status_emoji": "",
+      "status_expiration": 0,
+      "status_text": "",
+      "team": "SOMETEAMID",
+      "title": ""
+    },
+    "tz": "Asia/Kuala_Lumpur",
+    "tz_label": "Singapore Standard Time",
+    "tz_offset": 28800,
+    "updated": 1666261185
+  }
+}
+get_user_test--------user: U04A3C2LC6N--------
+{
+  "ok": true,
+  "user": {
+    "id": "U04A3C2LC6N",
+    "is_admin": false,
+    "is_app_user": false,
+    "is_bot": true,
+    "is_owner": false,
+    "is_restricted": false,
+    "is_ultra_restricted": false,
+    "profile": {
+      "display_name": "",
+      "display_name_normalized": "",
+      "first_name": "somebot",
+      "phone": "",
+      "real_name": "somebot",
+      "real_name_normalized": "somebot",
+      "status_emoji": "",
+      "status_expiration": 0,
+      "status_text": "",
+      "team": "SOMETEAMID",
+      "title": ""
+    },
+    "tz": "America/Los_Angeles",
+    "tz_label": "Pacific Standard Time",
+    "tz_offset": -28800,
+    "updated": 1667958788
+  }
+}
+get_user_test--------user: UG3UGF1AM--------
+{
+  "ok": true,
+  "user": {
+    "id": "UG3UGF1AM",
+    "is_admin": true,
+    "is_app_user": false,
+    "is_bot": false,
+    "is_owner": true,
+    "is_restricted": false,
+    "is_ultra_restricted": false,
+    "profile": {
+      "display_name": "",
+      "display_name_normalized": "",
+      "phone": "",
+      "real_name": "louis",
+      "real_name_normalized": "louis",
+      "status_emoji": "",
+      "status_expiration": 0,
+      "status_text": "",
+      "team": "SOMETEAMID",
+      "title": ""
+    },
+    "tz": "Asia/Kuala_Lumpur",
+    "tz_label": "Singapore Standard Time",
+    "tz_offset": 28800,
+    "updated": 1674013969
+  }
+}
+get_conversations_replies--------channel: D049WPTCGMC--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1675329533.687169",
+      "thread_ts": "1675329533.687169",
+      "user": "U04A3C2LC6N",
+      "text": "ello",
+      "reply_count": 4,
+      "subscribed": false
+    },
+    {
+      "type": "message",
+      "ts": "1675329544.950899",
+      "thread_ts": "1675329533.687169",
+      "user": "U046XN0M2R5",
+      "text": "in z threads",
+      "parent_user_id": "U04A3C2LC6N"
+    },
+    {
+      "type": "message",
+      "ts": "1675329548.141789",
+      "thread_ts": "1675329533.687169",
+      "user": "U046XN0M2R5",
+      "text": "i have other messages",
+      "parent_user_id": "U04A3C2LC6N"
+    },
+    {
+      "type": "message",
+      "ts": "1675329549.203589",
+      "thread_ts": "1675329533.687169",
+      "user": "U046XN0M2R5",
+      "text": "wow",
+      "parent_user_id": "U04A3C2LC6N"
+    },
+    {
+      "type": "message",
+      "ts": "1675329551.660279",
+      "thread_ts": "1675329533.687169",
+      "user": "U046XN0M2R5",
+      "text": "many messages",
+      "parent_user_id": "U04A3C2LC6N"
+    }
+  ],
+  "ok": true,
+  "has_more": false
+}
+get_conversations_replies--------channel: D049WPTCGMC--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1675329544.950899",
+      "thread_ts": "1675329533.687169",
+      "user": "U046XN0M2R5",
+      "text": "in z threads",
+      "parent_user_id": "U04A3C2LC6N"
+    }
+  ],
+  "ok": true,
+  "has_more": false
+}
+get_conversations_replies--------channel: D049WPTCGMC--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1675330543.480229",
+      "user": "U046XN0M2R5",
+      "text": "i try"
+    }
+  ],
+  "ok": true,
+  "has_more": false
+}
+get_conversations_replies--------channel: D049WPTCGMC--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1675329534.687279",
+      "thread_ts": "1675329534.687279",
+      "user": "U04A3C2LC6N",
+      "text": "ello",
+      "reply_count": 4,
+      "subscribed": false
+    },
+    {
+      "type": "message",
+      "ts": "1675329544.950899",
+      "thread_ts": "1675329534.687279",
+      "user": "U046XN0M2R5",
+      "text": "in z threads",
+      "parent_user_id": "U04A3C2LC6N"
+    },
+    {
+      "type": "message",
+      "ts": "1675329548.141789",
+      "thread_ts": "1675329534.687279",
+      "user": "U046XN0M2R5",
+      "text": "i have other messages",
+      "parent_user_id": "U04A3C2LC6N"
+    }
+  ],
+  "ok": true,
+  "has_more": true,
+  "response_metadata": { "next_cursor": "bmV4dF90czoxNjc1MzI5NTQ5MjAzNTg5" }
+}
+get_conversations_info--------channel: C049XFXK286--------
+{
+  "ok": true,
+  "channel": {
+    "id": "C049XFXK286",
+    "name": "channel1",
+    "is_channel": true,
+    "is_member": true
+  }
+}
+channel type is: channel
+get_conversations_info--------channel: C04CXBYNC68--------
+{
+  "ok": true,
+  "channel": {
+    "id": "C04CXBYNC68",
+    "name": "mpdm-sewen.thy--bot1--bot2",
+    "is_channel": true,
+    "is_member": true
+  }
+}
+channel type is: channel
+get_conversations_info--------channel: D049WPTCGMC--------
+{
+  "ok": true,
+  "channel": { "id": "D049WPTCGMC", "is_im": true, "user": "U046XN0M2R5" }
+}
+channel type is: direct message
+get_conversations_replies--------channel: C047C6ECFNX--------
+joining #C047C6ECFNX...
+{
+  "channel": {
+    "id": "C047C6ECFNX",
+    "name": "random",
+    "is_channel": true,
+    "is_member": true
+  }
+}
+get_conversations_replies--------channel: C049XFXK286--------
+joining #C049XFXK286...
+{
+  "channel": {
+    "id": "C049XFXK286",
+    "name": "channel1",
+    "is_channel": true,
+    "is_member": true
+  },
+  "warning": "already_in_channel",
+  "response_metadata": { "warnings": [ "already_in_channel" ] }
+}
+upload_file_to--------channels: C049XFXK286--------
+will update #C049XFXK286
+{ "channels": "C049XFXK286", "content": "some file content here" }
+{
+  "ok": true,
+  "file": { "id": "SOME_FILE_ID", "channels": [ "C049XFXK286" ] }
+}
+upload_file_to--------channels: C04CXBYNC68--------
+will update #C04CXBYNC68
+{
+  "channels": "C04CXBYNC68",
+  "content": "some file content there weird characters 1i0134uuuoqiwejfm_()/,sadlk.asd\\slqwep[ofjvn"
+}
+{
+  "ok": true,
+  "file": { "id": "SOME_FILE_ID", "channels": [ "C04CXBYNC68" ] }
+}
+update_users_of--------usergroup: S04XV4DF0LQ--------
+updating #S04XV4DF0LQ...
+{
+  "ok": true,
+  "usergroup": {
+    "id": "S04XV4DF0LQ",
+    "team_id": "SOMETEAMID",
+    "is_usergroup": true,
+    "name": "test_usergroup",
+    "description": "",
+    "handle": "test_usg",
+    "date_create": 1675653536,
+    "date_update": 1675654357,
+    "date_delete": 0,
+    "created_by": "U046XN0M2R5",
+    "updated_by": "U04A3C2LC6N",
+    "users": [ "U046XN0M2R5", "U04D7HU80BT" ],
+    "user_count": 2
+  }
+}
+update_users_of--------usergroup: S04NV4DF0LQ--------
+updating #S04NV4DF0LQ...
+{
+  "ok": true,
+  "usergroup": {
+    "id": "S04NV4DF0LQ",
+    "team_id": "SOMETEAMID",
+    "is_usergroup": true,
+    "name": "test_usergroup",
+    "description": "",
+    "handle": "test_usg",
+    "date_create": 1675653536,
+    "date_update": 1675654357,
+    "date_delete": 0,
+    "created_by": "U046XN0M2R5",
+    "updated_by": "U04A3C2LC6N",
+    "users": [ "U046XN0M2R5" ],
+    "user_count": 1
+  }
+}
+===== file mock-slack-events/link_shared.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "link_shared",
+    "channel": "C047QTRD1CH",
+    "is_bot_user_member": false,
+    "user": "U046XN0M2R5",
+    "message_ts": "1666773089.275449",
+    "links": [ { "domain": "example.com", "url": "https://example.com" } ]
+  },
+  "event_id": "Ev0481R38J69",
+  "event_time": 1666773089
+}
+===== file mock-slack-events/links_shared.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "link_shared",
+    "channel": "C047QTRD1CH",
+    "is_bot_user_member": false,
+    "user": "U046XN0M2R5",
+    "message_ts": "1666773089.275449",
+    "links": [
+      { "domain": "example.com", "url": "https://example.com" },
+      { "domain": "google.com", "url": "https://google.com" }
+    ]
+  },
+  "event_id": "Ev0481R38J69",
+  "event_time": 1666773089
+}
+===== file mock-slack-events/message_bot.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "subtype": "bot_message",
+    "channel": "C049XFXK286",
+    "text": "`some text`",
+    "ts": "1668474814.931949",
+    "bot_id": "SOMEBOTID"
+  },
+  "event_id": "Ev04B9TH8401",
+  "event_time": 1668474814
+}
+===== file mock-slack-events/message_bot_upload_file.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "subtype": "file_share",
+    "channel": "C049XFXK286",
+    "user": "U04A3C2LC6N",
+    "text": "",
+    "ts": "1671595066.592719"
+  },
+  "event_id": "Ev04G41LD735",
+  "event_time": 1671595066
+}
+===== file mock-slack-events/message_in_thread.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "channel": "C049XFXK286",
+    "user": "U046XN0M2R5",
+    "text": "help in thread",
+    "ts": "1674711838.181849",
+    "thread_ts": "1674711827.215549"
+  },
+  "event_id": "Ev04LPED3RN0",
+  "event_time": 1674711838
+}
+===== file mock-slack-events/message_private.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "channel": "D049WPTCGMC",
+    "user": "U046XN0M2R5",
+    "text": "some text",
+    "ts": "1669627053.679029"
+  },
+  "event_id": "Ev04CP59GA3U",
+  "event_time": 1669627053
+}
+===== file mock-slack-events/message_send_as_user.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "subtype": "bot_message",
+    "channel": "C04LJ2662DT",
+    "text": "`help`",
+    "ts": "1675045861.113699",
+    "bot_id": "SOMEBOTID"
+  },
+  "event_id": "Ev04M1KPDQM9",
+  "event_time": 1675045861
+}
+===== file mock-slack-events/message_updated.json =====
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "subtype": "message_changed",
+    "channel": "D049WPTCGMC",
+    "ts": "1669265351.000400"
+  },
+  "event_id": "Ev04C7PRDB53",
+  "event_time": 1669265351
+}

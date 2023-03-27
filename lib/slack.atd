@@ -1,0 +1,369 @@
+type json <ocaml module="Yojson.Basic" t="t"> = abstract
+
+type timestamp_int = int wrap <ocaml t="Devkit.Time.t" wrap="Devkit.Time.seconds" unwrap="Devkit.Time.to_sec">
+
+type message_field = {
+  ?title: string nullable;
+  ~value <ocaml default="\"\"">: string;
+  ~short <ocaml default="false">: bool;
+}
+
+type message_attachment = {
+  fallback: string nullable;
+  ?mrkdwn_in: string list nullable;
+  ?color: string nullable;
+  ?pretext: string nullable;
+  ?author_name: string nullable;
+  ?author_link: string nullable;
+  ?author_icon: string nullable;
+  ?title: string nullable;
+  ?title_link: string nullable;
+  ?text: string nullable;
+  ?fields: message_field list nullable;
+  ?image_url: string nullable;
+  ?thumb_url: string nullable;
+  ?ts: int nullable;
+  ?footer: string nullable;
+}
+
+type text_object_type = [
+  Plain_text <json name="plain_text">
+  | Markdown <json name="mrkdwn">
+] <ocaml repr="classic">
+
+type text_object = {
+  text_type <json name="type"> : text_object_type;
+  text: string;
+}
+
+type message_text_block = {
+  text: text_object;
+}
+
+type message_block = [
+  Section <json name="section"> of message_text_block
+  | Divider <json name="divider">
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type post_message_req = {
+  channel: string;
+  ?text: string nullable;
+  ?attachments: message_attachment list nullable;
+  ?blocks: message_block list nullable;
+  ?username: string nullable;
+  ?icon_url: string nullable;
+  ?icon_emoji: string nullable;
+  ?metadata: string nullable;
+  ?mrkdwn: bool nullable;
+  ?parse: string nullable;
+  ?thread_ts: string nullable;
+  ?unfurl_links: bool nullable;
+  ?unfurl_media: bool nullable;
+}
+
+type post_message_res = {
+  channel: string;
+  ts: string;
+}
+
+type update_message_req = {
+  channel: string;
+  ts: string;
+  ?text: string nullable;
+  ?attachments: message_attachment list nullable;
+  ?blocks: message_block list nullable;
+  ?link_names: bool nullable;
+  ?metadata: string nullable;
+  ?parse: string nullable;
+  ?reply_broadcast: bool nullable;
+}
+
+type update_message_res = {
+  channel: string;
+  ts: string;
+}
+
+(** Not supporting file upload through form using `file` currently *)
+type files_upload_req = {
+  (** channels: comma-separated values e.g. [C1234567890,C2345678901,C3456789012]--when it's empty, 
+      it does return a file id but the file is not shared to any channel.
+  *)
+  ?channels: string nullable;
+  ?content: string nullable;
+  ?filename: string nullable;
+  ?filetype: string nullable;
+  ?initial_comment: string nullable;
+  ?thread_ts: string nullable;
+  ?title: string nullable;
+}
+
+type file = {
+  id: string;
+  ?name: string nullable;
+  ?title: string nullable;
+  ?mimetype: string nullable;
+  ?filetype: string nullable;
+  ?pretty_type: string nullable;
+  ?user: string nullable;
+  ?size: int nullable;
+  ~channels <ocaml default="[]">: string list;
+  ~ims <ocaml default="[]">: string list;
+  ~groups <ocaml default="[]">: string list;
+  ?permalink: string nullable;
+  ?permalink_public: string nullable;
+}
+
+type files_upload_res = {
+  ok: bool;
+  file: file;
+}
+
+type conversations_info_req = {
+  channel: string;
+  ?include_locale: bool nullable;
+  ?include_num_members: bool nullable;
+}
+
+(* NB:
+   - name is not present in IM but user is.
+   - is_channel and is_group is not present in IM.
+   - for group and channel, user is not present.
+*)
+type conversation = {
+  id: string;
+  ?name: string nullable;
+  ~is_channel <ocaml default="false">: bool;
+  ~is_group <ocaml default="false">: bool;
+  ~is_im <ocaml default="false">: bool;
+  ?is_member: bool nullable;
+  ?user: string nullable;
+  ?locale: string nullable;
+  ?num_members: int nullable;
+}
+
+type conversations_info_res = {
+  ok: bool;
+  channel: conversation;
+}
+
+type conversations_replies_req = {
+  channel: string;
+  ts: string;
+  ?cursor: string nullable;
+  ?include_all_metadata: bool nullable;
+  ?inclusive: bool nullable;
+  ?latest: string nullable;
+  ?limit: int nullable;
+  ?oldest: string nullable;
+}
+
+(* NB:
+   - thread_ts is present only if it's a thread reply.
+*)
+type conversation_reply = {
+  type_ <json name="type">: string;
+  ts: string;
+  ?thread_ts: string nullable;
+  ?user: string nullable;
+  ?text: string nullable;
+  ?reply_count: int nullable;
+  ?subscribed: bool nullable;
+  ?last_read: string nullable;
+  ?unread_count: int nullable;
+  ?parent_user_id: string nullable;
+}
+
+type conversations_replies_res = {
+  ?messages: conversation_reply list nullable;
+  ok: bool;
+  ?has_more: bool nullable;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type user_info_req = {
+  user: string;
+  ?include_locale: bool nullable;
+}
+
+type profile = {
+  display_name: string;
+  display_name_normalized: string;
+  ?email: string nullable;
+  ~first_name <ocaml default="\"\"">: string;
+  ~last_name <ocaml default="\"\"">: string;
+  phone: string;
+  ?pronouns: string nullable;
+  real_name: string;
+  real_name_normalized: string;
+  status_emoji: string;
+  status_expiration: int;
+  status_text: string;
+  team: string;
+  title: string;
+}
+
+type two_fa_type = [
+| App <json name="app">
+| Sms <json name="sms">
+| Not_enabled
+]<ocaml repr="classic">
+
+type user = {
+  id: string;
+  ~deleted <ocaml default="false">: bool;
+  ~has_2fa <ocaml default="false">: bool;
+  is_admin: bool;
+  is_app_user: bool;
+  is_bot: bool;
+  ~is_invited_user <ocaml default="false">: bool;
+  is_owner: bool;
+  is_restricted: bool;
+  ~is_stranger <ocaml default="false">: bool;
+  is_ultra_restricted: bool;
+  ?locale: string nullable;
+  profile: profile;
+  ~two_factor_type <ocaml default="Not_enabled">: two_fa_type;
+  tz: string;
+  tz_label: string;
+  tz_offset: int;
+  updated: int;
+}
+
+type user_info_res = {
+  ok: bool;
+  user: user;
+}
+
+type conversations_join_req = {
+  channel: string;
+}
+
+type conversations_join_res = {
+  channel: conversation;
+  ?warning: string nullable;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type update_usergroups_users_req = {
+  usergroup: string;
+  users: string list;
+  ?include_count: bool nullable;
+  ?team_id: string nullable;
+}
+
+type usergroup = {
+  id: string;
+  ?team_id: string nullable;
+  ~is_usergroup <ocaml default="false">: bool;
+  ?name: string nullable;
+  ?description: string nullable;
+  ?handle: string nullable;
+  ~is_external <ocaml default="false">: bool;
+  ?date_create: int nullable;
+  ?date_update: int nullable;
+  ?date_delete: int nullable;
+  ?created_by: string nullable;
+  ?updated_by: string nullable;
+  ?deleted_by: string nullable;
+  ?users: string list nullable;
+  ?user_count: int nullable;
+}
+
+type update_usergroups_users_res = {
+  ok: bool;
+  usergroup: usergroup;
+}
+
+type unfurl_block = {
+  blocks: message_block list;
+}
+
+type unfurl = [
+  Message_attachment of message_attachment
+  | Blocks of unfurl_block
+]  <ocaml repr="classic"> <json adapter.ocaml="Atd_adapters.Unfurl_adapter">
+
+type chat_unfurl_req = {
+  channel: string;
+  ts: string;
+  unfurls: (string * unfurl) list <json repr="object">;
+}
+
+type ok_res = {
+  ok: bool;
+}
+
+type auth_test_res = {
+  url: string;
+  team: string;
+  user: string;
+  team_id: string;
+  user_id: string;
+}
+
+(* NB:
+   - subtype is not present when it's a regular message
+   - user is not present when sending as user
+   - text is not present when message subtype is message_changed for
+     updating messages as well as other channel events such as
+     channel joined, left, etc.
+   - thread_ts is present only if it's a thread reply.
+*)
+type message_event = {
+  ?subtype: string nullable;
+  channel: string;
+  ?user : string nullable;
+  ?text : string nullable;
+  ts: string;
+  ?bot_id: string option;
+  ?thread_ts: string option;
+}
+
+type link_shared_link = {
+  domain: string;
+  url: string;
+}
+
+(* NB:
+   - thread_ts is present only if it's a thread reply.
+*)
+type link_shared_event = {
+  channel: string;
+  is_bot_user_member: bool;
+  user: string;
+  message_ts: string;
+  ?thread_ts: string option;
+  links: link_shared_link list;
+}
+
+type event = [
+| Message <json name="message"> of message_event
+| Link_shared <json name="link_shared"> of link_shared_event
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type event_callback_notification = {
+  token: string;
+  team_id: string;
+  api_app_id: string;
+  event: event;
+  event_id: string;
+  event_time: timestamp_int;
+}
+
+type url_verification_notification = {
+  token: string;
+  challenge: string;
+}
+
+type event_notification = [
+| Event_callback <json name="event_callback"> of event_callback_notification
+| Url_verification <json name="url_verification"> of url_verification_notification
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type ('ok, 'err) http_response <ocaml predef module="Stdlib" t="result"> = [
+  | Ok of 'ok
+  | Error of 'err
+] <ocaml repr="classic">
+
+type 'ok slack_response = ('ok, string) http_response
+  <json adapter.ocaml="Atd_adapters.Slack_response_adapter">

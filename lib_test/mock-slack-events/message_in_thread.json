@@ -1,0 +1,50 @@
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "context_team_id": "SOMETEAMID",
+  "context_enterprise_id": null,
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "client_msg_id": "b132bb57-4e44-4457-83a0-46dbe26e858e",
+    "type": "message",
+    "text": "help in thread",
+    "user": "U046XN0M2R5",
+    "ts": "1674711838.181849",
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "hmR",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "help in thread"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "team": "SOMETEAMID",
+    "thread_ts": "1674711827.215549",
+    "parent_user_id": "U04A3C2LC6N",
+    "channel": "C049XFXK286",
+    "event_ts": "1674711838.181849",
+    "channel_type": "channel"
+  },
+  "type": "event_callback",
+  "event_id": "Ev04LPED3RN0",
+  "event_time": 1674711838,
+  "authorizations": [
+    {
+      "enterprise_id": null,
+      "team_id": "SOMETEAMID",
+      "user_id": "U04A3C2LC6N",
+      "is_bot": true,
+      "is_enterprise_install": false
+    }
+  ],
+  "is_ext_shared_channel": false
+}
