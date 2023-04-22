@@ -19,3 +19,8 @@ let get_secrets path =
 let get_ctx ?(secrets_path = "secrets.json") ?(ua = "slack_api") () = make ~ua ~secrets:(get_secrets secrets_path)
 
 let empty_ctx () = make ~ua:"slack_api" ~secrets:(make_secrets ())
+
+let get_slack_access_token ctx =
+  match ctx.secrets.slack_access_token with
+  | None -> slack_lib_fail "no slack token"
+  | Some access_token -> access_token

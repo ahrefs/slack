@@ -10,9 +10,9 @@ let cache_dir = Filename.concat cwd "slack-api-cache"
  empty file:this is needed to simulate 404 returns from github *)
 let with_cache_file url f =
   match get_local_file url with
-  | "" -> Lwt.return_error "empty file"
+  | "" -> Lwt.return_error (`Other "empty file")
   | file -> Lwt.return_ok (f file)
-  | exception Slack_lib_error e -> Lwt.return_error e
+  | exception Slack_lib_error e -> Lwt.return_error (`Other e)
 
 let default_post_message_res : Slack_t.post_message_res = { channel = "SOME_RETURN_POST_CHANNEL_ID"; ts = "SOME_TS" }
 let default_update_message_res : Slack_t.update_message_res =
@@ -54,7 +54,7 @@ let upload_file ~ctx:_ ~file =
     printf "will update #%s\n" channels;
     printf "%s\n" json;
     Lwt.return_ok { default_files_upload_res with file = { default_files_res with channels = [ channels ] } }
-  | None -> Lwt.return_error "invalid file upload"
+  | None -> Lwt.return_error (`Other "invalid file upload")
 
 let join_conversation ~ctx:_ ~(channel : Slack_t.conversations_join_req) =
   printf "joining #%s...\n" channel.channel;

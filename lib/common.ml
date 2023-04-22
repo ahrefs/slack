@@ -5,8 +5,6 @@ exception Slack_lib_error of string
 
 let slack_lib_fail fmt = Printf.ksprintf (fun e -> raise (Slack_lib_error e)) fmt
 
-let fmt_error fmt = Printf.ksprintf (fun e -> Error e) fmt
-
 let http_request ?ua ?headers ?body meth path =
   match%lwt Web.http_request_lwt ?ua ~verbose:true ?headers ?body meth path with
   | `Ok s -> Lwt.return_ok s

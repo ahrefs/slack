@@ -19,7 +19,7 @@ let slack_echo_event_handler ctx event =
       (match%lwt ApiHelpers.send_text_msg ~ctx ~channel:event.channel ~text with
       | Ok (_res : Slack_t.post_message_res) -> Lwt.return_ok ""
       | Error e ->
-        log#error "Nope, did not work: %s\n" e;
+        log#error "Nope, did not work: %s\n" (Slack_j.string_of_slack_api_error e);
         Lwt.return_ok ""))
   | Link_shared e ->
     let unfurl_link (link_shared_link : Slack_t.link_shared_link) =
@@ -39,7 +39,7 @@ let slack_echo_event_handler ctx event =
     (match%lwt Api_remote.send_chat_unfurl ~ctx ~req with
     | Ok () -> Lwt.return_ok "unfurl sent successfully"
     | Error e ->
-      let msg = sprintf "failed to send to %s:\n %s\n" req.channel e in
+      let msg = sprintf "failed to send to %s:\n %s\n" req.channel (Slack_j.string_of_slack_api_error e) in
       print_endline msg;
       Lwt.return_error msg)
   | _ -> Lwt.return_ok ""

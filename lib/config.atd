@@ -1,7 +1,7 @@
 (* This is the structure of the secrets file which stores sensitive information, and
    shouldn't be checked into version control.  *)
 type secrets = {
-  (* Slack bot token (`xoxb-XXXX`), giving the bot capabilities to interact with the workspace *)
+  (* Slack bot token (`xoxb-XXXX`), giving the bot capabilities to interact with the workspace--allowed to be absent for tests *)
   ?slack_access_token : string nullable;
  (* Slack uses this secret to sign requests; provide to verify incoming Slack requests *)
   ?slack_signing_secret : string nullable;

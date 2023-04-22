@@ -60,7 +60,7 @@ let conversation_type_of_conversation = function
   | ({ is_channel = true; _ } : conversation) -> Ok Channel
   | { is_im = true; _ } -> Ok DirectMessage
   | { is_group = true; _ } -> Ok Group
-  | conversation -> Error (sprintf "did not get valid conversation info for channel %s" conversation.id)
+  | conversation -> Error (`Other (sprintf "did not get valid conversation info for channel %s" conversation.id))
 
 let show_channel_type = function
   | Channel -> "channel"
@@ -159,6 +159,6 @@ module ApiHelpers (Api : Api.S) = struct
   let get_channel_type ~(ctx : Context.t) ~channel =
     let conversation = { empty_conversations_info_req with channel } in
     match%lwt Api.get_conversations_info ~ctx ~conversation with
-    | Error e -> Lwt.return_error @@ sprintf "unable to get conversation info for channel %s: %s" channel e
+    | Error e -> Lwt.return_error e
     | Ok ({ channel; _ } : conversations_info_res) -> Lwt.return @@ conversation_type_of_conversation channel
 end

@@ -17,7 +17,7 @@ let send icon_url icon_emoji username channel text =
         printf "sent '%s' to %s (%s) at %s.\n" text channel res.channel res.ts;
         Lwt.return_unit
       | Error e ->
-        printf "failed to send to %s:\n %s\n" channel e;
+        printf "failed to send to %s:\n %s\n" channel (Slack_j.string_of_slack_api_error e);
         Lwt.return_unit)
     | username ->
       (match%lwt ApiHelpers.send_text_msg_as_user ~ctx ~channel ~text ~username ~icon_url ~icon_emoji () with
@@ -25,7 +25,7 @@ let send icon_url icon_emoji username channel text =
         printf "sent '%s' as %s to %s (%s) at %s.\n" text username channel res.channel res.ts;
         Lwt.return_unit
       | Error e ->
-        printf "failed to send to %s:\n %s\n" channel e;
+        printf "failed to send to %s:\n %s\n" channel (Slack_j.string_of_slack_api_error e);
         Lwt.return_unit)
   in
   Lwt_main.run run
@@ -46,7 +46,7 @@ let send_file channels content =
       print_endline "\n";
       Lwt.return_unit
     | Error e ->
-      printf "failed to send to %s\n" e;
+      printf "failed to send to %s\n" (Slack_j.string_of_slack_api_error e);
       Lwt.return_unit
   in
   Lwt_main.run run
@@ -67,10 +67,10 @@ let send_and_update channel text update =
         printf "updated '%s' to '%s' in channel %s at %s.\n" text update res.channel res.ts;
         Lwt.return_unit
       | Error e ->
-        printf "failed to send to %s:\n %s\n" channel e;
+        printf "failed to send to %s:\n %s\n" channel (Slack_j.string_of_slack_api_error e);
         Lwt.return_unit)
     | Error e ->
-      printf "failed to send to %s:\n %s\n" channel e;
+      printf "failed to send to %s:\n %s\n" channel (Slack_j.string_of_slack_api_error e);
       Lwt.return_unit
   in
   Lwt_main.run run
@@ -84,7 +84,7 @@ let join_conversation channel =
       printf "conversation joined sent successfully\n%s\n" (Slack_j.string_of_conversations_join_res conversation);
       Lwt.return_unit
     | Error e ->
-      printf "failed join channel %s:\n %s\n" channel.channel e;
+      printf "failed join channel %s:\n %s\n" channel.channel (Slack_j.string_of_slack_api_error e);
       Lwt.return_unit
   in
   Lwt_main.run run
@@ -99,7 +99,7 @@ let update_usergroup_users usergroup user_id_list =
       printf "conversation joined sent successfully\n%s\n" (Slack_j.string_of_update_usergroups_users_res usergroup);
       Lwt.return_unit
     | Error e ->
-      printf "failed to update usergroup %s:\n %s\n" usergroup.usergroup e;
+      printf "failed to update usergroup %s:\n %s\n" usergroup.usergroup (Slack_j.string_of_slack_api_error e);
       Lwt.return_unit
   in
   Lwt_main.run run

@@ -15,7 +15,9 @@ let process_send_msg (channel, text) =
   let ctx = Context.empty_ctx () in
   match%lwt Utils_local.send_text_msg ~ctx ~channel ~text with
   | Ok _ -> Lwt.return_unit
-  | Error e -> Lwt.return @@ log#error "failed to send message: %s" e
+  | Error e ->
+    log#error "failed to send message: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
 
 let text_msg_as_user_cases =
   [
@@ -29,7 +31,9 @@ let process_send_msg_as_user (channel, text, username, icon_url, icon_emoji) =
   let ctx = Context.empty_ctx () in
   match%lwt Utils_local.send_text_msg_as_user ~ctx ~channel ~text ~icon_url ~icon_emoji ~username () with
   | Ok _ -> Lwt.return_unit
-  | Error e -> Lwt.return @@ log#error "failed to send message: %s" e
+  | Error e ->
+    log#error "failed to send message: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
 
 let user_list = [ "U046XN0M2R5"; "U04A3C2LC6N"; "UG3UGF1AM" ]
 
@@ -42,7 +46,9 @@ let process_get_user_res user =
     let json = res |> Slack_j.string_of_user_info_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
     print_endline json;
     Lwt.return_unit
-  | Error e -> Lwt.return @@ log#error "failed to get user: %s" e
+  | Error e ->
+    log#error "failed to get user: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
 
 let conversation_list = [ "C049XFXK286"; "C04CXBYNC68"; "D049WPTCGMC" ]
 
@@ -57,12 +63,14 @@ let process_get_conversations_info_res channel =
     in
     print_endline json;
     (match%lwt Utils_local.get_channel_type ~ctx ~channel with
-    | Ok channel_type -> Lwt.return @@ Printf.printf "channel type is: %s\n" (Utils.show_channel_type channel_type)
+    | Ok channel_type ->
+      Printf.printf "channel type is: %s\n" (Utils.show_channel_type channel_type);
+      Lwt.return_unit
     | Error e ->
-      print_endline e;
+      print_endline (Slack_j.string_of_slack_api_error e);
       Lwt.return_unit)
   | Error e ->
-    log#error "failed to get conversation: %s" e;
+    log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
 let conversation_ts_list =
@@ -85,7 +93,7 @@ let process_get_conversations_replies_res (channel, ts) =
     print_endline json;
     Lwt.return_unit
   | Error e ->
-    log#error "failed to get conversation: %s" e;
+    log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
 let conversation_join_list = [ "C047C6ECFNX"; "C049XFXK286" ]
@@ -102,7 +110,7 @@ let process_conversations_join channel =
     print_endline json;
     Lwt.return_unit
   | Error e ->
-    log#error "failed to join conversation: %s" e;
+    log#error "failed to join conversation: %s" (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
 let file_list =
@@ -122,7 +130,9 @@ let process_upload_file (channels, content) =
     let json = res |> Slack_j.string_of_files_upload_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
     print_endline json;
     Lwt.return_unit
-  | Error e -> Lwt.return @@ log#error "failed to get conversation: %s" e
+  | Error e ->
+    log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
 
 let update_usergroup_users_list = [ "S04XV4DF0LQ", [ "U046XN0M2R5"; "U04D7HU80BT" ]; "S04NV4DF0LQ", [ "U046XN0M2R5" ] ]
 
@@ -137,7 +147,9 @@ let process_update_usergroup_users (usergroup, users) =
     in
     print_endline json;
     Lwt.return_unit
-  | Error e -> Lwt.return @@ log#error "failed to update users of usergroup %s: %s" usergroup.usergroup e
+  | Error e ->
+    log#error "failed to update users of usergroup %s: %s" usergroup.usergroup (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
 
 let mock_slack_event_dir = "mock-slack-events"
 
