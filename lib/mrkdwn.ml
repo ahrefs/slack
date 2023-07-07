@@ -40,3 +40,9 @@ let inline_code = sprintf "`%s`"
 let multiline_code = sprintf "```%s```"
 
 let list l = sprintf "- %s" (String.concat "\n- " l)
+
+(* https://api.slack.com/reference/surfaces/formatting#mentioning-users *)
+let mention_user member_id = sprintf "<@%s>" member_id
+
+(* https://api.slack.com/reference/surfaces/formatting#mentioning-groups *)
+let mention_usergroup group_id = sprintf "<!subteam^%s>" group_id

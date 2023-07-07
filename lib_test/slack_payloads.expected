@@ -44,7 +44,6 @@ get_user_test--------user: U046XN0M2R5--------
     "is_bot": false,
     "is_owner": true,
     "is_restricted": false,
-    "is_ultra_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -57,7 +56,8 @@ get_user_test--------user: U046XN0M2R5--------
       "status_expiration": 0,
       "status_text": "",
       "team": "SOMETEAMID",
-      "title": ""
+      "title": "",
+      "image_512": "https://example.com/image.png"
     },
     "tz": "Asia/Kuala_Lumpur",
     "tz_label": "Singapore Standard Time",
@@ -75,7 +75,6 @@ get_user_test--------user: U04A3C2LC6N--------
     "is_bot": true,
     "is_owner": false,
     "is_restricted": false,
-    "is_ultra_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -105,7 +104,6 @@ get_user_test--------user: UG3UGF1AM--------
     "is_bot": false,
     "is_owner": true,
     "is_restricted": false,
-    "is_ultra_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -116,7 +114,8 @@ get_user_test--------user: UG3UGF1AM--------
       "status_expiration": 0,
       "status_text": "",
       "team": "SOMETEAMID",
-      "title": ""
+      "title": "",
+      "image_512": "https://example.com/image.png"
     },
     "tz": "Asia/Kuala_Lumpur",
     "tz_label": "Singapore Standard Time",
@@ -340,6 +339,195 @@ updating #S04NV4DF0LQ...
     "user_count": 1
   }
 }
+list_usergroups_of--------team_id: T0475L7BATY--------
+{
+  "ok": true,
+  "usergroups": [
+    {
+      "id": "S04NV4DF0LQ",
+      "team_id": "T0475L7BATY",
+      "is_usergroup": true,
+      "name": "test_usergroup",
+      "description": "",
+      "handle": "test_usg",
+      "date_create": 1675653536,
+      "date_update": 1678180163,
+      "date_delete": 1678180163,
+      "created_by": "U046XN0M2R5",
+      "updated_by": "USLACKBOT",
+      "deleted_by": "USLACKBOT",
+      "user_count": 2
+    }
+  ]
+}
+list_usergroup_users_of--------usergroup_id: S04NV4DF0LQ--------
+listing #S04NV4DF0LQ...
+{ "ok": true, "users": [ "U046XN0M2R5", "U04D7HU80BT" ] }
+list_users--------cursor: dXNlcjpVMDQ2WE4wTTJSNQ==--------
+listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
+{
+  "ok": true,
+  "members": [
+    {
+      "id": "USLACKBOT",
+      "is_admin": false,
+      "is_app_user": false,
+      "is_bot": false,
+      "is_owner": false,
+      "is_restricted": false,
+      "profile": {
+        "display_name": "Slackbot",
+        "display_name_normalized": "Slackbot",
+        "first_name": "slackbot",
+        "phone": "",
+        "real_name": "Slackbot",
+        "real_name_normalized": "Slackbot",
+        "status_emoji": "",
+        "status_expiration": 0,
+        "status_text": "",
+        "team": "T0475L7BATY",
+        "title": "",
+        "image_24": "https://a.slack-edge.com/80588/img/slackbot_24.png",
+        "image_32": "https://a.slack-edge.com/80588/img/slackbot_32.png",
+        "image_48": "https://a.slack-edge.com/80588/img/slackbot_48.png",
+        "image_72": "https://a.slack-edge.com/80588/img/slackbot_72.png",
+        "image_192": "https://a.slack-edge.com/80588/marketing/img/avatars/slackbot/avatar-slackbot.png",
+        "image_512": "https://a.slack-edge.com/80588/img/slackbot_512.png"
+      },
+      "tz": "America/Los_Angeles",
+      "tz_label": "Pacific Daylight Time",
+      "tz_offset": -25200,
+      "updated": 0
+    },
+    {
+      "id": "U046XN0M2R5",
+      "is_admin": true,
+      "is_app_user": false,
+      "is_bot": false,
+      "is_owner": true,
+      "is_restricted": false,
+      "profile": {
+        "display_name": "",
+        "display_name_normalized": "",
+        "email": "sewen.thy@ahrefs.com",
+        "first_name": "sewen.thy",
+        "phone": "",
+        "real_name": "sewen.thy",
+        "real_name_normalized": "sewen.thy",
+        "status_emoji": "",
+        "status_expiration": 0,
+        "status_text": "",
+        "team": "T0475L7BATY",
+        "title": "",
+        "image_24": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-24.png",
+        "image_32": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-32.png",
+        "image_48": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-48.png",
+        "image_72": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-72.png",
+        "image_192": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-192.png",
+        "image_512": "https://secure.gravatar.com/avatar/b8ed359661a6f4ff7df813c8ba437dd1.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0005-512.png"
+      },
+      "tz": "Asia/Kuala_Lumpur",
+      "tz_label": "Singapore Standard Time",
+      "tz_offset": 28800,
+      "updated": 1673004214
+    },
+    {
+      "id": "U047X1F32SD",
+      "is_admin": false,
+      "is_app_user": false,
+      "is_bot": true,
+      "is_owner": false,
+      "is_restricted": false,
+      "profile": {
+        "display_name": "",
+        "display_name_normalized": "",
+        "first_name": "monorobot-test",
+        "phone": "",
+        "real_name": "monorobot-test",
+        "real_name_normalized": "monorobot-test",
+        "status_emoji": "",
+        "status_expiration": 0,
+        "status_text": "",
+        "team": "T0475L7BATY",
+        "title": "",
+        "image_24": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-24.png",
+        "image_32": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-32.png",
+        "image_48": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-48.png",
+        "image_72": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-72.png",
+        "image_192": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-192.png",
+        "image_512": "https://secure.gravatar.com/avatar/8e13871b50d30cf120c37e7342159913.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0002-512.png"
+      },
+      "tz": "America/Los_Angeles",
+      "tz_label": "Pacific Daylight Time",
+      "tz_offset": -25200,
+      "updated": 1666344051
+    },
+    {
+      "id": "U04A3C2LC6N",
+      "is_admin": false,
+      "is_app_user": false,
+      "is_bot": true,
+      "is_owner": false,
+      "is_restricted": false,
+      "profile": {
+        "display_name": "",
+        "display_name_normalized": "",
+        "first_name": "chatops.ml",
+        "phone": "",
+        "real_name": "chatops.ml",
+        "real_name_normalized": "chatops.ml",
+        "status_emoji": "",
+        "status_expiration": 0,
+        "status_text": "",
+        "team": "T0475L7BATY",
+        "title": "",
+        "image_24": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-24.png",
+        "image_32": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-32.png",
+        "image_48": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-48.png",
+        "image_72": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-72.png",
+        "image_192": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-192.png",
+        "image_512": "https://secure.gravatar.com/avatar/ea4f76ce4a101864b54af1854d5bfe9c.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0000-512.png"
+      },
+      "tz": "America/Los_Angeles",
+      "tz_label": "Pacific Daylight Time",
+      "tz_offset": -25200,
+      "updated": 1674020738
+    },
+    {
+      "id": "U04D7HU80BT",
+      "is_admin": false,
+      "is_app_user": false,
+      "is_bot": false,
+      "is_owner": false,
+      "is_restricted": false,
+      "profile": {
+        "display_name": "",
+        "display_name_normalized": "",
+        "email": "sewenthy@gmail.com",
+        "first_name": "sewen",
+        "phone": "",
+        "real_name": "sewen",
+        "real_name_normalized": "sewen",
+        "status_emoji": "",
+        "status_expiration": 0,
+        "status_text": "",
+        "team": "T0475L7BATY",
+        "title": "",
+        "image_24": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-24.png",
+        "image_32": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-32.png",
+        "image_48": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-48.png",
+        "image_72": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-72.png",
+        "image_192": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-192.png",
+        "image_512": "https://secure.gravatar.com/avatar/eed6bdc85f9109b6864908bc48371916.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0025-512.png"
+      },
+      "tz": "Asia/Kuala_Lumpur",
+      "tz_label": "Singapore Standard Time",
+      "tz_offset": 28800,
+      "updated": 1688437343
+    }
+  ],
+  "response_metadata": { "next_cursor": "" }
+}
 ===== file mock-slack-events/link_shared.json =====
 {
   "token": "",
@@ -351,7 +539,8 @@ updating #S04NV4DF0LQ...
     "is_bot_user_member": false,
     "user": "U046XN0M2R5",
     "message_ts": "1666773089.275449",
-    "links": [ { "domain": "example.com", "url": "https://example.com" } ]
+    "links": [ { "domain": "example.com", "url": "https://example.com" } ],
+    "source": "conversations_history"
   },
   "event_id": "Ev0481R38J69",
   "event_time": 1666773089
@@ -370,7 +559,8 @@ updating #S04NV4DF0LQ...
     "links": [
       { "domain": "example.com", "url": "https://example.com" },
       { "domain": "google.com", "url": "https://google.com" }
-    ]
+    ],
+    "source": "conversations_history"
   },
   "event_id": "Ev0481R38J69",
   "event_time": 1666773089

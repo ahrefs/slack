@@ -41,6 +41,12 @@ let send_message ~ctx:_ ~msg =
   printf "%s\n" json;
   Lwt.return_ok { default_post_message_res with channel = msg.channel }
 
+let send_message_webhook ~ctx:_ ~url ~msg =
+  let json = msg |> Slack_j.string_of_post_message_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+  printf "will notify #%s\n" url;
+  printf "%s\n" json;
+  Lwt.return_ok ()
+
 let update_message ~ctx:_ ~msg =
   let json = msg |> Slack_j.string_of_update_message_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
   printf "will update #%s at %s \n" msg.channel msg.ts;
@@ -83,6 +89,20 @@ let get_conversations_info ~ctx:_ ~(conversation : Slack_t.conversations_info_re
 let get_user ~ctx:_ ~(user : Slack_t.user_info_req) =
   let url = Filename.concat cache_dir user.user in
   with_cache_file url Slack_j.user_info_res_of_string
+
+let list_usergroups ~ctx:_ ~(req : Slack_t.list_usergroups_req) =
+  let url = Filename.concat cache_dir (sprintf "%s_usergroups_list" @@ Option.get req.team_id) in
+  with_cache_file url Slack_j.list_usergroups_res_of_string
+
+let list_usergroup_users ~ctx:_ ~(usergroup : Slack_t.list_usergroup_users_req) =
+  printf "listing #%s...\n" usergroup.usergroup;
+  let url = Filename.concat cache_dir (sprintf "%s_list_usergroup_users" usergroup.usergroup) in
+  with_cache_file url Slack_j.list_usergroup_users_res_of_string
+
+let list_users ~ctx:_ ~(req : Slack_t.list_users_req) =
+  printf "listing at cursor #%s...\n" @@ Option.get req.cursor;
+  let url = Filename.concat cache_dir (sprintf "%s_list_users" @@ Option.get req.cursor) in
+  with_cache_file url Slack_j.list_users_res_of_string
 
 let send_auth_test ~ctx:_ () =
   Lwt.return

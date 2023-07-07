@@ -151,6 +151,54 @@ let process_update_usergroup_users (usergroup, users) =
     log#error "failed to update users of usergroup %s: %s" usergroup.usergroup (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
+let list_usergroups_team_id_list = [ "T0475L7BATY" ]
+let process_list_usergroups team_id =
+  Printf.printf "list_usergroups_of--------team_id: %s--------\n" team_id;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.list_usergroups_req =
+    { include_count = None; team_id = Some team_id; include_users = Some true; include_disabled = Some true }
+  in
+  match%lwt Api.list_usergroups ~ctx ~req with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_list_usergroups_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to update users of usergroup %s: %s" team_id (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let list_usergroup_users_usergroup_id_list = [ "S04NV4DF0LQ" ]
+let process_list_usergroup_users usergroup =
+  Printf.printf "list_usergroup_users_of--------usergroup_id: %s--------\n" usergroup;
+  let ctx = Context.empty_ctx () in
+  let usergroup : Slack_t.list_usergroup_users_req = { usergroup; team_id = None; include_disabled = Some true } in
+  match%lwt Api.list_usergroup_users ~ctx ~usergroup with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_list_usergroup_users_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to get users of usergroup %s: %s" usergroup.usergroup (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let list_users_cursors_list = [ "dXNlcjpVMDQ2WE4wTTJSNQ==" ]
+let process_list_users cursor =
+  Printf.printf "list_users--------cursor: %s--------\n" cursor;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.list_users_req = { cursor = Some cursor; include_locale = None; limit = None; team_id = None } in
+  match%lwt Api.list_users ~ctx ~req with
+  | Ok res ->
+    let json = res |> Slack_j.string_of_list_users_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to get users at cursor %s: %s" cursor (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
 let mock_slack_event_dir = "mock-slack-events"
 
 let get_mock_slack_events () =
@@ -187,5 +235,8 @@ let () =
      let%lwt () = Lwt_list.iter_s process_conversations_join conversation_join_list in
      let%lwt () = Lwt_list.iter_s process_upload_file file_list in
      let%lwt () = Lwt_list.iter_s process_update_usergroup_users update_usergroup_users_list in
+     let%lwt () = Lwt_list.iter_s process_list_usergroups list_usergroups_team_id_list in
+     let%lwt () = Lwt_list.iter_s process_list_usergroup_users list_usergroup_users_usergroup_id_list in
+     let%lwt () = Lwt_list.iter_s process_list_users list_users_cursors_list in
      let%lwt () = Lwt_list.iter_s process_events slack_events in
      Lwt.return_unit)

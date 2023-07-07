@@ -18,18 +18,6 @@
   (pps lwt_ppx)))
 
 (rule
- (targets config_t.ml config_t.mli)
- (deps config.atd)
- (action
-  (run atdgen -t %{deps})))
-
-(rule
- (targets config_j.ml config_j.mli)
- (deps config.atd)
- (action
-  (run atdgen -j -j-std %{deps})))
-
-(rule
  (targets slack_t.ml slack_t.mli)
  (deps slack.atd)
  (action
