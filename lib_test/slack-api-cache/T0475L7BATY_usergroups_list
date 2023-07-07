@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "usergroups": [
+    {
+      "id": "S04NV4DF0LQ",
+      "team_id": "T0475L7BATY",
+      "is_usergroup": true,
+      "is_subteam": true,
+      "name": "test_usergroup",
+      "description": "",
+      "handle": "test_usg",
+      "is_external": false,
+      "date_create": 1675653536,
+      "date_update": 1678180163,
+      "date_delete": 1678180163,
+      "auto_type": null,
+      "auto_provision": false,
+      "enterprise_subteam_id": "",
+      "created_by": "U046XN0M2R5",
+      "updated_by": "USLACKBOT",
+      "deleted_by": "USLACKBOT",
+      "prefs": {
+        "channels": [],
+        "groups": []
+      },
+      "user_count": 2,
+      "channel_count": 0
+    }
+  ]
+}

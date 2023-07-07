@@ -1,0 +1,44 @@
+{
+    "ok": true,
+    "channel": {
+        "id": "C047C6ECFNX",
+        "name": "random",
+        "is_channel": true,
+        "is_group": false,
+        "is_im": false,
+        "is_mpim": false,
+        "is_private": false,
+        "created": 1666261186,
+        "is_archived": false,
+        "is_general": false,
+        "unlinked": 0,
+        "name_normalized": "random",
+        "is_shared": false,
+        "is_org_shared": false,
+        "is_pending_ext_shared": false,
+        "pending_shared": [],
+        "context_team_id": "SOMETEAMID",
+        "updated": 1666261186508,
+        "parent_conversation": null,
+        "creator": "U046XN0M2R5",
+        "is_ext_shared": false,
+        "shared_team_ids": [
+            "SOMETEAMID"
+        ],
+        "pending_connected_team_ids": [],
+        "is_member": true,
+        "last_read": "1669703998.458569",
+        "topic": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+        },
+        "purpose": {
+            "value": "This channel is for... well, everything else. It’s a place for team jokes, spur-of-the-moment ideas, and funny GIFs. Go wild!",
+            "creator": "U046XN0M2R5",
+            "last_set": 1666261186
+        },
+        "previous_names": [],
+        "priority": 0
+    }
+}

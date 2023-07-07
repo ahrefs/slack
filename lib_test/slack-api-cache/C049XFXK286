@@ -1,0 +1,43 @@
+{
+    "ok": true,
+    "channel": {
+        "id": "C049XFXK286",
+        "name": "channel1",
+        "is_channel": true,
+        "is_group": false,
+        "is_im": false,
+        "is_mpim": false,
+        "is_private": false,
+        "created": 1667974719,
+        "is_archived": false,
+        "is_general": false,
+        "unlinked": 0,
+        "name_normalized": "channel1",
+        "is_shared": false,
+        "is_org_shared": false,
+        "is_pending_ext_shared": false,
+        "pending_shared": [],
+        "context_team_id": "SOMETEAMID",
+        "updated": 1667974719885,
+        "parent_conversation": null,
+        "creator": "U046XN0M2R5",
+        "is_ext_shared": false,
+        "shared_team_ids": [
+            "SOMETEAMID"
+        ],
+        "pending_connected_team_ids": [],
+        "is_member": true,
+        "last_read": "1667974719.984339",
+        "topic": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+        },
+        "purpose": {
+            "value": "",
+            "creator": "",
+            "last_set": 0
+        },
+        "previous_names": []
+    }
+}

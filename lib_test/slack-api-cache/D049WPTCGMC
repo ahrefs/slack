@@ -1,0 +1,61 @@
+{
+    "ok": true,
+    "channel": {
+        "id": "D049WPTCGMC",
+        "created": 1667958514,
+        "is_archived": false,
+        "is_im": true,
+        "is_org_shared": false,
+        "context_team_id": "SOMETEAMID",
+        "updated": 0,
+        "user": "U046XN0M2R5",
+        "last_read": "0000000000.000000",
+        "latest": {
+            "bot_id": "SOMEBOTID",
+            "type": "message",
+            "text": "",
+            "user": "U04A3C2LC6N",
+            "ts": "1669265350.760309",
+            "app_id": "SOMEAPPID",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "dzyJ",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "some kind of message"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "bot_profile": {
+                "id": "SOMEBOTID",
+                "deleted": false,
+                "name": "bot1-test",
+                "updated": 1667958514,
+                "app_id": "SOMEAPPID",
+                "icons": {
+                    "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                    "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                    "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                },
+                "team_id": "SOMETEAMID"
+            },
+            "edited": {
+                "user": "SOMEBOTID",
+                "ts": "1669265351.000000"
+            }
+        },
+        "unread_count": 56,
+        "unread_count_display": 30,
+        "is_open": true,
+        "priority": 0
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "ok": true,
+    "messages": [
+        {
+            "client_msg_id": "91e13b7a-227d-485a-aafd-13dffe6967b5",
+            "type": "message",
+            "text": "i try",
+            "user": "U046XN0M2R5",
+            "ts": "1675330543.480229",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "c7k",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "i try"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID"
+        }
+    ],
+    "has_more": false
+}

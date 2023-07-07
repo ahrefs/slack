@@ -1,0 +1,64 @@
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "text": "",
+    "files": [
+      {
+        "id": "F04FPJE4ES3",
+        "created": 1671595066,
+        "timestamp": 1671595066,
+        "name": "-.txt",
+        "title": "Untitled",
+        "mimetype": "text/plain",
+        "filetype": "text",
+        "pretty_type": "Plain Text",
+        "user": "U04A3C2LC6N",
+        "user_team": "SOMETEAMID",
+        "editable": true,
+        "size": 6458,
+        "mode": "snippet",
+        "is_external": false,
+        "external_type": "",
+        "is_public": true,
+        "public_url_shared": false,
+        "display_as_bot": false,
+        "username": "",
+        "url_private": "https://files.slack.com/files-pri/SOME_FILE_URL/-.txt",
+        "url_private_download": "https://files.slack.com/files-pri/SOME_FILE_URL/download/-.txt",
+        "permalink": "https://test-bot2-server.slack.com/files/SOME_FILE_URLtxt",
+        "permalink_public": "https://slack-files.com/SOME_FILE_URL",
+        "edit_link": "https://test-bot2-server.slack.com/files/SOME_FILE_URL.txt/edit",
+        "preview": "SOME FILE TEXT",
+        "lines": 97,
+        "lines_more": 92,
+        "preview_is_truncated": true,
+        "has_rich_preview": false,
+        "file_access": "visible"
+      }
+    ],
+    "upload": true,
+    "user": "U04A3C2LC6N",
+    "display_as_bot": false,
+    "ts": "1671595066.592719",
+    "channel": "C049XFXK286",
+    "subtype": "file_share",
+    "event_ts": "1671595066.592719",
+    "channel_type": "channel"
+  },
+  "type": "event_callback",
+  "event_id": "Ev04G41LD735",
+  "event_time": 1671595066,
+  "authorizations": [
+    {
+      "enterprise_id": null,
+      "team_id": "SOMETEAMID",
+      "user_id": "U04A3C2LC6N",
+      "is_bot": true,
+      "is_enterprise_install": false
+    }
+  ],
+  "is_ext_shared_channel": false
+}

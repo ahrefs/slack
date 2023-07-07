@@ -1,0 +1,20 @@
+(executables
+ (names test)
+ (libraries slack_lib devkit extlib lwt.unix yojson)
+ (preprocess
+  (pps lwt_ppx)))
+
+(rule
+ (deps
+  (source_tree slack-api-cache)
+  (source_tree mock-slack-events)
+  secrets.json)
+ (action
+  (with-stdout-to
+   slack_payloads.out
+   (run ./test.exe))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff slack_payloads.expected slack_payloads.out)))
