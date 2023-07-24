@@ -57,6 +57,10 @@ let icon_emoji =
   let doc = "icon emjoi to display for sender (supersede icon_url)" in
   Arg.(value & opt string "" & info [ "ie"; "icon-emoji" ] ~docv:"ICON_EMOJI" ~doc)
 
+let include_disabled =
+  let doc = "include disabled usergroup" in
+  Arg.(value & opt (some bool) (Some true) & info [ "include_disabled" ] ~docv:"INCLUDE_DISABLED" ~doc)
+
 (* commands *)
 let echo =
   let doc = "launch the http server for the echo example" in
@@ -100,6 +104,12 @@ let get_user_info =
   let term = Term.(const Get_info.get_user $ user_id) in
   Cmd.v info term
 
+let list_users =
+  let doc = "list all users in workspace using Slack APIs example" in
+  let info = Cmd.info "list_users" ~doc in
+  let term = Term.(const Get_info.list_users $ const ()) in
+  Cmd.v info term
+
 let get_conversation_info =
   let doc = "get a conversation info using Slack APIs example" in
   let info = Cmd.info "get_convo" ~doc in
@@ -110,6 +120,18 @@ let get_conversation_replies =
   let doc = "get a conversation replies using Slack APIs example" in
   let info = Cmd.info "get_replies" ~doc in
   let term = Term.(const Get_info.get_replies $ channel_id $ timestamp) in
+  Cmd.v info term
+
+let list_usergroups =
+  let doc = "list all usergroups in workspace using Slack APIs example" in
+  let info = Cmd.info "list_usergroups" ~doc in
+  let term = Term.(const Get_info.list_usergroups $ include_disabled $ const ()) in
+  Cmd.v info term
+
+let list_usergroup_users =
+  let doc = "list all users in usergroup using Slack APIs example" in
+  let info = Cmd.info "list_usergroup_users" ~doc in
+  let term = Term.(const Get_info.list_usergroup_users $ usergroup $ include_disabled $ const ()) in
   Cmd.v info term
 
 let default, info =
@@ -128,6 +150,9 @@ let () =
       get_user_info;
       get_conversation_info;
       get_conversation_replies;
+      list_users;
+      list_usergroups;
+      list_usergroup_users;
     ]
   in
   let group = Cmd.group ~default info cmds in

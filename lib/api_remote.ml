@@ -57,7 +57,6 @@ let send_message ~(ctx : Context.t) ~(msg : Slack_t.post_message_req) =
 (** [send_message_webhook ctx url msg] notifies the channel associated with the
     [url] for a legacy webhook with the payload [msg]. *)
 let send_message_webhook ~(ctx : Context.t) ~url ~(msg : Slack_t.post_message_req) =
-  log#info "sending to %s" msg.channel;
   let data = Slack_j.string_of_post_message_req msg in
   log#info "data to send in message to channel %s: %s" msg.channel data;
   let body = `Raw ("application/json", data) in

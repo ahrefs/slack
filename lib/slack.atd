@@ -1,5 +1,4 @@
-(* This is the structure of the secrets file which stores sensitive information, and
-   shouldn't be checked into version control.  *)
+(* This secrets record is stored in Context to secure communication with Slack *)
 type secrets = {
   (* Slack bot token (`xoxb-XXXX`), giving the bot capabilities to interact with the workspace--allowed to be absent for tests *)
   ?slack_access_token : string nullable;

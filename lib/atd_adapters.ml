@@ -14,10 +14,6 @@ module Slack_response_adapter : Atdgen_runtime.Json_adapter.S = struct
       end
       | _ | (exception Not_found) -> x
     end
-    | `String "ok" ->
-      Printf.printf "this is OK nice\n";
-      `List [ `String "Ok"; `String "ok" ]
-    | `String msg -> `List [ `String "Error"; `String msg ]
     | _ -> x
 
   let restore (x : Yojson.Safe.t) =
