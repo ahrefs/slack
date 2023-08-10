@@ -36,7 +36,7 @@ type message_attachment = {
 
 type text_object_type = [
   Plain_text <json name="plain_text">
-  | Markdown <json name="mrkdwn">
+  | Mrkdown <json name="mrkdwn">
 ] <ocaml repr="classic">
 
 type text_object = {
@@ -64,6 +64,7 @@ type post_message_req = {
   ?metadata: string nullable;
   ?mrkdwn: bool nullable;
   ?parse: string nullable;
+  ?reply_broadcast: bool nullable;
   ?thread_ts: string nullable;
   ?unfurl_links: bool nullable;
   ?unfurl_media: bool nullable;

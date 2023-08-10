@@ -43,7 +43,8 @@ let process_slack_notification (ctx : Context.t) headers body ~notification_hand
 *)
 let process_slack_event (ctx : Context.t) headers body ~event_handler =
   process_slack_notification ctx headers body ~notification_handler:(fun notification ->
-    event_handler notification.event)
+    event_handler notification.event
+  )
 
 (***************** Utilities over Slack API returns  *****************)
 
@@ -99,6 +100,7 @@ let empty_post_msg_req =
     metadata = None;
     mrkdwn = None;
     parse = None;
+    reply_broadcast = None;
     thread_ts = None;
     unfurl_links = None;
     unfurl_media = None;
