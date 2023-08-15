@@ -15,7 +15,7 @@
   uri
   yojson)
  (preprocess
-  (pps lwt_ppx)))
+  (pps lwt_ppx ppx_deriving.make)))
 
 (rule
  (targets slack_t.ml slack_t.mli)

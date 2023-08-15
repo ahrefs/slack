@@ -10,13 +10,13 @@ type json <ocaml module="Yojson.Basic" t="t"> = abstract
 
 type timestamp_int = int wrap <ocaml t="Devkit.Time.t" wrap="Devkit.Time.seconds" unwrap="Devkit.Time.to_sec">
 
-type message_field = {
+type message_field <ocaml attr="deriving make"> = {
   ?title: string nullable;
   ~value <ocaml default="\"\"">: string;
   ~short <ocaml default="false">: bool;
 }
 
-type message_attachment = {
+type message_attachment <ocaml attr="deriving make"> = {
   fallback: string nullable;
   ?mrkdwn_in: string list nullable;
   ?color: string nullable;
@@ -39,12 +39,12 @@ type text_object_type = [
   | Mrkdown <json name="mrkdwn">
 ] <ocaml repr="classic">
 
-type text_object = {
+type text_object <ocaml attr="deriving make"> = {
   text_type <json name="type"> : text_object_type;
   text: string;
 }
 
-type message_text_block = {
+type message_text_block <ocaml attr="deriving make"> = {
   text: text_object;
 }
 
@@ -53,7 +53,7 @@ type message_block = [
   | Divider <json name="divider">
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
-type post_message_req = {
+type post_message_req <ocaml attr="deriving make"> = {
   channel: string;
   ?text: string nullable;
   ?attachments: message_attachment list nullable;
@@ -75,7 +75,7 @@ type post_message_res = {
   ts: string;
 }
 
-type update_message_req = {
+type update_message_req <ocaml attr="deriving make"> = {
   channel: string;
   ts: string;
   ?text: string nullable;
@@ -93,7 +93,7 @@ type update_message_res = {
 }
 
 (** Not supporting file upload through form using `file` currently *)
-type files_upload_req = {
+type files_upload_req <ocaml attr="deriving make"> = {
   (** channels: comma-separated values e.g. [C1234567890,C2345678901,C3456789012]--when it's empty, 
       it does return a file id but the file is not shared to any channel.
   *)
@@ -127,7 +127,7 @@ type files_upload_res = {
   file: file;
 }
 
-type conversations_info_req = {
+type conversations_info_req <ocaml attr="deriving make"> = {
   channel: string;
   ?include_locale: bool nullable;
   ?include_num_members: bool nullable;
@@ -155,7 +155,7 @@ type conversations_info_res = {
   channel: conversation;
 }
 
-type conversations_replies_req = {
+type conversations_replies_req <ocaml attr="deriving make"> = {
   channel: string;
   ts: string;
   ?cursor: string nullable;
@@ -189,7 +189,7 @@ type conversations_replies_res = {
   ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
 }
 
-type user_info_req = {
+type user_info_req <ocaml attr="deriving make"> = {
   user: string;
   ?include_locale: bool nullable;
 }
@@ -249,7 +249,7 @@ type user_info_res = {
   user: user;
 }
 
-type list_users_req = {
+type list_users_req <ocaml attr="deriving make"> = {
   ?cursor: string nullable;
   ?include_locale: bool nullable;
   ?limit: int nullable;
@@ -262,7 +262,7 @@ type list_users_res = {
   response_metadata: (string * string) list <json repr="object">;
 }
 
-type conversations_join_req = {
+type conversations_join_req <ocaml attr="deriving make"> = {
   channel: string;
 }
 
@@ -272,7 +272,7 @@ type conversations_join_res = {
   ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
 }
 
-type update_usergroups_users_req = {
+type update_usergroups_users_req <ocaml attr="deriving make"> = {
   usergroup: string;
   users: string list;
   ?include_count: bool nullable;
@@ -302,7 +302,7 @@ type update_usergroups_users_res = {
   usergroup: usergroup;
 }
 
-type list_usergroups_req = {
+type list_usergroups_req <ocaml attr="deriving make"> = {
   ?include_count: bool nullable;
   ?team_id: string nullable;
   ?include_users: bool nullable;
@@ -314,7 +314,7 @@ type list_usergroups_res = {
   usergroups: usergroup list;
 }
 
-type list_usergroup_users_req = {
+type list_usergroup_users_req <ocaml attr="deriving make"> = {
   usergroup: string;
   ?team_id: string nullable;
   ?include_disabled: bool nullable;
@@ -334,7 +334,7 @@ type unfurl = [
   | Blocks of unfurl_block
 ]  <ocaml repr="classic"> <json adapter.ocaml="Atd_adapters.Unfurl_adapter">
 
-type chat_unfurl_req = {
+type chat_unfurl_req <ocaml attr="deriving make"> = {
   channel: string;
   ts: string;
   unfurls: (string * unfurl) list <json repr="object">;

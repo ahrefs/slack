@@ -77,7 +77,7 @@ let get_conversation channel =
 
 let get_replies channel ts =
   let run =
-    let conversation : Slack_t.conversations_replies_req = { Utils.empty_conversations_replies_req with channel; ts } in
+    let conversation : Slack_t.conversations_replies_req = Slack_j.make_conversations_replies_req ~channel ~ts () in
     match%lwt Api.get_replies ~conversation ~ctx:Common_example.get_ctx_example with
     | Ok res ->
       printf "channel %s at ts %s got:\n %s\n%!" channel ts (Slack_j.string_of_conversations_replies_res res);

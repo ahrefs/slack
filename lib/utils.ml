@@ -68,98 +68,22 @@ let show_channel_type = function
   | DirectMessage -> "direct message"
   | Group -> "group"
 
-(***************** Empty Slack API Requests Payloads  *****************)
-let empty_attachments =
-  {
-    mrkdwn_in = None;
-    fallback = None;
-    color = None;
-    pretext = None;
-    author_name = None;
-    author_link = None;
-    author_icon = None;
-    title = None;
-    title_link = None;
-    text = None;
-    fields = None;
-    image_url = None;
-    thumb_url = None;
-    ts = None;
-    footer = None;
-  }
-
-let empty_post_msg_req =
-  {
-    channel = "";
-    text = None;
-    attachments = None;
-    blocks = None;
-    username = None;
-    icon_url = None;
-    icon_emoji = None;
-    metadata = None;
-    mrkdwn = None;
-    parse = None;
-    reply_broadcast = None;
-    thread_ts = None;
-    unfurl_links = None;
-    unfurl_media = None;
-  }
-
-let empty_update_msg_req =
-  {
-    channel = "";
-    ts = "";
-    text = None;
-    attachments = None;
-    blocks = None;
-    link_names = None;
-    metadata = None;
-    parse = None;
-    reply_broadcast = None;
-  }
-
-let empty_conversations_info_req = { channel = ""; include_locale = None; include_num_members = None }
-
-let empty_conversations_replies_req =
-  {
-    channel = "";
-    ts = "";
-    include_all_metadata = None;
-    cursor = None;
-    inclusive = None;
-    latest = None;
-    limit = None;
-    oldest = None;
-  }
-
-let empty_files_upload_req =
-  {
-    channels = None;
-    content = None;
-    filename = None;
-    filetype = None;
-    initial_comment = None;
-    thread_ts = None;
-    title = None;
-  }
-
 (** [ ApiHelpers Api_Impl] is a functor that wraps Api for simple functionalities such as sending texts *)
 module ApiHelpers (Api : Api.S) = struct
   let send_text_msg ~ctx ~channel ~text =
-    let msg = { empty_post_msg_req with channel; text = Some text } in
+    let msg = make_post_message_req ~channel ~text () in
     Api.send_message ~ctx ~msg
 
   let update_text_msg ~ctx ~channel ~update ~ts =
-    let msg = { empty_update_msg_req with channel; text = Some update; ts } in
+    let msg = make_update_message_req ~channel ~text:update ~ts () in
     Api.update_message ~ctx ~msg
 
   let send_text_msg_as_user ~ctx ~channel ~text ~username ?icon_url ?icon_emoji () =
-    let msg = { empty_post_msg_req with channel; text = Some text; username = Some username; icon_url; icon_emoji } in
+    let msg = make_post_message_req ~channel ~text ~username ?icon_url ?icon_emoji () in
     Api.send_message ~ctx ~msg
 
   let get_channel_type ~(ctx : Context.t) ~channel =
-    let conversation = { empty_conversations_info_req with channel } in
+    let conversation = make_conversations_info_req ~channel () in
     match%lwt Api.get_conversations_info ~ctx ~conversation with
     | Error e -> Lwt.return_error e
     | Ok ({ channel; _ } : conversations_info_res) -> Lwt.return @@ conversation_type_of_conversation channel

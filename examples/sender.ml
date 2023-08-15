@@ -35,7 +35,7 @@ let send icon_url icon_emoji username channel text =
 let send_file channels content =
   let run =
     let ctx = Common_example.get_ctx_example in
-    let file = { Utils.empty_files_upload_req with channels; content = Some content } in
+    let file = Slack_j.make_files_upload_req ?channels ~content () in
     match%lwt Api_remote.upload_file ~ctx ~file with
     | Ok res ->
       printf "file uploaded: %s" res.file.id;

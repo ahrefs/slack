@@ -55,20 +55,21 @@ let conversation_list = [ "C049XFXK286"; "C04CXBYNC68"; "D049WPTCGMC" ]
 let process_get_conversations_info_res channel =
   Printf.printf "get_conversations_info--------channel: %s--------\n" channel;
   let ctx = Context.empty_ctx () in
-  let conversation = { Utils.empty_conversations_info_req with channel } in
+  let conversation = Slack_j.make_conversations_info_req ~channel () in
   match%lwt Api.get_conversations_info ~ctx ~conversation with
   | Ok res ->
     let json =
       res |> Slack_j.string_of_conversations_info_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
     in
     print_endline json;
-    (match%lwt Utils_local.get_channel_type ~ctx ~channel with
+    ( match%lwt Utils_local.get_channel_type ~ctx ~channel with
     | Ok channel_type ->
       Printf.printf "channel type is: %s\n" (Utils.show_channel_type channel_type);
       Lwt.return_unit
     | Error e ->
       print_endline (Slack_j.string_of_slack_api_error e);
-      Lwt.return_unit)
+      Lwt.return_unit
+    )
   | Error e ->
     log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
@@ -84,7 +85,7 @@ let conversation_ts_list =
 let process_get_conversations_replies_res (channel, ts) =
   Printf.printf "get_conversations_replies--------channel: %s--------\n" channel;
   let ctx = Context.empty_ctx () in
-  let conversation = { Utils.empty_conversations_replies_req with channel; ts } in
+  let conversation = Slack_j.make_conversations_replies_req ~channel ~ts () in
   match%lwt Api.get_replies ~ctx ~conversation with
   | Ok res ->
     let json =
@@ -122,9 +123,7 @@ let file_list =
 let process_upload_file (channels, content) =
   Printf.printf "upload_file_to--------channels: %s--------\n" channels;
   let ctx = Context.empty_ctx () in
-  let file : Slack_t.files_upload_req =
-    { Utils.empty_files_upload_req with channels = Some channels; content = Some content }
-  in
+  let file : Slack_t.files_upload_req = Slack_j.make_files_upload_req ~channels ~content () in
   match%lwt Api.upload_file ~ctx ~file with
   | Ok res ->
     let json = res |> Slack_j.string_of_files_upload_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
@@ -152,6 +151,7 @@ let process_update_usergroup_users (usergroup, users) =
     Lwt.return_unit
 
 let list_usergroups_team_id_list = [ "T0475L7BATY" ]
+
 let process_list_usergroups team_id =
   Printf.printf "list_usergroups_of--------team_id: %s--------\n" team_id;
   let ctx = Context.empty_ctx () in
@@ -170,6 +170,7 @@ let process_list_usergroups team_id =
     Lwt.return_unit
 
 let list_usergroup_users_usergroup_id_list = [ "S04NV4DF0LQ" ]
+
 let process_list_usergroup_users usergroup =
   Printf.printf "list_usergroup_users_of--------usergroup_id: %s--------\n" usergroup;
   let ctx = Context.empty_ctx () in
@@ -186,6 +187,7 @@ let process_list_usergroup_users usergroup =
     Lwt.return_unit
 
 let list_users_cursors_list = [ "dXNlcjpVMDQ2WE4wTTJSNQ==" ]
+
 let process_list_users cursor =
   Printf.printf "list_users--------cursor: %s--------\n" cursor;
   let ctx = Context.empty_ctx () in
@@ -239,4 +241,5 @@ let () =
      let%lwt () = Lwt_list.iter_s process_list_usergroup_users list_usergroup_users_usergroup_id_list in
      let%lwt () = Lwt_list.iter_s process_list_users list_users_cursors_list in
      let%lwt () = Lwt_list.iter_s process_events slack_events in
-     Lwt.return_unit)
+     Lwt.return_unit
+    )

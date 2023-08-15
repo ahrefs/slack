@@ -35,42 +35,11 @@ example in [echo.ml](./examples/echo.ml#28):
 ```
 
 ## APIs Implemented
-The interface for the APIs are in [api.ml](./lib/api.ml).  
-| Function                                          | Slack API                                                                                                                                                                                             | Scope                                                                                                                                                                                                                                              | Description                                                                              |
-|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| `send_message context message_req`                | [chat.postMessage](https://api.slack.com/methods/chat.postMessage)                                                                                                                                    | [chat:write](https://api.slack.com/scopes/chat:write)                                                                                                                                                                                              | Sends a message to a particular channel.                                                 |
-| `update_message context update_message_req`       | [chat.update](https://api.slack.com/methods/chat.update)                                                                                                                                              | [chat:write](https://api.slack.com/scopes/chat:write)                                                                                                                                                                                              | Update a message in a particular channel at a timestamp.                                 |
-| `upload_file context files_req`                   | [files.upload](https://api.slack.com/methods/files.upload)                                                                                                                                            | [files:write](https://api.slack.com/scopes/files:write)                                                                                                                                                                                            | Upload a file and share it to some specified channel(s).                                 |
-| `get_conversations_info context conversation_req` | [conversations.info](https://api.slack.com/methods/conversations.info)                                                                                                                                | [channels:read](https://api.slack.com/scopes/channels:read), [groups:read](https://api.slack.com/scopes/groups:read), [im:read](https://api.slack.com/scopes/im:read),  [mpim:read](https://api.slack.com/scopes/mpim:read)                        | Get a conversation information using its channel ID.                                     |
-| `get_user context user_req`                       | [users.info](https://api.slack.com/methods/users.info)                                                                                                                                                | [users:read](https://api.slack.com/scopes/users:read)                                                                                                                                                                                              | Get a user information using their user ID.                                              |
-| `send_auth_test context ()`                       | [Event Subscription URL Verification](https://api.slack.com/apis/connections/events-api#the-events-api__subscribing-to-event-types__events-api-request-urls__request-url-configuration--verification) |                                                                                                                                                                                                                                                    | Use during subscribing to event hooks, as Slack needs to verify that you own the server. |
-| `send_chat_unfurl context req`                    | [chat.unfurl](https://api.slack.com/methods/chat.unfurl)                                                                                                                                              | [links:write](https://api.slack.com/scopes/links:write)                                                                                                                                                                                            | Unfurl a `link_shared` event.                                                            |
-| `get_replies context conversation_req`            | [conversations.replies](https://api.slack.com/methods/conversations.replies)                                                                                                                          | [channels:history](https://api.slack.com/scopes/channels:history), [groups:history](https://api.slack.com/scopes/groups:history), [im:history](https://api.slack.com/scopes/im:history), [mpim:history](https://api.slack.com/scopes/mpim:history) | Get replies of a conversation thread.                                                    |
-| `join_conversation context channel_req`           | [conversations.join](https://api.slack.com/methods/conversations.join)                                                                                                                                | [channels:join](https://api.slack.com/scopes/channels:join)                                                                                                                                                                                        | Make the token owner join a channel.                                                     |
-| `update_usergroup_users context usergroup_req`    | [usergroups.users.update](https://api.slack.com/methods/usergroups.users.update)                                                                                                                      | [usergroups:write](https://api.slack.com/scopes/usergroups:write)                                                                                                                                                                                  | Update members of a usergroup with the current users list.                               |
-
-NB: the scopes might change, so please refer to the API page and update this table.
+The interface for the APIs are in [api.ml](./lib/api.ml).  To use these APIs please 
+include the required [scopes](https://api.slack.com/scopes) for the bot token.
 
 ## Utils Implemented
-Some common utilities that help with simple tasks in [utils.ml](./lib/utils.ml):  
-
-1. empty requests payloads: help with quickly writing different payloads, a default 
-empty payload is created for all the API calls.  
-
-2. `send_text_msg context channel text`: simple text message sending to a channel.  
-
-3. `update_text_msg context channel update_text timestamp`: update a message in some 
-channel at a timestamp with a simple text.  
-
-4. `validate_signature version signing_key headers body`: validating the token in a Slack 
-event.  
-
-5. `process_slack_event context headers body event_handler`: correctly respond to Slack 
-event API verification request and validate other incoming payload from Slack before passing 
-the verified payload to the event handler.  
-
-6. `get_channel_type context channel`: check if channel is a Slack channel, direct message, 
-or group.  
+Some common utilities that help with simple tasks in [utils.ml](./lib/utils.ml).  
 
 ## Examples
 Rather than having automated CI tests which would require a lot of dependencies on 
@@ -90,46 +59,29 @@ You can run the binary to listen to your Slack events webhook on TCP port 8080 u
 ./example echo
 ```
 
-2. sending a message:   
+2. Sending direct API requests such as:  
 ```sh
 # send "hello there" to channel1
 ./example send -c channel1 -t 'hello there'
 # send as username "WOW" with emoji thumb's up
 ./example send -u "WOW" --ie=":+1:" -t "hello there" -c channel1
-```
 
-3. uploading a file:  
-```sh
 # send "hello there" as a snippet to channel1
 /example send_file --channel="channel1" --text='hello there'
-```
-4. sending a message then updating it after 3 seconds:  
-```sh
+
 # send "hello there" to channel1 then updating the message to say 'general kenobi'
 ./example send_update --channel="channel1" --text='hello there' --update='general kenobi'
-```
-5. get a user info:  
-```sh
+
 ./example get_user -u U046XN0M2R5
-```
-6. get a channel info:  
-```sh
+
 ./example get_convo -c C049XFXK286
-```
 
-7. get a conversation's replies info:  
-```sh
 ./example get_replies -c D049WPTCGMC --ts "1675329533.687169"
-```
 
-8. join a conversation:
-```sh
 ./example join_convo -c C04NLK6F9KJ
-```
 
-9. update a usergroup users:
-```sh
 ./example update_usergroup_users --ug S04NV4DF0LQ --us "U046XN0M2R5, U04D7HU80BT"
+#etc
 ```
 
 ## Development
