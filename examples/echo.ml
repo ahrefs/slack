@@ -29,7 +29,7 @@ let slack_echo_event_handler ctx event =
       let link_unfurl : unfurl =
         match !alternate_unfurl with
         | true ->
-          Blocks { blocks = [ Section { text = { text_type = Mrkdown; text = "some other text in a section" } } ] }
+          Blocks { blocks = [ Section { text = { text_type = Mrkdwn; text = "some other text in a section" } } ] }
         | false -> Message_attachment (make_message_attachment ~text:"i unfurled this link!" ())
       in
       alternate_unfurl := not !alternate_unfurl;
