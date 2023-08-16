@@ -227,12 +227,12 @@ type user = {
   id: string;
   ~deleted <ocaml default="false">: bool;
   ~has_2fa <ocaml default="false">: bool;
-  is_admin: bool;
-  is_app_user: bool;
-  is_bot: bool;
+  ~is_admin <ocaml default="false">: bool;
+  ~is_app_user <ocaml default="false">: bool;
+  ~is_bot <ocaml default="false">: bool;
   ~is_invited_user <ocaml default="false">: bool;
-  is_owner: bool;
-  is_restricted: bool;
+  ~is_owner <ocaml default="false">: bool;
+  ~is_restricted <ocaml default="false">: bool;
   ~is_stranger <ocaml default="false">: bool;
   ~is_ultra_restricted <ocaml default="false">: bool;
   ?locale: string nullable;
