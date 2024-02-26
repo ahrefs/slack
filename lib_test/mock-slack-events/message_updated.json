@@ -1,0 +1,122 @@
+{
+  "token": "",
+  "team_id": "SOMETEAMID",
+  "api_app_id": "SOMEAPPID",
+  "event": {
+    "type": "message",
+    "subtype": "message_changed",
+    "message": {
+      "bot_id": "SOMEBOTID",
+      "type": "message",
+      "text": "SOME TEXT",
+      "user": "U04A3C2LC6N",
+      "app_id": "SOMEAPPID",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "cgv",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "SOME TEXT"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "team": "SOMETEAMID",
+      "bot_profile": {
+        "id": "SOMEBOTID",
+        "app_id": "SOMEAPPID",
+        "name": "bot1-test",
+        "icons": {
+          "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+          "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+          "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+        },
+        "deleted": false,
+        "updated": 1667958514,
+        "team_id": "SOMETEAMID"
+      },
+      "edited": {
+        "user": "SOMEBOTID",
+        "ts": "1669265351.000000"
+      },
+      "ts": "1669265350.760309",
+      "source_team": "SOMETEAMID",
+      "user_team": "SOMETEAMID"
+    },
+    "previous_message": {
+      "bot_id": "SOMEBOTID",
+      "type": "message",
+      "text": "SOME PREVIOUS TEXT",
+      "user": "U04A3C2LC6N",
+      "ts": "1669265350.760309",
+      "app_id": "SOMEAPPID",
+      "blocks": [
+        {
+          "type": "rich_text",
+          "block_id": "eV2vp",
+          "elements": [
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "Running "
+                },
+                {
+                  "type": "text",
+                  "text": "SOME PREVIOUS TEXT",
+                  "style": {
+                    "code": true
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "..."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "team": "SOMETEAMID",
+      "bot_profile": {
+        "id": "SOMEBOTID",
+        "app_id": "SOMEAPPID",
+        "name": "bot1-test",
+        "icons": {
+          "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+          "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+          "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+        },
+        "deleted": false,
+        "updated": 1667958514,
+        "team_id": "SOMETEAMID"
+      }
+    },
+    "channel": "D049WPTCGMC",
+    "hidden": true,
+    "ts": "1669265351.000400",
+    "event_ts": "1669265351.000400",
+    "channel_type": "im"
+  },
+  "type": "event_callback",
+  "event_id": "Ev04C7PRDB53",
+  "event_time": 1669265351,
+  "authorizations": [
+    {
+      "enterprise_id": null,
+      "team_id": "SOMETEAMID",
+      "user_id": "U04A3C2LC6N",
+      "is_bot": true,
+      "is_enterprise_install": false
+    }
+  ],
+  "is_ext_shared_channel": false
+}

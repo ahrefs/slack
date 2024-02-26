@@ -1,0 +1,162 @@
+{
+    "ok": true,
+    "messages": [
+        {
+            "bot_id": "SOMEBOTID",
+            "type": "message",
+            "text": "ello",
+            "user": "U04A3C2LC6N",
+            "ts": "1675329533.687169",
+            "app_id": "SOMEAPPID",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "n2=",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "ello"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "bot_profile": {
+                "id": "SOMEBOTID",
+                "deleted": false,
+                "name": "bot1",
+                "updated": 1674020737,
+                "app_id": "SOMEAPPID",
+                "icons": {
+                    "image_36": "https://a.slack-edge.com/80588/img/plugins/app/bot_36.png",
+                    "image_48": "https://a.slack-edge.com/80588/img/plugins/app/bot_48.png",
+                    "image_72": "https://a.slack-edge.com/80588/img/plugins/app/service_72.png"
+                },
+                "team_id": "SOMETEAMID"
+            },
+            "thread_ts": "1675329533.687169",
+            "reply_count": 4,
+            "reply_users_count": 1,
+            "latest_reply": "1675329551.660279",
+            "reply_users": [
+                "U046XN0M2R5"
+            ],
+            "is_locked": false,
+            "subscribed": false
+        },
+        {
+            "client_msg_id": "ee0c5e60-4fc6-430b-8998-40187f361269",
+            "type": "message",
+            "text": "in z threads",
+            "user": "U046XN0M2R5",
+            "ts": "1675329544.950899",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "RBYO",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "in z threads"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "thread_ts": "1675329533.687169",
+            "parent_user_id": "U04A3C2LC6N"
+        },
+        {
+            "client_msg_id": "fb0f2aac-ea64-4da9-939a-2c8695b97576",
+            "type": "message",
+            "text": "i have other messages",
+            "user": "U046XN0M2R5",
+            "ts": "1675329548.141789",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "g9GCQ",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "i have other messages"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "thread_ts": "1675329533.687169",
+            "parent_user_id": "U04A3C2LC6N"
+        },
+        {
+            "client_msg_id": "de50d825-ccc6-459e-97ce-1c68695b1fc7",
+            "type": "message",
+            "text": "wow",
+            "user": "U046XN0M2R5",
+            "ts": "1675329549.203589",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "wkQN",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "wow"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "thread_ts": "1675329533.687169",
+            "parent_user_id": "U04A3C2LC6N"
+        },
+        {
+            "client_msg_id": "b1a7c454-acb0-479b-a728-643005a4ecf6",
+            "type": "message",
+            "text": "many messages",
+            "user": "U046XN0M2R5",
+            "ts": "1675329551.660279",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "tXf",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "many messages"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "thread_ts": "1675329533.687169",
+            "parent_user_id": "U04A3C2LC6N"
+        }
+    ],
+    "has_more": false
+}

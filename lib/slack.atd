@@ -1,0 +1,540 @@
+(* This secrets record is stored in Context to secure communication with Slack *)
+type secrets = {
+  (* Slack bot token (`xoxb-XXXX`), giving the bot capabilities to interact with the workspace--allowed to be absent for tests *)
+  ?slack_access_token : string nullable;
+ (* Slack uses this secret to sign requests; provide to verify incoming Slack requests *)
+  ?slack_signing_secret : string nullable;
+}
+
+type json <ocaml module="Yojson.Basic" t="t"> = abstract
+
+type timestamp_int = int wrap <ocaml t="Devkit.Time.t" wrap="Devkit.Time.seconds" unwrap="Devkit.Time.to_sec">
+
+type message_field <ocaml attr="deriving make"> = {
+  ?title: string nullable;
+  ~value <ocaml default="\"\"">: string;
+  ~short <ocaml default="false">: bool;
+}
+
+type message_attachment <ocaml attr="deriving make"> = {
+  fallback: string nullable;
+  ?mrkdwn_in: string list nullable;
+  ?color: string nullable;
+  ?pretext: string nullable;
+  ?author_name: string nullable;
+  ?author_link: string nullable;
+  ?author_icon: string nullable;
+  ?title: string nullable;
+  ?title_link: string nullable;
+  ?text: string nullable;
+  ?fields: message_field list nullable;
+  ?image_url: string nullable;
+  ?thumb_url: string nullable;
+  ?ts: int nullable;
+  ?footer: string nullable;
+}
+
+type text_object_type = [
+  Plain_text <json name="plain_text">
+  | Mrkdwn <json name="mrkdwn">
+] <ocaml repr="classic">
+
+type text_object <ocaml attr="deriving make"> = {
+  text_type <json name="type"> : text_object_type;
+  text: string;
+}
+
+type message_text_block <ocaml attr="deriving make"> = {
+  text: text_object;
+}
+
+type message_block = [
+  Section <json name="section"> of message_text_block
+  | Divider <json name="divider">
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type post_message_req <ocaml attr="deriving make"> = {
+  channel: string;
+  ?text: string nullable;
+  ?attachments: message_attachment list nullable;
+  ?blocks: message_block list nullable;
+  ?username: string nullable;
+  ?icon_url: string nullable;
+  ?icon_emoji: string nullable;
+  ?metadata: string nullable;
+  ?mrkdwn: bool nullable;
+  ?parse: string nullable;
+  ?reply_broadcast: bool nullable;
+  ?thread_ts: string nullable;
+  ?unfurl_links: bool nullable;
+  ?unfurl_media: bool nullable;
+}
+
+type post_message_res = {
+  channel: string;
+  ts: string;
+}
+
+type update_message_req <ocaml attr="deriving make"> = {
+  channel: string;
+  ts: string;
+  ?text: string nullable;
+  ?attachments: message_attachment list nullable;
+  ?blocks: message_block list nullable;
+  ?link_names: bool nullable;
+  ?metadata: string nullable;
+  ?parse: string nullable;
+  ?reply_broadcast: bool nullable;
+}
+
+type update_message_res = {
+  channel: string;
+  ts: string;
+}
+
+(** Not supporting file upload through form using `file` currently *)
+type files_upload_req <ocaml attr="deriving make"> = {
+  (** channels: comma-separated values e.g. [C1234567890,C2345678901,C3456789012]--when it's empty, 
+      it does return a file id but the file is not shared to any channel.
+  *)
+  ?channels: string nullable;
+  ?content: string nullable;
+  ?filename: string nullable;
+  ?filetype: string nullable;
+  ?initial_comment: string nullable;
+  ?thread_ts: string nullable;
+  ?title: string nullable;
+}
+
+type file = {
+  id: string;
+  ?name: string nullable;
+  ?title: string nullable;
+  ?mimetype: string nullable;
+  ?filetype: string nullable;
+  ?pretty_type: string nullable;
+  ?user: string nullable;
+  ?size: int nullable;
+  ~channels <ocaml default="[]">: string list;
+  ~ims <ocaml default="[]">: string list;
+  ~groups <ocaml default="[]">: string list;
+  ?permalink: string nullable;
+  ?permalink_public: string nullable;
+}
+
+type files_upload_res = {
+  ok: bool;
+  file: file;
+}
+
+type conversations_info_req <ocaml attr="deriving make"> = {
+  channel: string;
+  ?include_locale: bool nullable;
+  ?include_num_members: bool nullable;
+}
+
+(* NB:
+   - name is not present in IM but user is.
+   - is_channel and is_group is not present in IM.
+   - for group and channel, user is not present.
+*)
+type conversation = {
+  id: string;
+  ?name: string nullable;
+  ~is_channel <ocaml default="false">: bool;
+  ~is_group <ocaml default="false">: bool;
+  ~is_im <ocaml default="false">: bool;
+  ?is_member: bool nullable;
+  ?user: string nullable;
+  ?locale: string nullable;
+  ?num_members: int nullable;
+}
+
+type conversations_info_res = {
+  ok: bool;
+  channel: conversation;
+}
+
+type conversations_replies_req <ocaml attr="deriving make"> = {
+  channel: string;
+  ts: string;
+  ?cursor: string nullable;
+  ?include_all_metadata: bool nullable;
+  ?inclusive: bool nullable;
+  ?latest: string nullable;
+  ?limit: int nullable;
+  ?oldest: string nullable;
+}
+
+(* NB:
+   - thread_ts is present only if it's a thread reply.
+*)
+type conversation_reply = {
+  type_ <json name="type">: string;
+  ts: string;
+  ?thread_ts: string nullable;
+  ?user: string nullable;
+  ?text: string nullable;
+  ?reply_count: int nullable;
+  ?subscribed: bool nullable;
+  ?last_read: string nullable;
+  ?unread_count: int nullable;
+  ?parent_user_id: string nullable;
+}
+
+type conversations_replies_res = {
+  ?messages: conversation_reply list nullable;
+  ok: bool;
+  ?has_more: bool nullable;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type user_info_req <ocaml attr="deriving make"> = {
+  user: string;
+  ?include_locale: bool nullable;
+}
+
+type profile = {
+  display_name: string;
+  display_name_normalized: string;
+  ?email: string nullable;
+  ~first_name <ocaml default="\"\"">: string;
+  ~last_name <ocaml default="\"\"">: string;
+  ?phone: string nullable;
+  ?pronouns: string nullable;
+  real_name: string;
+  real_name_normalized: string;
+  ?status_emoji: string nullable;
+  ?status_expiration: int nullable;
+  ?status_text: string nullable;
+  team: string;
+  ?title: string nullable;
+  ?image_24: string nullable;
+  ?image_32: string nullable;
+  ?image_48: string nullable;
+  ?image_72: string nullable;
+  ?image_192: string nullable;
+  ?image_512: string nullable;
+}
+
+type two_fa_type = [
+| App <json name="app">
+| Sms <json name="sms">
+| Not_enabled
+]<ocaml repr="classic">
+
+type user = {
+  id: string;
+  ~deleted <ocaml default="false">: bool;
+  ~has_2fa <ocaml default="false">: bool;
+  ~is_admin <ocaml default="false">: bool;
+  ~is_app_user <ocaml default="false">: bool;
+  ~is_bot <ocaml default="false">: bool;
+  ~is_invited_user <ocaml default="false">: bool;
+  ~is_owner <ocaml default="false">: bool;
+  ~is_restricted <ocaml default="false">: bool;
+  ~is_stranger <ocaml default="false">: bool;
+  ~is_ultra_restricted <ocaml default="false">: bool;
+  ?locale: string nullable;
+  profile: profile;
+  ~two_factor_type <ocaml default="Not_enabled">: two_fa_type;
+  ?tz: string nullable;
+  ?tz_label: string nullable;
+  ~tz_offset <ocaml default="0">: int;
+  updated: int;
+}
+
+type user_info_res = {
+  ok: bool;
+  user: user;
+}
+
+type list_users_req <ocaml attr="deriving make"> = {
+  ?cursor: string nullable;
+  ?include_locale: bool nullable;
+  ?limit: int nullable;
+  ?team_id: string nullable;
+}
+
+type list_users_res = {
+  ok: bool;
+  members: user list;
+  response_metadata: (string * string) list <json repr="object">;
+}
+
+type conversations_join_req <ocaml attr="deriving make"> = {
+  channel: string;
+}
+
+type conversations_join_res = {
+  channel: conversation;
+  ?warning: string nullable;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type update_usergroups_users_req <ocaml attr="deriving make"> = {
+  usergroup: string;
+  users: string list;
+  ?include_count: bool nullable;
+  ?team_id: string nullable;
+}
+
+type usergroup = {
+  id: string;
+  ?team_id: string nullable;
+  ~is_usergroup <ocaml default="false">: bool;
+  ?name: string nullable;
+  ?description: string nullable;
+  ?handle: string nullable;
+  ~is_external <ocaml default="false">: bool;
+  ?date_create: int nullable;
+  ?date_update: int nullable;
+  ?date_delete: int nullable;
+  ?created_by: string nullable;
+  ?updated_by: string nullable;
+  ?deleted_by: string nullable;
+  ?users: string list nullable;
+  ?user_count: int nullable;
+}
+
+type update_usergroups_users_res = {
+  ok: bool;
+  usergroup: usergroup;
+}
+
+type list_usergroups_req <ocaml attr="deriving make"> = {
+  ?include_count: bool nullable;
+  ?team_id: string nullable;
+  ?include_users: bool nullable;
+  ?include_disabled: bool nullable;
+}
+
+type list_usergroups_res = {
+  ok: bool;
+  usergroups: usergroup list;
+}
+
+type list_usergroup_users_req <ocaml attr="deriving make"> = {
+  usergroup: string;
+  ?team_id: string nullable;
+  ?include_disabled: bool nullable;
+}
+
+type list_usergroup_users_res = {
+  ok: bool;
+  users : string list;
+}
+
+type unfurl_block = {
+  blocks: message_block list;
+}
+
+type unfurl = [
+  Message_attachment of message_attachment
+  | Blocks of unfurl_block
+]  <ocaml repr="classic"> <json adapter.ocaml="Atd_adapters.Unfurl_adapter">
+
+type chat_unfurl_req <ocaml attr="deriving make"> = {
+  channel: string;
+  ts: string;
+  unfurls: (string * unfurl) list <json repr="object">;
+}
+
+type ok_res = {
+  ok: bool;
+}
+
+type auth_test_res = {
+  url: string;
+  team: string;
+  user: string;
+  team_id: string;
+  user_id: string;
+}
+
+(* NB:
+   - subtype is not present when it's a regular message
+   - user is not present when sending as user
+   - text is not present when message subtype is message_changed for
+     updating messages as well as other channel events such as
+     channel joined, left, etc.
+   - thread_ts is present only if it's a thread reply.
+*)
+type message_event = {
+  ?subtype: string nullable;
+  channel: string;
+  ?user : string nullable;
+  ?text : string nullable;
+  ts: string;
+  ?bot_id: string option;
+  ?thread_ts: string option;
+}
+
+type link_shared_link = {
+  domain: string;
+  url: string;
+}
+
+type link_shared_source = [
+  | Conversations_history <json name="conversations_history">
+  | Composer <json name="composer">
+]
+
+(* NB:
+   - thread_ts is present only if it's a thread reply.
+*)
+type link_shared_event = {
+  channel: string;
+  is_bot_user_member: bool;
+  user: string;
+  message_ts: string;
+  ?thread_ts: string option;
+  links: link_shared_link list;
+  source: link_shared_source;
+}
+
+type event = [
+| Message <json name="message"> of message_event
+| Link_shared <json name="link_shared"> of link_shared_event
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type event_callback_notification = {
+  token: string;
+  team_id: string;
+  api_app_id: string;
+  event: event;
+  event_id: string;
+  event_time: timestamp_int;
+}
+
+type url_verification_notification = {
+  token: string;
+  challenge: string;
+}
+
+type event_notification = [
+| Event_callback <json name="event_callback"> of event_callback_notification
+| Url_verification <json name="url_verification"> of url_verification_notification
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type ('ok, 'err) http_response <ocaml predef module="Stdlib" t="result"> = [
+  | Ok of 'ok
+  | Error of 'err
+] <ocaml repr="classic">
+
+type slack_api_error = [
+  | Access_denied <json name="access_denied">
+  | Accesslimited <json name="accesslimited">
+  | Account_inactive <json name="account_inactive">
+  | As_user_not_supported <json name="as_user_not_supported">
+  | Block_mismatch <json name="block_mismatch">
+  | Blocked_file_type <json name="blocked_file_type">
+  | Cannot_auth_user <json name="cannot_auth_user">
+  | Cannot_find_channel <json name="cannot_find_channel">
+  | Cannot_find_message <json name="cannot_find_message">
+  | Cannot_find_service <json name="cannot_find_service">
+  | Cannot_parse_attachment <json name="cannot_parse_attachment">
+  | Cannot_prompt <json name="cannot_prompt">
+  | Cannot_unfurl_message <json name="cannot_unfurl_message">
+  | Cannot_unfurl_url <json name="cannot_unfurl_url">
+  | Cant_broadcast_message <json name="cant_broadcast_message">
+  | Cant_update_message <json name="cant_update_message">
+  | Channel_not_found <json name="channel_not_found">
+  | Deprecated_endpoint <json name="deprecated_endpoint">
+  | Duplicate_channel_not_found <json name="duplicate_channel_not_found">
+  | Duplicate_message_not_found <json name="duplicate_message_not_found">
+  | Edit_window_closed <json name="edit_window_closed">
+  | Ekm_access_denied <json name="ekm_access_denied">
+  | Enterprise_is_restricted <json name="enterprise_is_restricted">
+  | External_channel_migrating <json name="external_channel_migrating">
+  | Fatal_error <json name="fatal_error">
+  | Internal_error <json name="internal_error">
+  | Invalid_arg_name <json name="invalid_arg_name">
+  | Invalid_arguments <json name="invalid_arguments">
+  | Invalid_array_arg <json name="invalid_array_arg">
+  | Invalid_attachments <json name="invalid_attachments">
+  | Invalid_auth <json name="invalid_auth">
+  | Invalid_blocks <json name="invalid_blocks">
+  | Invalid_blocks_format <json name="invalid_blocks_format">
+  | Invalid_channel <json name="invalid_channel">
+  | Invalid_charset <json name="invalid_charset">
+  | Invalid_cursor <json name="invalid_cursor">
+  | Invalid_form_data <json name="invalid_form_data">
+  | Invalid_metadata_filter_keys <json name="invalid_metadata_filter_keys">
+  | Invalid_metadata_format <json name="invalid_metadata_format">
+  | Invalid_metadata_schema <json name="invalid_metadata_schema">
+  | Invalid_post_type <json name="invalid_post_type">
+  | Invalid_source <json name="invalid_source">
+  | Invalid_ts_latest <json name="invalid_ts_latest">
+  | Invalid_ts_oldest <json name="invalid_ts_oldest">
+  | Invalid_unfurl_id <json name="invalid_unfurl_id">
+  | Invalid_unfurls_format <json name="invalid_unfurls_format">
+  | Invalid_users <json name="invalid_users">
+  | Is_archived <json name="is_archived">
+  | Is_bot <json name="is_bot">
+  | Is_inactive <json name="is_inactive">
+  | Malware_detected <json name="malware_detected">
+  | Message_limit_exceeded <json name="message_limit_exceeded">
+  | Message_not_found <json name="message_not_found">
+  | Messages_tab_disabled <json name="messages_tab_disabled">
+  | Metadata_must_be_sent_from_app <json name="metadata_must_be_sent_from_app">
+  | Metadata_too_large <json name="metadata_too_large">
+  | Method_deprecated <json name="method_deprecated">
+  | Method_not_supported_for_channel_type <json name="method_not_supported_for_channel_type">
+  | Missing_argument <json name="missing_argument">
+  | Missing_channel <json name="missing_channel">
+  | Missing_post_type <json name="missing_post_type">
+  | Missing_scope <json name="missing_scope">
+  | Missing_source <json name="missing_source">
+  | Missing_ts <json name="missing_ts">
+  | Missing_unfurl_id <json name="missing_unfurl_id">
+  | Missing_unfurls <json name="missing_unfurls">
+  | Msg_too_long <json name="msg_too_long">
+  | No_dual_broadcast_content_update <json name="no_dual_broadcast_content_update">
+  | No_permission <json name="no_permission">
+  | No_text <json name="no_text">
+  | No_users_provided <json name="no_users_provided">
+  | Not_allowed_token_type <json name="not_allowed_token_type">
+  | Not_authed <json name="not_authed">
+  | Not_in_channel <json name="not_in_channel">
+  | Org_login_required <json name="org_login_required">
+  | Permission_denied <json name="permission_denied">
+  | Plan_upgrade_required <json name="plan_upgrade_required">
+  | Post_contents_too_large <json name="post_contents_too_large">
+  | Posting_to_general_channel_denied <json name="posting_to_general_channel_denied">
+  | Rate_limited <json name="rate_limited">
+  | Ratelimited <json name="ratelimited">
+  | Request_timeout <json name="request_timeout">
+  | Restricted_action <json name="restricted_action">
+  | Restricted_action_non_threadable_channel <json name="restricted_action_non_threadable_channel">
+  | Restricted_action_read_only_channel <json name="restricted_action_read_only_channel">
+  | Restricted_action_thread_locked <json name="restricted_action_thread_locked">
+  | Restricted_action_thread_only_channel <json name="restricted_action_thread_only_channel">
+  | Service_unavailable <json name="service_unavailable">
+  | Slack_connect_blocked_file_type <json name="slack_connect_blocked_file_type">
+  | Slack_connect_canvas_sharing_blocked <json name="slack_connect_canvas_sharing_blocked">
+  | Slack_connect_clip_sharing_blocked <json name="slack_connect_clip_sharing_blocked">
+  | Slack_connect_file_link_sharing_blocked <json name="slack_connect_file_link_sharing_blocked">
+  | Slack_connect_file_upload_sharing_blocked <json name="slack_connect_file_upload_sharing_blocked">
+  | Slack_connect_team_blocked <json name="slack_connect_team_blocked">
+  | Subteam_max_users_exceeded <json name="subteam_max_users_exceeded">
+  | Team_access_not_granted <json name="team_access_not_granted">
+  | Team_added_to_org <json name="team_added_to_org">
+  | Team_not_found <json name="team_not_found">
+  | Thread_not_found <json name="thread_not_found">
+  | Token_expired <json name="token_expired">
+  | Token_revoked <json name="token_revoked">
+  | Too_many_attachments <json name="too_many_attachments">
+  | Too_many_contact_cards <json name="too_many_contact_cards">
+  | Too_many_members <json name="too_many_members">
+  | Too_many_users <json name="too_many_users">
+  | Two_factor_setup_required <json name="two_factor_setup_required">
+  | Update_failed <json name="update_failed">
+  | User_is_restricted <json name="user_is_restricted">
+  | User_not_found <json name="user_not_found">
+  | User_not_visible <json name="user_not_visible">
+  | Other of string
+] <json open_enum>
+
+type 'ok slack_response = ('ok, slack_api_error) http_response
+  <json adapter.ocaml="Atd_adapters.Slack_response_adapter">

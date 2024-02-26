@@ -1,0 +1,5 @@
+(executable
+ (name examples)
+ (libraries slack_lib cmdliner devkit extlib lwt.unix)
+ (preprocess
+  (pps lwt_ppx)))

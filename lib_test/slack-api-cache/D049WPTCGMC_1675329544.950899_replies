@@ -1,0 +1,33 @@
+{
+    "ok": true,
+    "messages": [
+        {
+            "client_msg_id": "ee0c5e60-4fc6-430b-8998-40187f361269",
+            "type": "message",
+            "text": "in z threads",
+            "user": "U046XN0M2R5",
+            "ts": "1675329544.950899",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "RBYO",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "in z threads"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "team": "SOMETEAMID",
+            "thread_ts": "1675329533.687169",
+            "parent_user_id": "U04A3C2LC6N"
+        }
+    ],
+    "has_more": false
+}
