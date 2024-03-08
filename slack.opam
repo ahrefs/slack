@@ -15,13 +15,16 @@ depends: [
   "dune"
   "atdgen" {> "2.0.0"}
   "atdgen-runtime" {> "2.0.0"}
-  "devkit" {>= "1.20210517" }
-  "extlib" {>= "1.7.7"}
   "biniou"
   "cstruct"
+  "cmdliner"
+  "devkit" {>= "1.20210517" }
+  "extlib" {>= "1.7.7"}
   "hex"
   "lwt" {>= "5.1.0"}
+  "lwt_ppx"
   "nocrypto"
+  "ppx_deriving"
   "re2"
   "uri"
   "yojson"
