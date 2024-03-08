@@ -133,6 +133,12 @@ type conversations_info_req <ocaml attr="deriving make"> = {
   ?include_num_members: bool nullable;
 }
 
+type created_value = {
+  value: string;
+  creator: string;
+  last_set: int;
+}
+
 (* NB:
    - name is not present in IM but user is.
    - is_channel and is_group is not present in IM.
@@ -148,6 +154,8 @@ type conversation = {
   ?user: string nullable;
   ?locale: string nullable;
   ?num_members: int nullable;
+  ?topic: created_value nullable;
+  ?purpose: created_value nullable;
 }
 
 type conversations_info_res = {

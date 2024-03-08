@@ -40,10 +40,7 @@ get_user_test--------user: U046XN0M2R5--------
   "user": {
     "id": "U046XN0M2R5",
     "is_admin": true,
-    "is_app_user": false,
-    "is_bot": false,
     "is_owner": true,
-    "is_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -70,11 +67,7 @@ get_user_test--------user: U04A3C2LC6N--------
   "ok": true,
   "user": {
     "id": "U04A3C2LC6N",
-    "is_admin": false,
-    "is_app_user": false,
     "is_bot": true,
-    "is_owner": false,
-    "is_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -100,10 +93,7 @@ get_user_test--------user: UG3UGF1AM--------
   "user": {
     "id": "UG3UGF1AM",
     "is_admin": true,
-    "is_app_user": false,
-    "is_bot": false,
     "is_owner": true,
-    "is_restricted": false,
     "profile": {
       "display_name": "",
       "display_name_normalized": "",
@@ -239,7 +229,9 @@ get_conversations_info--------channel: C049XFXK286--------
     "id": "C049XFXK286",
     "name": "channel1",
     "is_channel": true,
-    "is_member": true
+    "is_member": true,
+    "topic": { "value": "", "creator": "", "last_set": 0 },
+    "purpose": { "value": "", "creator": "", "last_set": 0 }
   }
 }
 channel type is: channel
@@ -250,7 +242,13 @@ get_conversations_info--------channel: C04CXBYNC68--------
     "id": "C04CXBYNC68",
     "name": "mpdm-sewen.thy--bot1--bot2",
     "is_channel": true,
-    "is_member": true
+    "is_member": true,
+    "topic": { "value": "", "creator": "", "last_set": 0 },
+    "purpose": {
+      "value": "Group messaging with: @sewen.thy @bot1 @bot2",
+      "creator": "U046XN0M2R5",
+      "last_set": 1669703508
+    }
   }
 }
 channel type is: channel
@@ -267,7 +265,13 @@ joining #C047C6ECFNX...
     "id": "C047C6ECFNX",
     "name": "random",
     "is_channel": true,
-    "is_member": true
+    "is_member": true,
+    "topic": { "value": "", "creator": "", "last_set": 0 },
+    "purpose": {
+      "value": "This channel is for... well, everything else. It’s a place for team jokes, spur-of-the-moment ideas, and funny GIFs. Go wild!",
+      "creator": "U046XN0M2R5",
+      "last_set": 1666261186
+    }
   }
 }
 get_conversations_replies--------channel: C049XFXK286--------
@@ -277,7 +281,9 @@ joining #C049XFXK286...
     "id": "C049XFXK286",
     "name": "channel1",
     "is_channel": true,
-    "is_member": true
+    "is_member": true,
+    "topic": { "value": "", "creator": "", "last_set": 0 },
+    "purpose": { "value": "", "creator": "", "last_set": 0 }
   },
   "warning": "already_in_channel",
   "response_metadata": { "warnings": [ "already_in_channel" ] }
@@ -370,11 +376,6 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
   "members": [
     {
       "id": "USLACKBOT",
-      "is_admin": false,
-      "is_app_user": false,
-      "is_bot": false,
-      "is_owner": false,
-      "is_restricted": false,
       "profile": {
         "display_name": "Slackbot",
         "display_name_normalized": "Slackbot",
@@ -402,10 +403,7 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
     {
       "id": "U046XN0M2R5",
       "is_admin": true,
-      "is_app_user": false,
-      "is_bot": false,
       "is_owner": true,
-      "is_restricted": false,
       "profile": {
         "display_name": "",
         "display_name_normalized": "",
@@ -433,11 +431,7 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
     },
     {
       "id": "U047X1F32SD",
-      "is_admin": false,
-      "is_app_user": false,
       "is_bot": true,
-      "is_owner": false,
-      "is_restricted": false,
       "profile": {
         "display_name": "",
         "display_name_normalized": "",
@@ -464,11 +458,7 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
     },
     {
       "id": "U04A3C2LC6N",
-      "is_admin": false,
-      "is_app_user": false,
       "is_bot": true,
-      "is_owner": false,
-      "is_restricted": false,
       "profile": {
         "display_name": "",
         "display_name_normalized": "",
@@ -495,11 +485,6 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
     },
     {
       "id": "U04D7HU80BT",
-      "is_admin": false,
-      "is_app_user": false,
-      "is_bot": false,
-      "is_owner": false,
-      "is_restricted": false,
       "profile": {
         "display_name": "",
         "display_name_normalized": "",

@@ -22,6 +22,7 @@ depends: [
   "hex"
   "lwt" {>= "5.1.0"}
   "nocrypto"
+  "re2"
   "uri"
   "yojson"
 ]
