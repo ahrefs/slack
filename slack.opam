@@ -12,7 +12,7 @@ synopsis: "Slack API implementation."
 description: "OCaml interface for accessing Slack APIs and receiving events."
 
 depends: [
-  "dune"
+  "dune" {>= "3.4"}
   "atdgen" {> "2.0.0"}
   "atdgen-runtime" {> "2.0.0"}
   "biniou"
