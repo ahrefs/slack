@@ -55,3 +55,64 @@ let highlight_mentions get_id_by_slack_name s =
     |> Option.default s
   in
   Re2.replace_exn mention_re s ~f:(fun m -> subst (Re2.Match.get_exn ~sub:(`Index 0) m))
+
+module Cmarkit_slack = struct
+  let renderer =
+    (* https://www.markdownguide.org/tools/slack/#slack-markdown-support-in-posts *)
+    (* https://slack.com/intl/en-gb/help/articles/202288908-Format-your-messages *)
+    let inline c inline =
+      let open Cmarkit in
+      let module C = Cmarkit_renderer.Context in
+      let strong_emphasis c e =
+        let i = Inline.Emphasis.inline e in
+        C.byte c '*';
+        C.inline c i;
+        C.byte c '*'
+      in
+      let emphasis c e =
+        let i = Inline.Emphasis.inline e in
+        C.byte c '_';
+        C.inline c i;
+        C.byte c '_'
+      in
+      let strikethrough c s =
+        let i = Inline.Strikethrough.inline s in
+        C.byte c '~';
+        C.inline c i;
+        C.byte c '~'
+      in
+      let link c l =
+        match Inline.Link.reference l with
+        | `Inline (ld, _) ->
+          begin
+            match Link_definition.dest ld with
+            | None -> C.inline c (Inline.Link.text l)
+            | Some (dest, _) ->
+              C.byte c '<';
+              C.string c dest;
+              C.byte c '|';
+              C.inline c (Inline.Link.text l);
+              C.byte c '>'
+          end;
+          true
+        | _ -> false
+      in
+      match inline with
+      | Inline.Strong_emphasis (e, _) ->
+        strong_emphasis c e;
+        true
+      | Inline.Emphasis (e, _) ->
+        emphasis c e;
+        true
+      | Inline.Ext_strikethrough (s, _) ->
+        strikethrough c s;
+        true
+      | Inline.Link (l, _) -> link c l
+      | _ -> false (* let the default renderer handle that *)
+    in
+    let default_renderer = Cmarkit_commonmark.renderer () in
+    let renderer = Cmarkit_renderer.make ~inline () in
+    Cmarkit_renderer.compose default_renderer renderer
+end
+
+let of_doc = Cmarkit_renderer.doc_to_string Cmarkit_slack.renderer

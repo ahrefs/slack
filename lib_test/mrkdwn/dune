@@ -1,0 +1,11 @@
+(executable
+ (name mrkdwn_of_md)
+ (libraries slack_lib cmarkit))
+
+(env
+ (_
+  (binaries
+   (./mrkdwn_of_md.exe as mrkdwn_of_md))))
+
+(cram
+ (deps %{bin:mrkdwn_of_md}))
