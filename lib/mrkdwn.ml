@@ -110,8 +110,21 @@ module Cmarkit_slack = struct
       | Inline.Link (l, _) -> link c l
       | _ -> false (* let the default renderer handle that *)
     in
+    let block c block =
+      let open Cmarkit in
+      let module C = Cmarkit_renderer.Context in
+      match block with
+      | Block.Heading (heading, _) ->
+        let inline = Block.Heading.inline heading in
+        C.byte c '*';
+        C.inline c inline;
+        C.byte c '*';
+        C.byte c '\n';
+        true
+      | _ -> false
+    in
     let default_renderer = Cmarkit_commonmark.renderer () in
-    let renderer = Cmarkit_renderer.make ~inline () in
+    let renderer = Cmarkit_renderer.make ~inline ~block () in
     Cmarkit_renderer.compose default_renderer renderer
 end
 

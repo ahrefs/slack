@@ -28,3 +28,19 @@ link
   > [hello](https://google.be)
   > MD
   <https://google.be|hello>
+
+headings
+  $ mrkdwn_of_md << "MD"
+  > # one
+  > ## two
+  > ### three
+  > #### four
+  > ##### five
+  > ###### six
+  > MD
+  *one*
+  *two*
+  *three*
+  *four*
+  *five*
+  *six*
