@@ -17,6 +17,7 @@ depends: [
   "atdgen-runtime" {> "2.0.0"}
   "biniou"
   "cstruct"
+  "cmarkit"
   "cmdliner"
   "devkit" {>= "1.20210517" }
   "extlib" {>= "1.7.7"}
