@@ -5,6 +5,7 @@
   atdgen
   atdgen-runtime
   biniou
+  cmarkit
   cstruct
   devkit
   extlib
