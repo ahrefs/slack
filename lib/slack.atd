@@ -36,7 +36,7 @@ type message_attachment <ocaml attr="deriving make"> = {
 
 type image_accessory_object <ocaml attr="deriving make"> = {
   image_url: string;
-  ?alt_text: string nullable;
+  ~alt_text <ocaml default="\"\"">: string;
 }
 
 type accessory_object = [
