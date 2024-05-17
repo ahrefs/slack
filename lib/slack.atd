@@ -34,13 +34,13 @@ type message_attachment <ocaml attr="deriving make"> = {
   ?footer: string nullable;
 }
 
-type image_accessory_object <ocaml attr="deriving make"> = {
+type image_object <ocaml attr="deriving make"> = {
   image_url: string;
   ~alt_text <ocaml default="\"\"">: string;
 }
 
 type accessory_object = [
-  Image <json name="image"> of image_accessory_object
+  Image <json name="image"> of image_object
 ] <ocaml repr="classic">  <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 
@@ -65,6 +65,7 @@ type divider = {
 
 type message_block = [
   Section <json name="section"> of message_text_block
+  | Image <json name="image"> of image_object
   | Divider <json name="divider"> of divider
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
