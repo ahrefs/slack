@@ -59,9 +59,13 @@ type message_text_block <ocaml attr="deriving make"> = {
   ?accessory: accessory_object nullable;
 }
 
+type divider = {
+  ?empty: bool nullable; (* having a simple variant make Type_field adapter not work*)
+}
+
 type message_block = [
   Section <json name="section"> of message_text_block
-  | Divider <json name="divider">
+  | Divider <json name="divider"> of divider
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type post_message_req <ocaml attr="deriving make"> = {
