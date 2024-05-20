@@ -419,6 +419,7 @@ type link_shared_event = {
 
 type event = [
 | Message <json name="message"> of message_event
+| App_mention <json name="app_mention"> of message_event
 | Link_shared <json name="link_shared"> of link_shared_event
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
