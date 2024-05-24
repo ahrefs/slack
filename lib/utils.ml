@@ -31,6 +31,7 @@ let validate_signature ?(version = "v0") ?signing_key ~headers body =
 *)
 let process_slack_notification (ctx : Context.t) headers body ~notification_handler =
   match event_notification_of_string body with
+  | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid events notification: %s" e)
   | Url_verification payload -> Lwt.return_ok payload.challenge
   | Event_callback notification ->
   match validate_signature ?signing_key:ctx.secrets.slack_signing_secret ~headers body with
