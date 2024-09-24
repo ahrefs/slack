@@ -35,8 +35,7 @@ let slack_echo_event_handler ctx event =
                 [
                   Section
                     {
-                      verbatim = Some false;
-                      text = { text_type = Mrkdwn; text = "some other text in a section" };
+                      text = { verbatim = Some false; text_type = Mrkdwn; text = "some other text in a section" };
                       accessory = None;
                     };
                 ];

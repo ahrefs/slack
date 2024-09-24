@@ -50,12 +50,12 @@ type text_object_type = [
 ] <ocaml repr="classic">
 
 type text_object <ocaml attr="deriving make"> = {
+  ?verbatim: bool nullable;
   text_type <json name="type"> : text_object_type;
   text: string;
 }
 
 type message_text_block <ocaml attr="deriving make"> = {
-  ?verbatim: bool nullable;
   text: text_object;
   ?accessory: accessory_object nullable;
 }
