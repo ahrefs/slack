@@ -32,7 +32,14 @@ let slack_echo_event_handler ctx event =
           Blocks
             {
               blocks =
-                [ Section { text = { text_type = Mrkdwn; text = "some other text in a section" }; accessory = None } ];
+                [
+                  Section
+                    {
+                      verbatim = Some false;
+                      text = { text_type = Mrkdwn; text = "some other text in a section" };
+                      accessory = None;
+                    };
+                ];
             }
         | false -> Message_attachment (make_message_attachment ~text:"i unfurled this link!" ())
       in

@@ -55,6 +55,7 @@ type text_object <ocaml attr="deriving make"> = {
 }
 
 type message_text_block <ocaml attr="deriving make"> = {
+  ?verbatim: bool nullable;
   text: text_object;
   ?accessory: accessory_object nullable;
 }
@@ -63,10 +64,15 @@ type divider = {
   ?empty: bool nullable; (* having a simple variant make Type_field adapter not work*)
 }
 
+type context_object = {
+  elements: text_object list;
+}
+
 type message_block = [
-  Section <json name="section"> of message_text_block
-  | Image <json name="image"> of image_object
+  Context <json name="context"> of context_object
   | Divider <json name="divider"> of divider
+  | Image <json name="image"> of image_object
+  | Section <json name="section"> of message_text_block
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type post_message_req <ocaml attr="deriving make"> = {
@@ -110,7 +116,7 @@ type update_message_res = {
 
 (** Not supporting file upload through form using `file` currently *)
 type files_upload_req <ocaml attr="deriving make"> = {
-  (** channels: comma-separated values e.g. [C1234567890,C2345678901,C3456789012]--when it's empty, 
+  (** channels: comma-separated values e.g. [C1234567890,C2345678901,C3456789012]--when it's empty,
       it does return a file id but the file is not shared to any channel.
   *)
   ?channels: string nullable;
