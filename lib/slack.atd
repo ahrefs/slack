@@ -19,6 +19,7 @@ type message_field <ocaml attr="deriving make"> = {
 type message_attachment <ocaml attr="deriving make"> = {
   fallback: string nullable;
   ?mrkdwn_in: string list nullable;
+  ?blocks : message_block list nullable;
   ?color: string nullable;
   ?pretext: string nullable;
   ?author_name: string nullable;
