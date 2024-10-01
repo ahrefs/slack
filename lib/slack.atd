@@ -33,7 +33,7 @@ type message_attachment <ocaml attr="deriving make"> = {
   ?thumb_url: string nullable;
   ?ts: int nullable;
   ?footer: string nullable;
-  ?verabitm: bool nullable;
+  ?verbatim: bool nullable;
 }
 
 type image_object <ocaml attr="deriving make"> = {
