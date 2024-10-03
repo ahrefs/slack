@@ -108,7 +108,7 @@ type update_message_req <ocaml attr="deriving make"> = {
   ?link_names: bool nullable;
   ?metadata: string nullable;
   ?parse: string nullable;
-  ?_broadcast: bool nullable;
+  ?reply_broadcast: bool nullable;
 }
 
 type update_message_res = {
