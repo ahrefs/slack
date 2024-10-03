@@ -16,6 +16,11 @@ module type S = sig
     conversation:conversations_replies_req ->
     conversations_replies_res slack_response Lwt.t
 
+  val get_history :
+     ctx:Context.t ->
+    conversation:conversations_history_req ->
+    conversations_history_res slack_response Lwt.t
+
   val get_conversations_info :
      ctx:Context.t ->
     conversation:conversations_info_req ->

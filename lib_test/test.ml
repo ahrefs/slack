@@ -97,6 +97,21 @@ let process_get_conversations_replies_res (channel, ts) =
     log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
+let process_get_conversations_history_res channel =
+  Printf.printf "get_conversations_history--------channel: %s--------\n" channel;
+  let ctx = Context.empty_ctx () in
+  let conversation = Slack_j.make_conversations_history_req ~channel () in
+  match%lwt Api.get_history ~ctx ~conversation with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_conversations_history_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to get conversation: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
 let conversation_join_list = [ "C047C6ECFNX"; "C049XFXK286" ]
 
 let process_conversations_join channel =
@@ -234,6 +249,7 @@ let () =
      let%lwt () = Lwt_list.iter_s process_get_user_res user_list in
      let%lwt () = Lwt_list.iter_s process_get_conversations_replies_res conversation_ts_list in
      let%lwt () = Lwt_list.iter_s process_get_conversations_info_res conversation_list in
+     let%lwt () = Lwt_list.iter_s process_get_conversations_history_res conversation_list in
      let%lwt () = Lwt_list.iter_s process_conversations_join conversation_join_list in
      let%lwt () = Lwt_list.iter_s process_upload_file file_list in
      let%lwt () = Lwt_list.iter_s process_update_usergroup_users update_usergroup_users_list in

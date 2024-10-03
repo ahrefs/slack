@@ -1,0 +1,177 @@
+{
+    "ok": true,
+    "messages": [
+        {
+            "subtype": "channel_join",
+            "user": "U07NMN2LQUR",
+            "text": "<@U07NMN2LQUR> has joined the channel",
+            "inviter": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727925675.995379"
+        },
+        {
+            "user": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727771931.938959",
+            "client_msg_id": "07794752-e790-4c98-8462-663198f71444",
+            "text": "ds",
+            "team": "T07MUBTEWGP",
+            "thread_ts": "1727771931.938959",
+            "reply_count": 6,
+            "reply_users_count": 2,
+            "latest_reply": "1727940191.965199",
+            "reply_users": [
+                "U07NBD2PZ36",
+                "U07NMN2LQUR"
+            ],
+            "is_locked": false,
+            "subscribed": false,
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "35ic7",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "ds"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "user": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727771579.590079",
+            "client_msg_id": "271b4f6d-55a1-47a2-beca-c0984e158ff0",
+            "text": "dse",
+            "team": "T07MUBTEWGP",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "ErrCA",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "dse"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "reactions": [
+                {
+                    "name": "raised_hands",
+                    "users": [
+                        "U07NBD2PZ36"
+                    ],
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "user": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727771467.008679",
+            "client_msg_id": "0926085e-cb8d-4308-8587-ec887cc33996",
+            "text": "ds",
+            "team": "T07MUBTEWGP",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "35ic7",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "ds"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "reactions": [
+                {
+                    "name": "eyes",
+                    "users": [
+                        "U07NBD2PZ36"
+                    ],
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "user": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727770954.187009",
+            "client_msg_id": "e8174cad-6da4-4fc8-8215-d44f1ef6127f",
+            "text": "test message",
+            "team": "T07MUBTEWGP",
+            "blocks": [
+                {
+                    "type": "rich_text",
+                    "block_id": "DrcyD",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "test message"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "reactions": [
+                {
+                    "name": "white_check_mark",
+                    "users": [
+                        "U07NBD2PZ36"
+                    ],
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "subtype": "channel_join",
+            "user": "U07PCFRHVGX",
+            "text": "<@U07PCFRHVGX> has joined the channel",
+            "inviter": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727770932.264889"
+        },
+        {
+            "subtype": "channel_join",
+            "user": "U07NMN2LQUR",
+            "text": "<@U07NMN2LQUR> has joined the channel",
+            "inviter": "U07NBD2PZ36",
+            "type": "message",
+            "ts": "1727412663.419999"
+        },
+        {
+            "subtype": "channel_join",
+            "user": "U07NBD2PZ36",
+            "text": "<@U07NBD2PZ36> has joined the channel",
+            "type": "message",
+            "ts": "1726799277.028339"
+        }
+    ],
+    "has_more": false,
+    "pin_count": 0,
+    "channel_actions_ts": null,
+    "channel_actions_count": 0
+}

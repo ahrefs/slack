@@ -85,6 +85,10 @@ let get_replies ~ctx:_ ~(conversation : Slack_t.conversations_replies_req) =
   let url = Filename.concat cache_dir (sprintf "%s_%s_replies" conversation.channel conversation.ts) in
   with_cache_file url Slack_j.conversations_replies_res_of_string
 
+let get_history ~ctx:_ ~(conversation : Slack_t.conversations_history_req) =
+  let url = Filename.concat cache_dir (sprintf "%s_history" conversation.channel) in
+  with_cache_file url Slack_j.conversations_history_res_of_string
+
 let get_conversations_info ~ctx:_ ~(conversation : Slack_t.conversations_info_req) =
   let url = Filename.concat cache_dir conversation.channel in
   with_cache_file url Slack_j.conversations_info_res_of_string
