@@ -108,7 +108,7 @@ type update_message_req <ocaml attr="deriving make"> = {
   ?link_names: bool nullable;
   ?metadata: string nullable;
   ?parse: string nullable;
-  ?reply_broadcast: bool nullable;
+  ?_broadcast: bool nullable;
 }
 
 type update_message_res = {
@@ -236,7 +236,17 @@ type conversations_history_req <ocaml attr="deriving make"> = {
   ?oldest: string nullable;
 }
 
-type conversations_history_res = conversations_replies_res
+type conversation_history = {
+  inherit conversation_reply;
+  ?subtype : string nullable
+}
+
+type conversations_history_res = {
+  ?messages: conversation_history list nullable;
+  ok: bool;
+  ?has_more: bool nullable;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
 
 type user_info_req <ocaml attr="deriving make"> = {
   user: string;

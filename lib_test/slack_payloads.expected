@@ -265,7 +265,8 @@ get_conversations_history--------channel: C049XFXK286--------
       "type": "message",
       "ts": "1727925675.995379",
       "user": "U07NMN2LQUR",
-      "text": "<@U07NMN2LQUR> has joined the channel"
+      "text": "<@U07NMN2LQUR> has joined the channel",
+      "subtype": "channel_join"
     },
     {
       "type": "message",
@@ -301,19 +302,22 @@ get_conversations_history--------channel: C049XFXK286--------
       "type": "message",
       "ts": "1727770932.264889",
       "user": "U07PCFRHVGX",
-      "text": "<@U07PCFRHVGX> has joined the channel"
+      "text": "<@U07PCFRHVGX> has joined the channel",
+      "subtype": "channel_join"
     },
     {
       "type": "message",
       "ts": "1727412663.419999",
       "user": "U07NMN2LQUR",
-      "text": "<@U07NMN2LQUR> has joined the channel"
+      "text": "<@U07NMN2LQUR> has joined the channel",
+      "subtype": "channel_join"
     },
     {
       "type": "message",
       "ts": "1726799277.028339",
       "user": "U07NBD2PZ36",
-      "text": "<@U07NBD2PZ36> has joined the channel"
+      "text": "<@U07NBD2PZ36> has joined the channel",
+      "subtype": "channel_join"
     }
   ],
   "ok": true,
