@@ -258,6 +258,87 @@ get_conversations_info--------channel: D049WPTCGMC--------
   "channel": { "id": "D049WPTCGMC", "is_im": true, "user": "U046XN0M2R5" }
 }
 channel type is: direct message
+get_conversations_history--------channel: C049XFXK286--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1727925675.995379",
+      "user": "U07NMN2LQUR",
+      "text": "<@U07NMN2LQUR> has joined the channel",
+      "subtype": "channel_join"
+    },
+    {
+      "type": "message",
+      "ts": "1727771931.938959",
+      "thread_ts": "1727771931.938959",
+      "user": "U07NBD2PZ36",
+      "text": "ds",
+      "reply_count": 6,
+      "subscribed": false
+    },
+    {
+      "type": "message",
+      "ts": "1727771579.590079",
+      "user": "U07NBD2PZ36",
+      "text": "dse",
+      "reactions": [ { "name": "raised_hands" } ]
+    },
+    {
+      "type": "message",
+      "ts": "1727771467.008679",
+      "user": "U07NBD2PZ36",
+      "text": "ds",
+      "reactions": [ { "name": "eyes" } ]
+    },
+    {
+      "type": "message",
+      "ts": "1727770954.187009",
+      "user": "U07NBD2PZ36",
+      "text": "test message",
+      "reactions": [ { "name": "white_check_mark" } ]
+    },
+    {
+      "type": "message",
+      "ts": "1727770932.264889",
+      "user": "U07PCFRHVGX",
+      "text": "<@U07PCFRHVGX> has joined the channel",
+      "subtype": "channel_join"
+    },
+    {
+      "type": "message",
+      "ts": "1727412663.419999",
+      "user": "U07NMN2LQUR",
+      "text": "<@U07NMN2LQUR> has joined the channel",
+      "subtype": "channel_join"
+    },
+    {
+      "type": "message",
+      "ts": "1726799277.028339",
+      "user": "U07NBD2PZ36",
+      "text": "<@U07NBD2PZ36> has joined the channel",
+      "subtype": "channel_join"
+    }
+  ],
+  "ok": true,
+  "has_more": false
+}
+get_conversations_history--------channel: C04CXBYNC68--------
+{
+  "messages": [
+    {
+      "type": "message",
+      "ts": "1512085950.000216",
+      "user": "U123ABC456",
+      "text": "I find you punny and would like to smell your nose letter"
+    }
+  ],
+  "ok": true,
+  "has_more": true,
+  "response_metadata": { "next_cursor": "bmV4dF90czoxNTEyMzU2NTI2MDAwMTMw" }
+}
+get_conversations_history--------channel: D049WPTCGMC--------
+{ "ok": false }
 get_conversations_replies--------channel: C047C6ECFNX--------
 joining #C047C6ECFNX...
 {

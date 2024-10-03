@@ -206,6 +206,29 @@ let get_replies ~(ctx : Context.t) ~(conversation : Slack_t.conversations_replie
     ~name:(sprintf "conversations.replies (%s, %s)" conversation.channel conversation.ts)
     ~ctx `GET api_path Slack_j.read_conversations_replies_res
 
+let www_form_of_conversation_history_req (conversation : Slack_t.conversations_history_req) =
+  let fields =
+    [
+      Some ("channel", conversation.channel);
+      string_field_val conversation.cursor "cursor";
+      bool_field_val conversation.include_all_metadata "include_all_metadata";
+      bool_field_val conversation.inclusive "inclusive";
+      string_field_val conversation.latest "latest";
+      int_field_val conversation.limit "limit";
+      string_field_val conversation.oldest "oldest";
+    ]
+  in
+  list_filter_opt fields
+
+let get_history ~(ctx : Context.t) ~(conversation : Slack_t.conversations_history_req) =
+  log#info "getting conversations history of %s" conversation.channel;
+  let data = www_form_of_conversation_history_req conversation in
+  let args = Web.make_url_args data in
+  let api_path = sprintf "conversations.history?%s" args in
+  request_token_auth
+    ~name:(sprintf "conversations.history (%s)" conversation.channel)
+    ~ctx `POST api_path Slack_j.read_conversations_history_res
+
 let www_form_of_conversations_info_req (conversation : Slack_t.conversations_info_req) =
   let fields =
     [

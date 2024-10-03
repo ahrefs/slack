@@ -1,0 +1,17 @@
+{
+    "ok": true,
+    "latest": "1512085950.000216",
+    "messages": [
+        {
+            "type": "message",
+            "user": "U123ABC456",
+            "text": "I find you punny and would like to smell your nose letter",
+            "ts": "1512085950.000216"
+        }
+    ],
+    "has_more": true,
+    "pin_count": 0,
+    "response_metadata": {
+        "next_cursor": "bmV4dF90czoxNTEyMzU2NTI2MDAwMTMw"
+    }
+}
