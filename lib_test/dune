@@ -8,6 +8,7 @@
  (deps
   (source_tree slack-api-cache)
   (source_tree mock-slack-events)
+  (source_tree mock-slack-interactions)
   secrets.json)
  (action
   (with-stdout-to

@@ -724,3 +724,28 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
   "event_id": "Ev04C7PRDB53",
   "event_time": 1669265351
 }
+===== file mock-slack-interactions/global_shortcut.json =====
+{
+  "type": "shortcut",
+  "callback_id": "shortcut_create_task",
+  "trigger_id": "944799105734.773906753841.38b5894552bdd4a780554ee59d1f3638",
+  "token": "XXXXXXXXXXXXX",
+  "team": { "id": "TXXXXXXXX", "domain": "shortcuts-test" },
+  "user": { "id": "UXXXXXXXXX", "username": "aman", "team_id": "TXXXXXXXX" }
+}
+===== file mock-slack-interactions/message_shortcut.json =====
+{
+  "type": "message_action",
+  "callback_id": "chirp_message",
+  "trigger_id": "13345224609.8534564800.6f8ab1f53e13d0cd15f96106292d5536",
+  "token": "Nj2rfC2hU8mAfgaJLemZgO7H",
+  "team": { "id": "T0MJRM1A7", "domain": "pandamonium" },
+  "response_url": "https://hooks.slack.com/app-actions/T0MJR11A4/21974584944/yk1S9ndf35Q1flupVG5JbpM6",
+  "message": {
+    "user": "U0MJRG1AL",
+    "ts": "1516229207.000133",
+    "text": "World's smallest big cat! <https://youtube.com/watch?v=W86cTIoMv2U>"
+  },
+  "user": { "id": "U0D15K92L", "name": "dr_maomao" },
+  "channel": { "id": "D0LFFBKLZ", "name": "cats" }
+}
