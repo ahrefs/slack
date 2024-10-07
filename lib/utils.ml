@@ -50,10 +50,10 @@ let process_slack_event (ctx : Context.t) headers body ~event_handler =
 let process_slack_interaction (ctx : Context.t) headers body ~interaction_handler =
   match interaction_of_string body with
   | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s" e)
-  | Shortcut i | Message_actions i ->
+  | interaction ->
   match validate_signature ?signing_key:ctx.secrets.slack_signing_secret ~headers body with
   | Error e -> Lwt.return_error (sprintf "signature not validated: %s" e)
-  | Ok () -> interaction_handler i
+  | Ok () -> interaction_handler interaction
 
 (***************** Utilities over Slack API returns  *****************)
 
