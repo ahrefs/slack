@@ -48,7 +48,8 @@ let process_slack_event (ctx : Context.t) headers body ~event_handler =
   )
 
 let process_slack_interaction (ctx : Context.t) headers body ~interaction_handler =
-  match interaction_of_string body with
+  let payload = Uri.query_of_encoded body |> List.assoc "payload" |> List.hd in
+  match interaction_of_string payload with
   | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s" e)
   | interaction ->
   match validate_signature ?signing_key:ctx.secrets.slack_signing_secret ~headers body with

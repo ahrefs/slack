@@ -249,7 +249,12 @@ let get_mock_slack_interactions () =
 let process_interactions path =
   Printf.printf "===== file %s =====\n" path;
   try
-    let interaction = Slack_j.interaction_of_string (get_local_file path) in
+    let text = get_local_file path in
+    let interaction =
+      if Filename.check_suffix path "www" then
+        Uri.query_of_encoded text |> List.assoc "payload" |> List.hd |> Slack_j.interaction_of_string
+      else Slack_j.interaction_of_string (get_local_file path)
+    in
     let json =
       interaction |> Slack_j.string_of_interaction |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
     in
