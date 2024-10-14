@@ -1,0 +1,13 @@
+{
+  "type": "view_closed",
+  "team": {
+    "id": "TXXXXXX",
+    "domain": "coverbands"
+  },
+  "user": {
+    "id": "UXXXXXX",
+    "name": "dreamweaver"
+  },
+  "api_app_id": "AXXXXXX",
+  "is_cleared": false
+}

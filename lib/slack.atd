@@ -599,12 +599,13 @@ type slack_api_error = [
 type 'ok slack_response = ('ok, slack_api_error) http_response
   <json adapter.ocaml="Atd_adapters.Slack_response_adapter">
 
+
 type interaction = [
 | Shortcut <json name="shortcut"> of message_actions
 | Message_actions <json name="message_action"> of message_actions
-(* | Block_actions <json name="block_actions"> of *)
-(* | View_submission <json name="view_submission"> of *)
-(* | View_closed <json name="view_closed"> of *)
+| Block_actions <json name="block_actions"> of json
+| View_submission <json name="view_submission"> of json
+| View_closed <json name="view_closed"> of json
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type message_actions = {
