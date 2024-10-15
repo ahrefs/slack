@@ -47,7 +47,7 @@ let process_slack_event (ctx : Context.t) headers body ~event_handler =
     event_handler notification.event
   )
 
-(** [ process_slack_interaction ] handles slack interactions which are
+(** [process_slack_interaction] handles slack interactions which are
     similar to slack notifications except that they are specifically
     for handling features such as block actions, shortcuts and modals
 *)
