@@ -52,7 +52,9 @@ let process_slack_event (ctx : Context.t) headers body ~event_handler =
     for handling features such as block actions, shortcuts and modals
 *)
 let process_slack_interaction (ctx : Context.t) headers body ~interaction_handler =
-  let payload = Uri.query_of_encoded body |> List.assoc "payload" |> List.hd in
+  match Uri.query_of_encoded body |> List.assoc "payload" with
+  | [] -> Lwt.return_error "Empty payload"
+  | payload :: _ ->
   match interaction_of_string payload with
   | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s" e)
   | interaction ->
