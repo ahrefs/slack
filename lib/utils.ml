@@ -6,7 +6,7 @@ open Slack_t
 (*****************  General Slack Utilities for Handling Event Hooks  *****************)
 
 (** [ validate_signature signing_key headers body ] validate the signature
-    from a Slack event API hook. 
+    from a Slack event API hook.
 *)
 let validate_signature ?(version = "v0") ?signing_key ~headers body =
   match signing_key with
@@ -46,6 +46,21 @@ let process_slack_event (ctx : Context.t) headers body ~event_handler =
   process_slack_notification ctx headers body ~notification_handler:(fun notification ->
     event_handler notification.event
   )
+
+(** [process_slack_interaction] handles slack interactions which are
+    similar to slack notifications except that they are specifically
+    for handling features such as block actions, shortcuts and modals
+*)
+let process_slack_interaction (ctx : Context.t) headers body ~interaction_handler =
+  match Uri.query_of_encoded body |> List.assoc "payload" with
+  | [] -> Lwt.return_error "Empty payload"
+  | payload :: _ ->
+  match interaction_of_string payload with
+  | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s" e)
+  | interaction ->
+  match validate_signature ?signing_key:ctx.secrets.slack_signing_secret ~headers body with
+  | Error e -> Lwt.return_error (sprintf "signature not validated: %s" e)
+  | Ok () -> interaction_handler interaction
 
 (***************** Utilities over Slack API returns  *****************)
 

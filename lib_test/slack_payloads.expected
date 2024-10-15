@@ -724,3 +724,219 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
   "event_id": "Ev04C7PRDB53",
   "event_time": 1669265351
 }
+===== file mock-slack-interactions/block_action1.json =====
+{
+  "type": "block_actions",
+  "team": { "id": "T9TK3CUKW", "domain": "example" },
+  "user": {
+    "id": "UA8RXUSPL",
+    "username": "jtorrance",
+    "team_id": "T9TK3CUKW"
+  },
+  "api_app_id": "AABA1ABCD",
+  "token": "9s8d9as89d8as9d8as989",
+  "container": {
+    "type": "message_attachment",
+    "message_ts": "1548261231.000200",
+    "attachment_id": 1,
+    "channel_id": "CBR2V3XEX",
+    "is_ephemeral": false,
+    "is_app_unfurl": false
+  },
+  "trigger_id": "12321423423.333649436676.d8c1bb837935619ccad0f624c448ffb3",
+  "channel": { "id": "CBR2V3XEX", "name": "review-updates" },
+  "message": {
+    "bot_id": "BAH5CA16Z",
+    "type": "message",
+    "text": "This content can't be displayed.",
+    "user": "UAJ2RU415",
+    "ts": "1548261231.000200"
+  },
+  "response_url": "https://hooks.slack.com/actions/AABA1ABCD/1232321423432/D09sSasdasdAS9091209",
+  "actions": [
+    {
+      "action_id": "WaXA",
+      "block_id": "=qXel",
+      "text": { "type": "plain_text", "text": "View", "emoji": true },
+      "value": "click_me_123",
+      "type": "button",
+      "action_ts": "1548426417.840180"
+    }
+  ]
+}
+===== file mock-slack-interactions/block_action2.json =====
+{
+  "type": "block_actions",
+  "team": { "id": "T9TK3CUKW", "domain": "example" },
+  "user": {
+    "id": "UA8RXUSPL",
+    "username": "jtorrance",
+    "name": "jtorrance",
+    "team_id": "T9TK3CUKW"
+  },
+  "api_app_id": "AABA1ABCD",
+  "token": "9s8d9as89d8as9d8as989",
+  "container": { "type": "view", "view_id": "V0PKB1ZFV" },
+  "trigger_id": "24571818370.22717085937.b9c7ca14b87be6b44ff5864edba8306f",
+  "view": {
+    "id": "V0PKB1ZFV",
+    "team_id": "T9TK3CUKW",
+    "type": "home",
+    "blocks": [
+      {
+        "type": "section",
+        "block_id": "8ZG",
+        "text": {
+          "type": "mrkdwn",
+          "text": "A stack of blocks for the sample Block Kit Home tab.",
+          "verbatim": false
+        }
+      },
+      {
+        "type": "actions",
+        "block_id": "7fhg",
+        "elements": [
+          {
+            "type": "button",
+            "action_id": "XRX",
+            "text": {
+              "type": "plain_text",
+              "text": "Action A",
+              "emoji": true
+            }
+          },
+          {
+            "type": "button",
+            "action_id": "GFBew",
+            "text": {
+              "type": "plain_text",
+              "text": "Action B",
+              "emoji": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "block_id": "6evU",
+        "text": {
+          "type": "mrkdwn",
+          "text": "And now it's slightly more complex.",
+          "verbatim": false
+        }
+      }
+    ],
+    "private_metadata": "",
+    "callback_id": "",
+    "state": { "values": {} },
+    "hash": "1571318366.2468e46f",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "close": null,
+    "submit": null,
+    "previous_view_id": null,
+    "root_view_id": "V0PKB1ZFV",
+    "app_id": "AABA1ABCD",
+    "external_id": "",
+    "app_installed_team_id": "T9TK3CUKW",
+    "bot_id": "B0B00B00"
+  },
+  "actions": [
+    {
+      "type": "button",
+      "block_id": "7fhg",
+      "action_id": "XRX",
+      "text": { "type": "plain_text", "text": "Action A", "emoji": true },
+      "action_ts": "1571318425.267782"
+    }
+  ]
+}
+===== file mock-slack-interactions/global_shortcut.json =====
+{
+  "type": "shortcut",
+  "callback_id": "shortcut_create_task",
+  "trigger_id": "944799105734.773906753841.38b5894552bdd4a780554ee59d1f3638",
+  "token": "XXXXXXXXXXXXX",
+  "team": { "id": "TXXXXXXXX", "domain": "shortcuts-test" },
+  "user": { "id": "UXXXXXXXXX", "username": "aman", "team_id": "TXXXXXXXX" }
+}
+===== file mock-slack-interactions/message_shortcut.json =====
+{
+  "type": "message_action",
+  "callback_id": "chirp_message",
+  "trigger_id": "13345224609.8534564800.6f8ab1f53e13d0cd15f96106292d5536",
+  "token": "Nj2rfC2hU8mAfgaJLemZgO7H",
+  "team": { "id": "T0MJRM1A7", "domain": "pandamonium" },
+  "response_url": "https://hooks.slack.com/app-actions/T0MJR11A4/21974584944/yk1S9ndf35Q1flupVG5JbpM6",
+  "message": {
+    "user": "U0MJRG1AL",
+    "ts": "1516229207.000133",
+    "text": "World's smallest big cat! <https://youtube.com/watch?v=W86cTIoMv2U>"
+  },
+  "user": { "id": "U0D15K92L", "name": "dr_maomao" },
+  "channel": { "id": "D0LFFBKLZ", "name": "cats" }
+}
+===== file mock-slack-interactions/message_shortcut.www =====
+{
+  "type": "message_action",
+  "callback_id": "bc_create",
+  "trigger_id": "7846996185716.7742401506567.765fbc775e9236446b5284868c907fc7",
+  "token": "XXXXX",
+  "team": { "id": "T07MUBTEWGP", "domain": "testworkspace-jrm5644" },
+  "response_url": "https://hooks.slack.com/app/T07MUBTEWGP/7857176821457/Gjp1XOnzOCKndQZ47NQTT47i",
+  "message": {
+    "user": "U07NBD2PZ36",
+    "ts": "1728287349.707269",
+    "text": "hello i need some help this is a long message that will be shortened by slack police"
+  },
+  "user": {
+    "id": "U07NBD2PZ36",
+    "name": "koonwen.lee",
+    "username": "koonwen.lee",
+    "team_id": "T07MUBTEWGP"
+  },
+  "channel": { "id": "C07N62BSZ9B", "name": "social" }
+}
+===== file mock-slack-interactions/view_closed.json =====
+{
+  "type": "view_closed",
+  "team": { "id": "TXXXXXX", "domain": "coverbands" },
+  "user": { "id": "UXXXXXX", "name": "dreamweaver" },
+  "api_app_id": "AXXXXXX",
+  "is_cleared": false
+}
+===== file mock-slack-interactions/view_submission.json =====
+{
+  "type": "view_submission",
+  "view": {
+    "id": "VNHU13V36",
+    "type": "modal",
+    "private_metadata": "shhh-its-secret",
+    "callback_id": "modal-with-inputs",
+    "state": {
+      "values": {
+        "multiline": {
+          "mlvalue": {
+            "type": "plain_text_input",
+            "value": "This is my example inputted value"
+          }
+        },
+        "target_channel": {
+          "target_select": {
+            "type": "conversations_select",
+            "selected_conversation": "C123B12DE"
+          }
+        }
+      }
+    },
+    "hash": "156663117.cd33ad1f",
+    "response_urls": [
+      {
+        "block_id": "target_channel",
+        "action_id": "target_select",
+        "channel_id": "C123B12DE",
+        "response_url": "https://hooks.slack.com/app/ABC12312/1234567890/A100B100C100d100"
+      }
+    ]
+  }
+}

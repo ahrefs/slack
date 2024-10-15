@@ -241,8 +241,36 @@ let process_events path =
     printf "failed to process slack event %s due to:\n%s\n" path (Printexc.to_string e);
     Lwt.return_unit
 
+let mock_slack_interaction_dir = "mock-slack-interactions"
+
+let get_mock_slack_interactions () =
+  List.map (Filename.concat mock_slack_interaction_dir) (get_sorted_files_from mock_slack_interaction_dir)
+
+let process_interactions path =
+  Printf.printf "===== file %s =====\n" path;
+  try
+    let text = get_local_file path in
+    let interaction =
+      if Filename.check_suffix path "www" then
+        Uri.query_of_encoded text |> List.assoc "payload" |> List.hd |> Slack_j.interaction_of_string
+      else Slack_j.interaction_of_string (get_local_file path)
+    in
+    let json =
+      interaction |> Slack_j.string_of_interaction |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    printf "%s\n" json;
+    Lwt.return_unit
+  with
+  | Yojson.Json_error e ->
+    printf "failed to parse slack interaction json %s due to: %s\n" path e;
+    Lwt.return_unit
+  | e ->
+    printf "failed to process slack interaction %s due to:\n%s\n" path (Printexc.to_string e);
+    Lwt.return_unit
+
 let () =
   let slack_events = get_mock_slack_events () in
+  let slack_interactions = get_mock_slack_interactions () in
   Lwt_main.run
     (let%lwt () = Lwt_list.iter_s process_send_msg simple_text_msg_cases in
      let%lwt () = Lwt_list.iter_s process_send_msg_as_user text_msg_as_user_cases in
@@ -257,5 +285,6 @@ let () =
      let%lwt () = Lwt_list.iter_s process_list_usergroup_users list_usergroup_users_usergroup_id_list in
      let%lwt () = Lwt_list.iter_s process_list_users list_users_cursors_list in
      let%lwt () = Lwt_list.iter_s process_events slack_events in
+     let%lwt () = Lwt_list.iter_s process_interactions slack_interactions in
      Lwt.return_unit
     )
