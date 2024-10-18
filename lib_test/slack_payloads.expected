@@ -862,3 +862,13 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
     ]
   }
 }
+(Slex.UrlLink ("http://example.com", (Some "example link")))
+(Slex.UrlLink ("http://example.com", None))
+(Slex.ChannelLink ("#C0838UC2D", (Some "general")))
+(Slex.UserMention "<@UNIOCDINAO>")
+(Slex.UserGroupMention "<!subteam^UIAOBCD>")
+(Slex.UrlLink ("!special mention", None))
+(Slex.Emoji ":star-struck:")
+(Slex.Word "smile")
+(Slex.InlineCode "inline code")
+(Slex.CodeBlock "codeblock\ntype poly = [ `Foo | `Bar ]\n")

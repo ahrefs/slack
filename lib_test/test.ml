@@ -268,6 +268,25 @@ let process_interactions path =
     printf "failed to process slack interaction %s due to:\n%s\n" path (Printexc.to_string e);
     Lwt.return_unit
 
+let test_lexer () =
+  let lexbuf =
+    Lexing.from_string
+      {|<http://example.com|example link>
+<http://example.com>
+<#C0838UC2D|general>
+<@UNIOCDINAO>
+<!subteam^UIAOBCD>
+<!special mention> :star-struck: smile `inline code`
+```codeblock
+type poly = [ `Foo | `Bar ]
+```|}
+  in
+  try
+    while true do
+      Slex.read lexbuf |> Slex.show_token |> print_endline
+    done
+  with Slex.EOF -> ()
+
 let () =
   let slack_events = get_mock_slack_events () in
   let slack_interactions = get_mock_slack_interactions () in
@@ -287,4 +306,5 @@ let () =
      let%lwt () = Lwt_list.iter_s process_events slack_events in
      let%lwt () = Lwt_list.iter_s process_interactions slack_interactions in
      Lwt.return_unit
-    )
+    );
+  test_lexer ()
