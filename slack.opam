@@ -29,6 +29,7 @@ depends: [
   "re2"
   "uri"
   "yojson"
+  "ocamlformat" {= "0.26.1" & with-dev-setup}
 ]
 build: [
   ["dune" "subst"] {dev}
