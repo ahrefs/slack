@@ -16,7 +16,7 @@
   uri
   yojson)
  (preprocess
-  (pps lwt_ppx ppx_deriving.make)))
+  (pps lwt_ppx ppx_deriving.make ppx_deriving.show)))
 
 (rule
  (targets slack_t.ml slack_t.mli)
@@ -29,3 +29,5 @@
  (deps slack.atd)
  (action
   (run atdgen -j -j-std %{deps})))
+
+(ocamllex slex)

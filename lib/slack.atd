@@ -601,22 +601,24 @@ type 'ok slack_response = ('ok, slack_api_error) http_response
 
 
 type interaction = [
-| Shortcut <json name="shortcut"> of message_actions
-| Message_actions <json name="message_action"> of message_actions
-| Block_actions <json name="block_actions"> of json
+| Shortcut <json name="shortcut"> of interaction_payload
+| Message_actions <json name="message_action"> of interaction_payload
+| Block_actions <json name="block_actions"> of interaction_payload
 | View_submission <json name="view_submission"> of json
 | View_closed <json name="view_closed"> of json
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
-type message_actions = {
-  callback_id: string;
+type interaction_payload = {
   trigger_id: string;
   token: string;
   team: interaction_team;
+  ?callback_id: string nullable;
   ?response_url: string nullable;
   ?message: interaction_message nullable;
   ?user: interaction_user nullable;
   ?channel : interaction_channel nullable;
+  ?actions : interaction_action list nullable;
+  ?state : json nullable
 }
 
 type interaction_user = {
@@ -640,4 +642,12 @@ type interaction_message = {
   user : string;
   ts : string;
   text : string;
+}
+
+type interaction_action = {
+  action_id: string;
+  block_id: string;
+  type_ <json name="type">: string; (* button, static_select, etc. *)
+  action_ts: string; (* timestamp of the action *)
+  ?value: string nullable;
 }
