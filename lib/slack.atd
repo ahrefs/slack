@@ -208,6 +208,7 @@ type reactions = {
 type conversation_reply = {
   type_ <json name="type">: string;
   ts: string;
+  ?subtype : string nullable;
   ?thread_ts: string nullable;
   ?user: string nullable;
   ?text: string nullable;
