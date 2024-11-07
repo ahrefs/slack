@@ -30,4 +30,16 @@
  (action
   (run atdgen -j -j-std %{deps})))
 
+(rule
+ (targets block_kit_t.ml block_kit_t.mli)
+ (deps block_kit.atd)
+ (action
+  (run atdgen -t %{deps})))
+
+(rule
+ (targets block_kit_j.ml block_kit_j.mli)
+ (deps block_kit.atd)
+ (action
+  (run atdgen -j -j-std %{deps})))
+
 (ocamllex slex)
