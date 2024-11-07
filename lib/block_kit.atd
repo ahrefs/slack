@@ -1,0 +1,143 @@
+type json <ocaml module="Yojson.Basic" t="t"> = abstract
+
+(******************* Blocks ***********************)
+
+type block = [
+  | Divider <json name = "divider"> of divider
+  | Input <json name = "input"> of input
+  | Section <json name = "section"> of section
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type divider <ocaml attr="deriving make"> = {
+  block_id : block_id nullable
+}
+
+type input <ocaml attr="deriving make"> = {
+  label : text_object;
+  element : element;
+  ?dispatch_action : bool nullable;
+  ?block_id : block_id nullable;
+  ?hint : text_object nullable;
+  ?optional : bool nullable
+}
+
+type section <ocaml attr="deriving make"> = {
+  ?text : text_object nullable;
+  ?block_id : block_id nullable;
+  ?fields : text_object list nullable <ocaml valid="fun l -> List.length l <= 10">;
+  ?accessory : element nullable;
+  ?expand : bool nullable
+}
+
+(******************* Elements ***********************)
+
+type element = [
+  | Button <json name = "button"> of button
+  | Plain_text_input <json name = "plain_text_input"> of plain_text_input
+  | Multi_static_select_menu <json name = "multi_static_select"> of multi_static_select_menu
+  | Multi_users_select_menu <json name = "multi_users_select_menu"> of multi_users_select_menu
+  | Static_select_menu <json name = "static_select"> of static_select_menu
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type button <ocaml attr="deriving make"> = {
+  text : text_object nullable;
+  ?action_id : action_id nullable;
+  ?url : string nullable;
+  ?value : string nullable;
+  ?style : style nullable;
+  ?confirm : confirmation_dialog_object nullable;
+  ?accessibility_label : string nullable
+}
+
+type plain_text_input <ocaml attr="deriving make"> = {
+  ?action_id : action_id nullable;
+  ?initial_value : string nullable;
+  ?multiline : bool nullable;
+  ?min_length : int nullable;
+  ?max_length : int nullable;
+  ?dispatch_action_config : json nullable;
+  ?focus_on_load : bool nullable;
+  ?place_holder : text_object nullable
+}
+
+type multi_static_select_menu <ocaml attr="deriving make"> = {
+  ?action_id : action_id nullable;
+  ?options : option_object list nullable <ocaml valid="fun l -> List.length <= 100">;
+  ?option_groups : option_group list nullable <ocaml valid="fun l -> List.length <= 100">;
+  ?inital_options : options list nullable;
+  ?confirm : confirmation_dialog_object nullable;
+  ?max_selected_items : int nullable <ocaml valid="fun i -> i >= 1">;
+  ?focus_on_load : bool nullable;
+  ?place_holder : text_object nullable
+}
+
+type multi_users_select_menu <ocaml attr="deriving make"> = {
+  ?action_id : action_id nullable;
+  ?initial_users : string nullable;
+  ?confirm : confirmation_dialog_object nullable;
+  ?max_selected_items : int nullable <ocaml valid="fun i -> i >= 1">;
+  ?focus_on_load : bool nullable;
+  ?place_holder : text_object nullable
+}
+
+type static_select_menu <ocaml attr="deriving make"> = {
+  ?action_id : action_id nullable;
+  ?options : option_object list nullable;
+  ?option_groups : option_group list nullable;
+  ?initial_option : options nullable;
+  ?confirm : confirmation_dialog_object nullable;
+  ?focus_on_load : bool nullable;
+  ?place_holder : text_object nullable
+}
+
+(******************* Objects ***********************)
+
+type style = [
+  | Danger <json name = "danger">
+  | Primary <json name = "primary">
+] <ocaml repr = "classic">
+
+type confirmation_dialog_object <ocaml attr="deriving make"> = {
+  title : text_object;
+  text : text_object;
+  confirm : text_object;
+  deny : text_object;
+  ?style : style nullable;
+}
+
+type options = [
+  | Option_object of option_object
+  | Option_group of option_group
+] <ocaml repr = "classic">
+
+type option_object <ocaml attr="deriving make"> = {
+  text : text_object;
+  value : string <ocaml valid="fun s -> String.length s <= 150">;
+  ?description : text_object nullable;
+  ?url : string nullable <ocaml valid="fun s -> String.length s <= 3000">
+}
+
+type option_group <ocaml attr="deriving make"> = {
+  label : text_object;
+  options : option_object list <ocaml valid="fun l -> List.length <= 100">
+}
+
+type text_object = [
+  | Plain_text <json name = "plain_text"> of plain_text
+  | Mrkdwn <json name = "markdwn"> of mrkdwn_text
+]
+
+type plain_text <ocaml attr="deriving make"> = {
+  text : string;
+  ?emoji : bool nullable;
+}
+
+type mrkdwn_text <ocaml attr="deriving make"> = {
+  text : string  <ocaml valid="fun s -> String.length s >= 1 && String.length s <= 3000">;
+  ?verbatim : bool nullable
+}
+
+(******************* Constraints ***********************)
+
+type block_id = string <ocaml valid="fun s -> String.length s <= 255">
+type action_id = string <ocaml valid="fun s -> String.length s <= 255">

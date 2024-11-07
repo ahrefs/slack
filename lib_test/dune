@@ -1,5 +1,5 @@
 (executables
- (names test)
+ (names test test_block_kit)
  (libraries slack_lib devkit extlib lwt.unix yojson)
  (preprocess
   (pps lwt_ppx)))
