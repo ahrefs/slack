@@ -3,16 +3,16 @@ include Block_kit_j
 (******************* Objects ***********************)
 
 let make_option_group ~(label : plain_text) ?(options : option_object list option) =
-  Block_kit_j.make_option_group ~label:(`Plain_text label) ?options
+  Block_kit_j.make_option_group ~label:(Plain_text label) ?options
 
 let make_option_object ~text ~value ~(description : plain_text) url =
-  Block_kit_j.make_option_object ~text ~value ~description:(`Plain_text description) url
+  Block_kit_j.make_option_object ~text ~value ~description:(Plain_text description) url
 
 let make_conversation_dialog_object ~(title : plain_text) ~(text : plain_text) ~(confirm : plain_text)
   ~(deny : plain_text) url
   =
-  Block_kit_j.make_confirmation_dialog_object ~title:(`Plain_text title) ~text:(`Plain_text text)
-    ~confirm:(`Plain_text confirm) ~deny:(`Plain_text deny) url
+  Block_kit_j.make_confirmation_dialog_object ~title:(Plain_text title) ~text:(Plain_text text)
+    ~confirm:(Plain_text confirm) ~deny:(Plain_text deny) url
 
 (******************* Elements ***********************)
 
@@ -24,7 +24,7 @@ let make_multi_users_select_menu ?action_id ?initial_users ?confirm ?max_selecte
       (fun (v : plain_text) ->
         if String.length v.text >= 150 then
           raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" v.text));
-        `Plain_text v
+        Plain_text v
       )
       place_holder
   in
@@ -51,7 +51,7 @@ let make_multi_static_select_menu ?action_id ~(options : option_object list)
       (fun (v : plain_text) ->
         if String.length v.text >= 150 then
           raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" v.text));
-        `Plain_text v
+        Plain_text v
       )
       place_holder
   in
@@ -72,7 +72,7 @@ let make_multi_static_select_menu_group ?action_id ~(option_groups : option_grou
       (fun (v : plain_text) ->
         if String.length v.text >= 150 then
           raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" v.text));
-        `Plain_text v
+        Plain_text v
       )
       place_holder
   in
@@ -93,7 +93,7 @@ let make_static_select_menu ?action_id ~(options : option_object list) ?(initial
       (fun (v : plain_text) ->
         if String.length v.text >= 150 then
           raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" v.text));
-        `Plain_text v
+        Plain_text v
       )
       place_holder
   in
@@ -112,7 +112,7 @@ let make_static_select_menu_group ?action_id ~(option_groups : option_group list
       (fun (v : plain_text) ->
         if String.length v.text >= 150 then
           raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" v.text));
-        `Plain_text v
+        Plain_text v
       )
       place_holder
   in
@@ -136,29 +136,29 @@ let make_button ~(text : plain_text) ?action_id ?url ?value ?style ?confirm ?acc
   if String.length text.text > 75 then
     raise (Invalid_argument (Printf.sprintf "text limit 150char exceeded: %s" text.text));
   Block_kit_j.(
-    Button (make_button ~text:(`Plain_text text) ?action_id ?url ?value ?style ?confirm ?accessibility_label ())
+    Button (make_button ~text:(Plain_text text) ?action_id ?url ?value ?style ?confirm ?accessibility_label ())
   )
 
 (******************* Blocks ***********************)
 
-let make_divider ?block_id = Block_kit_j.make_divider ?block_id
+let make_divider ?block_id () = Block_kit_j.(Divider (make_divider ?block_id ()))
 
-let make_input ~(label : plain_text) ~element ?dispatch_action ?block_id ?(hint : plain_text option) ?optional =
+let make_input ~(label : plain_text) ~element ?dispatch_action ?block_id ?(hint : plain_text option) ?optional () =
   let label =
     if String.length label.text > 2000 then
       raise (Invalid_argument (Printf.sprintf "text limit 2000char exceeded: %s" label.text));
-    `Plain_text label
+    Plain_text label
   in
   let hint =
     Option.map
       (fun (hint : plain_text) ->
         if String.length hint.text > 2000 then
           raise (Invalid_argument (Printf.sprintf "text limit 2000char exceeded: %s" hint.text));
-        `Plain_text hint
+        Plain_text hint
       )
       hint
   in
-  Block_kit_j.make_input ~label ~element ?dispatch_action ?block_id ?hint ?optional
+  Block_kit_j.(Input (make_input ~label ~element ?dispatch_action ?block_id ?hint ?optional ()))
 
-let make_section ?(text : text_object option) ?block_id ?fields ?accessory ?expand =
-  Block_kit_j.make_section ?text ?block_id ?fields ?accessory ?expand
+let make_section ?(text : text_object option) ?block_id ?fields ?accessory ?expand () =
+  Block_kit_j.(Section (make_section ?text ?block_id ?fields ?accessory ?expand ()))
