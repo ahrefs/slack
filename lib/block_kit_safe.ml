@@ -2,11 +2,15 @@ include Block_kit_j
 
 (******************* Objects ***********************)
 
+let make_plain_text' ~text ?emoji () = Block_kit_j.(Plain_text (make_plain_text ~text ?emoji ()))
+let make_mrkdwn_text' ~text ?verbatim () = Block_kit_j.(Mrkdwn (make_mrkdwn_text ~text ?verbatim ()))
+
 let make_option_group ~(label : plain_text) ?(options : option_object list option) =
   Block_kit_j.make_option_group ~label:(Plain_text label) ?options
 
-let make_option_object ~text ~value ~(description : plain_text) url =
-  Block_kit_j.make_option_object ~text ~value ~description:(Plain_text description) url
+let make_option_object ~text ~value ?(description : plain_text option) url =
+  let description = Option.map (fun v -> Plain_text v) description in
+  Block_kit_j.make_option_object ~text ~value ?description url
 
 let make_conversation_dialog_object ~(title : plain_text) ~(text : plain_text) ~(confirm : plain_text)
   ~(deny : plain_text) url
@@ -162,3 +166,24 @@ let make_input ~(label : plain_text) ~element ?dispatch_action ?block_id ?(hint 
 
 let make_section ?(text : text_object option) ?block_id ?fields ?accessory ?expand () =
   Block_kit_j.(Section (make_section ?text ?block_id ?fields ?accessory ?expand ()))
+
+(******************* Views ***********************)
+
+let make_modal ~(title : plain_text) ~blocks ?(close : plain_text option) ?(submit : plain_text option)
+  ?(private_metadata : string option) ?(callback_id : string option) ?(clear_on_close : bool option)
+  ?(notify_on_close : bool option) ?(external_id : string option) ?(submit_disabled : bool option) ()
+  =
+  let validate_plain_text (plain_text : plain_text) =
+    if String.length plain_text.text > 24 then
+      raise (Invalid_argument (Printf.sprintf "text limit 24char exceeded: %s" plain_text.text));
+    Plain_text plain_text
+  in
+  let title = validate_plain_text title in
+  let close = Option.map (fun (v : plain_text) -> validate_plain_text v) close in
+  let submit = Option.map (fun (v : plain_text) -> validate_plain_text v) submit in
+  Block_kit_j.(
+    Modal
+      (make_modal ~title ~blocks ?close ?submit ?private_metadata ?callback_id ?clear_on_close ?notify_on_close
+         ?external_id ?submit_disabled ()
+      )
+  )

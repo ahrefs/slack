@@ -51,6 +51,11 @@ module type S = sig
   val list_bookmarks : ctx:Context.t -> req:list_bookmarks_req -> list_bookmarks_res slack_response Lwt.t
   val remove_bookmark : ctx:Context.t -> req:remove_bookmark_req -> remove_bookmark_res slack_response Lwt.t
 
+  (* views *)
+  val open_views : ctx:Context.t -> req:open_views_req -> open_views_res slack_response Lwt.t
+  val push_views : ctx:Context.t -> req:push_views_req -> push_views_res slack_response Lwt.t
+  val update_views : ctx:Context.t -> req:update_views_req -> update_views_res slack_response Lwt.t
+
   (* misc *)
   val send_auth_test : ctx:Context.t -> unit -> auth_test_res slack_response Lwt.t
 end

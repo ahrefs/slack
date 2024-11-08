@@ -1,6 +1,25 @@
 type json <ocaml module="Yojson.Basic" t="t"> = abstract
 
+type view = [
+  | Modal <json name="modal"> of modal
+] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type modal <ocaml attr="deriving make"> = {
+  title: text_object;
+  blocks: block list <ocaml valid="fun l -> List.length l <= 100">;
+  ?close: text_object nullable;
+  ?submit: text_object nullable;
+  ?private_metadata: string nullable <ocaml valid="fun s -> String.length s <= 3000">;
+  ?callback_id: string nullable <ocaml valid="fun s -> String.length s <= 255">;
+  ?clear_on_close : bool nullable;
+  ?notify_on_close : bool nullable;
+  ?external_id: string nullable;
+  ?submit_disabled: bool nullable;
+}
+
 (******************* Blocks ***********************)
+
+type blocks = block list
 
 type block = [
   | Divider <json name = "divider"> of divider
@@ -9,21 +28,21 @@ type block = [
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type divider <ocaml attr="deriving make"> = {
-  block_id : block_id nullable
+  block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">
 }
 
 type input <ocaml attr="deriving make"> = {
   label : text_object;
   element : element;
   ?dispatch_action : bool nullable;
-  ?block_id : block_id nullable;
+  ?block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?hint : text_object nullable;
   ?optional : bool nullable
 }
 
 type section <ocaml attr="deriving make"> = {
   ?text : text_object nullable;
-  ?block_id : block_id nullable;
+  ?block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?fields : text_object list nullable <ocaml valid="fun l -> List.length l <= 10">;
   ?accessory : element nullable;
   ?expand : bool nullable
@@ -41,7 +60,7 @@ type element = [
 
 type button <ocaml attr="deriving make"> = {
   text : text_object nullable;
-  ?action_id : action_id nullable;
+  ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?url : string nullable;
   ?value : string nullable;
   ?style : style nullable;
@@ -50,7 +69,7 @@ type button <ocaml attr="deriving make"> = {
 }
 
 type plain_text_input <ocaml attr="deriving make"> = {
-  ?action_id : action_id nullable;
+  ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?initial_value : string nullable;
   ?multiline : bool nullable;
   ?min_length : int nullable;
@@ -61,7 +80,7 @@ type plain_text_input <ocaml attr="deriving make"> = {
 }
 
 type multi_static_select_menu <ocaml attr="deriving make"> = {
-  ?action_id : action_id nullable;
+  ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?options : option_object list nullable <ocaml valid="fun l -> List.length <= 100">;
   ?option_groups : option_group list nullable <ocaml valid="fun l -> List.length <= 100">;
   ?inital_options : options list nullable;
@@ -72,7 +91,7 @@ type multi_static_select_menu <ocaml attr="deriving make"> = {
 }
 
 type multi_users_select_menu <ocaml attr="deriving make"> = {
-  ?action_id : action_id nullable;
+  ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?initial_users : string nullable;
   ?confirm : confirmation_dialog_object nullable;
   ?max_selected_items : int nullable <ocaml valid="fun i -> i >= 1">;
@@ -81,7 +100,7 @@ type multi_users_select_menu <ocaml attr="deriving make"> = {
 }
 
 type static_select_menu <ocaml attr="deriving make"> = {
-  ?action_id : action_id nullable;
+  ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?options : option_object list nullable;
   ?option_groups : option_group list nullable;
   ?initial_option : options nullable;
@@ -136,8 +155,3 @@ type mrkdwn_text <ocaml attr="deriving make"> = {
   text : string  <ocaml valid="fun s -> String.length s >= 1 && String.length s <= 3000">;
   ?verbatim : bool nullable
 }
-
-(******************* Constraints ***********************)
-
-type block_id = string <ocaml valid="fun s -> String.length s <= 255">
-type action_id = string <ocaml valid="fun s -> String.length s <= 255">

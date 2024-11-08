@@ -131,6 +131,45 @@ let remove_bookmark ~ctx:_ ~(req : Slack_t.remove_bookmark_req) =
   let url = Filename.concat cache_dir (sprintf "%s_%s_remove_bookmark" req.bookmark_id req.channel_id) in
   with_cache_file url Slack_j.remove_bookmark_res_of_string
 
+let open_views ~ctx:_ ~(req : Slack_t.open_views_req) =
+  match req.trigger_id, req.interactivity_pointer with
+  | Some _, Some _ -> Lwt.return_error (`Other "Both trigger_id and interactivity_pointer found")
+  | None, None -> Lwt.return_error (`Other "Both trigger_id and interactivity_pointer not found")
+  | Some id, None ->
+    printf "opening views at trigger_id #%s...\n" id;
+    let url = Filename.concat cache_dir (sprintf "%s_open_views" id) in
+    with_cache_file url Slack_j.open_views_res_of_string
+  | None, Some ptr ->
+    printf "opening views at interactivity_pointer #%s...\n" ptr;
+    let url = Filename.concat cache_dir (sprintf "%s_open_views" ptr) in
+    with_cache_file url Slack_j.open_views_res_of_string
+
+let push_views ~ctx:_ ~(req : Slack_t.push_views_req) =
+  match req.trigger_id, req.interactivity_pointer with
+  | Some _, Some _ -> Lwt.return_error (`Other "Both trigger_id and interactivity_pointer found")
+  | None, None -> Lwt.return_error (`Other "Both trigger_id and interactivity_pointer not found")
+  | Some id, None ->
+    printf "pushing views at trigger_id #%s...\n" id;
+    let url = Filename.concat cache_dir (sprintf "%s_push_views" id) in
+    with_cache_file url Slack_j.push_views_res_of_string
+  | None, Some ptr ->
+    printf "pushing views at interactivity_pointer #%s...\n" ptr;
+    let url = Filename.concat cache_dir (sprintf "%s_push_views" ptr) in
+    with_cache_file url Slack_j.push_views_res_of_string
+
+let update_views ~ctx:_ ~(req : Slack_t.update_views_req) =
+  match req.external_id, req.view_id with
+  | Some _, Some _ -> Lwt.return_error (`Other "Both external_id and view_id found")
+  | None, None -> Lwt.return_error (`Other "Both external_id and view_id not found")
+  | Some id, None ->
+    printf "updating views at external_id #%s...\n" id;
+    let url = Filename.concat cache_dir (sprintf "%s_update_views" id) in
+    with_cache_file url Slack_j.update_views_res_of_string
+  | None, Some ptr ->
+    printf "updating views at view_id #%s...\n" ptr;
+    let url = Filename.concat cache_dir (sprintf "%s_update_views" ptr) in
+    with_cache_file url Slack_j.update_views_res_of_string
+
 let send_auth_test ~ctx:_ () =
   Lwt.return
   @@ Ok ({ url = ""; team = ""; user = ""; team_id = ""; user_id = "test_slack_user" } : Slack_t.auth_test_res)

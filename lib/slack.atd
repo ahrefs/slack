@@ -706,3 +706,44 @@ type interaction_action = {
   action_ts: string; (* timestamp of the action *)
   ?value: string nullable;
 }
+
+type view <ocaml from="Block_kit"> = abstract
+
+type open_views_req <ocaml attr="deriving make"> = {
+  view : view;
+  (* One of trigger_id or interactivity_pointer needs to be defined *)
+  ?trigger_id : string nullable;
+  ?interactivity_pointer : string nullable;
+}
+
+type open_views_res = {
+  ok : bool;
+  view : view;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type push_views_req <ocaml attr="deriving make"> = {
+  view: view;
+  (* One of trigger_id or interactivity_pointer needs to be defined *)
+  ?trigger_id : string nullable;
+  ?interactivity_pointer : string nullable;
+}
+
+type push_views_res = {
+  ok : bool;
+  view: view;
+  ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
+}
+
+type update_views_req <ocaml attr="deriving make"> = {
+  view: view;
+  (* One of external_id or view_id needs to be defined *)
+  ?external_id : string nullable;
+  ?view_id : string nullable;
+  ?hash : string nullable;
+}
+
+type update_views_res = {
+  ok : bool;
+  view: view;
+}

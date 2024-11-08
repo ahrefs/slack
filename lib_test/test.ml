@@ -285,6 +285,50 @@ let process_remove_bookmark (bookmark_id, channel_id) =
       (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
+let views_list =
+  let title = Slack_lib.Block_kit_safe.make_plain_text ~text:"dummy" () in
+  let view = Slack_lib.Block_kit_safe.make_modal ~title ~blocks:[] () in
+  [ Some "ref1", None, view; None, Some "ref1", view; Some "ref1", Some "ref1", view; None, None, view ]
+
+let process_open_views (ref1, ref2, view) =
+  Printf.printf "open_views----------------\n";
+  let req : Slack_t.open_views_req = { trigger_id = ref1; interactivity_pointer = ref2; view } in
+  let ctx = Context.empty_ctx () in
+  match%lwt Api.open_views ~ctx ~req with
+  | Ok res ->
+    let json = res |> Slack_j.string_of_open_views_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    Printf.printf "failed to open views: %s\n" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let process_push_views (ref1, ref2, view) =
+  Printf.printf "push_views----------------\n";
+  let req : Slack_t.push_views_req = { trigger_id = ref1; interactivity_pointer = ref2; view } in
+  let ctx = Context.empty_ctx () in
+  match%lwt Api.push_views ~ctx ~req with
+  | Ok res ->
+    let json = res |> Slack_j.string_of_push_views_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    Printf.printf "failed to push views: %s\n" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let process_update_views (ref1, ref2, view) =
+  Printf.printf "update_views----------------\n";
+  let req : Slack_t.update_views_req = { view_id = ref1; external_id = ref2; view; hash = None } in
+  let ctx = Context.empty_ctx () in
+  match%lwt Api.update_views ~ctx ~req with
+  | Ok res ->
+    let json = res |> Slack_j.string_of_update_views_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    Printf.printf "failed to update views: %s\n" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
 let mock_slack_event_dir = "mock-slack-events"
 
 let get_mock_slack_events () =
@@ -376,6 +420,9 @@ let () =
      let%lwt () = Lwt_list.iter_s process_edit_bookmark edit_bookmarks_id_list in
      let%lwt () = Lwt_list.iter_s process_list_bookmarks list_bookmarks_id_list in
      let%lwt () = Lwt_list.iter_s process_remove_bookmark remove_bookmarks_id_list in
+     let%lwt () = Lwt_list.iter_s process_open_views views_list in
+     let%lwt () = Lwt_list.iter_s process_push_views views_list in
+     let%lwt () = Lwt_list.iter_s process_update_views views_list in
      let%lwt () = Lwt_list.iter_s process_events slack_events in
      let%lwt () = Lwt_list.iter_s process_interactions slack_interactions in
      Lwt.return_unit

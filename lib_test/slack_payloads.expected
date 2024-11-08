@@ -632,6 +632,196 @@ listing bookmarks at channel_id #C1RQ000...
 remove_bookmark_to_channel_id_of--------channel_id: Bk033XFJ9BTJ--------
 removing bookmark C1RQ000 at channel_id #Bk033XFJ9BTJ...
 { "ok": true }
+open_views----------------
+opening views at trigger_id #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Quite a plain modal" },
+    "blocks": [
+      {
+        "type": "input",
+        "label": {
+          "type": "plain_text",
+          "text": "A simple label",
+          "emoji": true
+        },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "an_action_id"
+        },
+        "block_id": "a_block_id",
+        "optional": false
+      }
+    ],
+    "submit": { "type": "plain_text", "text": "Create" },
+    "private_metadata": "Shh it is a secret",
+    "callback_id": "identify_your_modals",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+open_views----------------
+opening views at interactivity_pointer #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Quite a plain modal" },
+    "blocks": [
+      {
+        "type": "input",
+        "label": {
+          "type": "plain_text",
+          "text": "A simple label",
+          "emoji": true
+        },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "an_action_id"
+        },
+        "block_id": "a_block_id",
+        "optional": false
+      }
+    ],
+    "submit": { "type": "plain_text", "text": "Create" },
+    "private_metadata": "Shh it is a secret",
+    "callback_id": "identify_your_modals",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+open_views----------------
+failed to open views: "Both trigger_id and interactivity_pointer found"
+open_views----------------
+failed to open views: "Both trigger_id and interactivity_pointer not found"
+push_views----------------
+pushing views at trigger_id #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Pushed Modal", "emoji": true },
+    "blocks": [
+      {
+        "type": "input",
+        "label": { "type": "plain_text", "text": "Edit details" },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "detail_input"
+        },
+        "block_id": "edit_details"
+      }
+    ],
+    "close": { "type": "plain_text", "text": "Back", "emoji": true },
+    "submit": { "type": "plain_text", "text": "Save", "emoji": true },
+    "private_metadata": "",
+    "callback_id": "view_4",
+    "clear_on_close": true,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+push_views----------------
+pushing views at interactivity_pointer #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Pushed Modal", "emoji": true },
+    "blocks": [
+      {
+        "type": "input",
+        "label": { "type": "plain_text", "text": "Edit details" },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "detail_input"
+        },
+        "block_id": "edit_details"
+      }
+    ],
+    "close": { "type": "plain_text", "text": "Back", "emoji": true },
+    "submit": { "type": "plain_text", "text": "Save", "emoji": true },
+    "private_metadata": "",
+    "callback_id": "view_4",
+    "clear_on_close": true,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+push_views----------------
+failed to push views: "Both trigger_id and interactivity_pointer found"
+push_views----------------
+failed to push views: "Both trigger_id and interactivity_pointer not found"
+update_views----------------
+updating views at view_id #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Updated Modal", "emoji": true },
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "plain_text",
+          "text": "I am but an updated modal",
+          "emoji": true
+        },
+        "block_id": "s_block",
+        "accessory": {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Click me" },
+          "action_id": "button_4"
+        }
+      }
+    ],
+    "close": { "type": "plain_text", "text": "Close", "emoji": true },
+    "private_metadata": "",
+    "callback_id": "view_2",
+    "clear_on_close": true,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+update_views----------------
+updating views at external_id #ref1...
+{
+  "ok": true,
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Updated Modal", "emoji": true },
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "plain_text",
+          "text": "I am but an updated modal",
+          "emoji": true
+        },
+        "block_id": "s_block",
+        "accessory": {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Click me" },
+          "action_id": "button_4"
+        }
+      }
+    ],
+    "close": { "type": "plain_text", "text": "Close", "emoji": true },
+    "private_metadata": "",
+    "callback_id": "view_2",
+    "clear_on_close": true,
+    "notify_on_close": false,
+    "external_id": ""
+  }
+}
+update_views----------------
+failed to update views: "Both external_id and view_id found"
+update_views----------------
+failed to update views: "Both external_id and view_id not found"
 ===== file mock-slack-events/link_shared.json =====
 {
   "token": "",
