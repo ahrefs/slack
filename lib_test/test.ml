@@ -216,6 +216,75 @@ let process_list_users cursor =
     log#error "failed to get users at cursor %s: %s" cursor (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
+let add_bookmarks_list = [ "C1RQ000", "bookmark-1", "link" ]
+
+let process_add_bookmark (channel_id, title, type_) =
+  Printf.printf "add_bookmark_to_channel_id_of--------channel_id: %s--------\n" channel_id;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.add_bookmark_req = Slack_j.make_add_bookmark_req ~channel_id ~title ~type_ () in
+  match%lwt Api.add_bookmark ~ctx ~req with
+  | Ok res ->
+    let json = res |> Slack_j.string_of_add_bookmark_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to add bookmark (channel %s, title %s, type %s): %s" channel_id title type_
+      (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let edit_bookmarks_id_list = [ "C1RQ000", "Bk033XFJ9BTJ" ]
+
+let process_edit_bookmark (bookmark_id, channel_id) =
+  Printf.printf "edit_bookmark_to_channel_id_of--------channel_id: %s--------\n" channel_id;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.edit_bookmark_req = Slack_j.make_edit_bookmark_req ~channel_id ~bookmark_id () in
+  match%lwt Api.edit_bookmark ~ctx ~req with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_edit_bookmark_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to edit bookmark (bookmark %s, channel %s): %s" bookmark_id channel_id
+      (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let list_bookmarks_id_list = [ "C1RQ000" ]
+
+let process_list_bookmarks channel_id =
+  Printf.printf "list_bookmarks_to_channel_id_of--------channel_id: %s--------\n" channel_id;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.list_bookmarks_req = Slack_j.make_list_bookmarks_req ~channel_id in
+  match%lwt Api.list_bookmarks ~ctx ~req with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_list_bookmarks_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to list bookmarks in channel %s: %s" channel_id (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
+let remove_bookmarks_id_list = [ "C1RQ000", "Bk033XFJ9BTJ" ]
+
+let process_remove_bookmark (bookmark_id, channel_id) =
+  Printf.printf "remove_bookmark_to_channel_id_of--------channel_id: %s--------\n" channel_id;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.remove_bookmark_req = Slack_j.make_remove_bookmark_req ~channel_id ~bookmark_id () in
+  match%lwt Api.remove_bookmark ~ctx ~req with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_remove_bookmark_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to remove bookmark (bookmark %s, channel %s): %s" bookmark_id channel_id
+      (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
 let mock_slack_event_dir = "mock-slack-events"
 
 let get_mock_slack_events () =
@@ -303,6 +372,10 @@ let () =
      let%lwt () = Lwt_list.iter_s process_list_usergroups list_usergroups_team_id_list in
      let%lwt () = Lwt_list.iter_s process_list_usergroup_users list_usergroup_users_usergroup_id_list in
      let%lwt () = Lwt_list.iter_s process_list_users list_users_cursors_list in
+     let%lwt () = Lwt_list.iter_s process_add_bookmark add_bookmarks_list in
+     let%lwt () = Lwt_list.iter_s process_edit_bookmark edit_bookmarks_id_list in
+     let%lwt () = Lwt_list.iter_s process_list_bookmarks list_bookmarks_id_list in
+     let%lwt () = Lwt_list.iter_s process_remove_bookmark remove_bookmarks_id_list in
      let%lwt () = Lwt_list.iter_s process_events slack_events in
      let%lwt () = Lwt_list.iter_s process_interactions slack_interactions in
      Lwt.return_unit

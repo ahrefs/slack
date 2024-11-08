@@ -385,6 +385,60 @@ type list_usergroup_users_res = {
   users : string list;
 }
 
+type add_bookmark_req <ocaml attr="deriving make"> = {
+  channel_id: string;
+  title: string;
+  type_ <json name = "type"> : string;
+  ?emoji : string nullable;
+  ?entity_id : string nullable;
+  ?link : string nullable;
+  ?parent_id : string nullable
+}
+
+type add_bookmark_res = {
+  ok: bool;
+  bookmark: bookmark
+}
+
+type edit_bookmark_req <ocaml attr="deriving make"> = {
+  channel_id: string;
+  bookmark_id: string;
+  ?emoji : string nullable;
+  ?link : string nullable;
+  ?title : string nullable
+}
+
+type edit_bookmark_res = {
+  ok: bool;
+  bookmark: bookmark
+}
+
+type list_bookmarks_req <ocaml attr="deriving make"> = {
+  channel_id: string;
+}
+
+type list_bookmarks_res = {
+  ok: bool;
+  bookmarks: bookmark list
+}
+
+type remove_bookmark_req <ocaml attr="deriving make"> = {
+  channel_id: string;
+  bookmark_id: string;
+  ?quip_section_id: string nullable
+}
+
+type remove_bookmark_res = {
+  ok: bool;
+}
+
+type bookmark = {
+  id: string;
+  channel_id: string;
+  title: string;
+  link: string;
+}
+
 type unfurl_block = {
   blocks: message_block list;
 }

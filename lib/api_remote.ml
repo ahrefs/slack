@@ -105,7 +105,7 @@ let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
     ~name:(sprintf "file.upload (%s)" @@ Option.default "<NO CHANNEL>" file.channels)
     ~body `POST "files.upload" Slack_j.read_files_upload_res
 
-(** [join_conversation ctx channel ] will join the token owner 
+(** [join_conversation ctx channel ] will join the token owner
     [ctx.secrets.slack_access_token] to the [channel]. *)
 let join_conversation ~(ctx : Context.t) ~(channel : Slack_t.conversations_join_req) =
   log#info "joining channel %s" channel.channel;
@@ -283,6 +283,42 @@ let list_users ~(ctx : Context.t) ~(req : Slack_t.list_users_req) =
   request_token_auth
     ~name:(sprintf "users.list (%s)" @@ Slack_j.string_of_list_users_req req)
     ~ctx `GET api_path Slack_j.read_list_users_res
+
+let add_bookmark ~(ctx : Context.t) ~(req : Slack_t.add_bookmark_req) =
+  log#info "adding bookmark %s" @@ Slack_j.string_of_add_bookmark_req req;
+  let data = Slack_j.string_of_add_bookmark_req req in
+  let body = `Raw ("application/json", data) in
+  let api_path = sprintf "bookmark.add" in
+  request_token_auth
+    ~name:(sprintf "bookmark.add (%s)" @@ Slack_j.string_of_add_bookmark_req req)
+    ~ctx ~body `POST api_path Slack_j.read_add_bookmark_res
+
+let edit_bookmark ~(ctx : Context.t) ~(req : Slack_t.edit_bookmark_req) =
+  log#info "editting bookmark %s" @@ Slack_j.string_of_edit_bookmark_req req;
+  let data = Slack_j.string_of_edit_bookmark_req req in
+  let body = `Raw ("application/json", data) in
+  let api_path = sprintf "bookmark.edit" in
+  request_token_auth
+    ~name:(sprintf "bookmark.edit (%s)" @@ Slack_j.string_of_edit_bookmark_req req)
+    ~ctx ~body `POST api_path Slack_j.read_edit_bookmark_res
+
+let list_bookmarks ~(ctx : Context.t) ~(req : Slack_t.list_bookmarks_req) =
+  log#info "getting bookmarks %s" @@ Slack_j.string_of_list_bookmarks_req req;
+  let data = Slack_j.string_of_list_bookmarks_req req in
+  let body = `Raw ("application/json", data) in
+  let api_path = sprintf "bookmarks.list" in
+  request_token_auth
+    ~name:(sprintf "bookmarks.list (%s)" @@ Slack_j.string_of_list_bookmarks_req req)
+    ~ctx ~body `POST api_path Slack_j.read_list_bookmarks_res
+
+let remove_bookmark ~(ctx : Context.t) ~(req : Slack_t.remove_bookmark_req) =
+  log#info "removing bookmark %s" @@ Slack_j.string_of_remove_bookmark_req req;
+  let data = Slack_j.string_of_remove_bookmark_req req in
+  let body = `Raw ("application/json", data) in
+  let api_path = sprintf "bookmark.remove" in
+  request_token_auth
+    ~name:(sprintf "bookmark.remove (%s)" @@ Slack_j.string_of_remove_bookmark_req req)
+    ~ctx ~body `POST api_path Slack_j.read_remove_bookmark_res
 
 let send_auth_test ~(ctx : Context.t) () =
   request_token_auth ~name:"retrieve bot information" ~ctx `POST "auth.test" Slack_j.read_auth_test_res

@@ -111,6 +111,26 @@ let list_users ~ctx:_ ~(req : Slack_t.list_users_req) =
   let url = Filename.concat cache_dir (sprintf "%s_list_users" @@ Option.get req.cursor) in
   with_cache_file url Slack_j.list_users_res_of_string
 
+let add_bookmark ~ctx:_ ~(req : Slack_t.add_bookmark_req) =
+  printf "adding bookmark (title %s, type %s) to channel_id #%s...\n" req.title req.type_ req.channel_id;
+  let url = Filename.concat cache_dir (sprintf "%s_%s_%s_add_bookmark" req.channel_id req.title req.type_) in
+  with_cache_file url Slack_j.add_bookmark_res_of_string
+
+let edit_bookmark ~ctx:_ ~(req : Slack_t.edit_bookmark_req) =
+  printf "editting bookmark %s at channel_id #%s...\n" req.bookmark_id req.channel_id;
+  let url = Filename.concat cache_dir (sprintf "%s_%s_edit_bookmark" req.bookmark_id req.channel_id) in
+  with_cache_file url Slack_j.edit_bookmark_res_of_string
+
+let list_bookmarks ~ctx:_ ~(req : Slack_t.list_bookmarks_req) =
+  printf "listing bookmarks at channel_id #%s...\n" req.channel_id;
+  let url = Filename.concat cache_dir (sprintf "%s_list_bookmarks" req.channel_id) in
+  with_cache_file url Slack_j.list_bookmarks_res_of_string
+
+let remove_bookmark ~ctx:_ ~(req : Slack_t.remove_bookmark_req) =
+  printf "removing bookmark %s at channel_id #%s...\n" req.bookmark_id req.channel_id;
+  let url = Filename.concat cache_dir (sprintf "%s_%s_remove_bookmark" req.bookmark_id req.channel_id) in
+  with_cache_file url Slack_j.remove_bookmark_res_of_string
+
 let send_auth_test ~ctx:_ () =
   Lwt.return
   @@ Ok ({ url = ""; team = ""; user = ""; team_id = ""; user_id = "test_slack_user" } : Slack_t.auth_test_res)

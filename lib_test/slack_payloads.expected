@@ -594,6 +594,44 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
   ],
   "response_metadata": { "next_cursor": "" }
 }
+add_bookmark_to_channel_id_of--------channel_id: C1RQ000--------
+adding bookmark (title bookmark-1, type link) to channel_id #C1RQ000...
+{
+  "ok": true,
+  "bookmark": {
+    "id": "Bk033XFJ9BTJ",
+    "channel_id": "C1RQ000",
+    "title": "bookmark-1",
+    "link": "https://google.com"
+  }
+}
+edit_bookmark_to_channel_id_of--------channel_id: Bk033XFJ9BTJ--------
+editting bookmark C1RQ000 at channel_id #Bk033XFJ9BTJ...
+{
+  "ok": true,
+  "bookmark": {
+    "id": "Bk033XFJ9BTJ",
+    "channel_id": "C1RQ000",
+    "title": "bookmark-1",
+    "link": "https://google.com"
+  }
+}
+list_bookmarks_to_channel_id_of--------channel_id: C1RQ000--------
+listing bookmarks at channel_id #C1RQ000...
+{
+  "ok": true,
+  "bookmarks": [
+    {
+      "id": "Bk123ABC4DEF",
+      "channel_id": "C1RQ000",
+      "title": "bookmark-1",
+      "link": "https://google.com"
+    }
+  ]
+}
+remove_bookmark_to_channel_id_of--------channel_id: Bk033XFJ9BTJ--------
+removing bookmark C1RQ000 at channel_id #Bk033XFJ9BTJ...
+{ "ok": true }
 ===== file mock-slack-events/link_shared.json =====
 {
   "token": "",
