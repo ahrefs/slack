@@ -124,11 +124,6 @@ type confirmation_dialog_object <ocaml attr="deriving make"> = {
   ?style : style nullable;
 }
 
-(* type options = [ *)
-(*   | Option_object of option_object *)
-(*   | Option_group  of option_group *)
-(* ] <ocaml repr = "classic"> *)
-
 type option_object <ocaml attr="deriving make"> = {
   text : text_object;
   value : string <ocaml valid="fun s -> String.length s <= 150">;
