@@ -28,7 +28,8 @@ let make_modal_v2 (todo_list_options : todo_list_option list) =
             )
             todo_list_options
         in
-        make_static_select_menu ~options ()
+        let initial_option = List.hd options in
+        make_static_select_menu ~initial_option ~options ()
       in
       let label = make_plain_text ~text:"Todo-list" () in
       make_input ~label ~element:static_select_menu ()

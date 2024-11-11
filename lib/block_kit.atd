@@ -83,7 +83,7 @@ type multi_static_select_menu <ocaml attr="deriving make"> = {
   ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?options : option_object list nullable <ocaml valid="fun l -> List.length <= 100">;
   ?option_groups : option_group list nullable <ocaml valid="fun l -> List.length <= 100">;
-  ?inital_options : options list nullable;
+  ?initial_option : option_object list nullable;
   ?confirm : confirmation_dialog_object nullable;
   ?max_selected_items : int nullable <ocaml valid="fun i -> i >= 1">;
   ?focus_on_load : bool nullable;
@@ -103,7 +103,7 @@ type static_select_menu <ocaml attr="deriving make"> = {
   ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
   ?options : option_object list nullable;
   ?option_groups : option_group list nullable;
-  ?initial_option : options nullable;
+  ?initial_option: option_object nullable;
   ?confirm : confirmation_dialog_object nullable;
   ?focus_on_load : bool nullable;
   ?place_holder : text_object nullable
@@ -124,10 +124,10 @@ type confirmation_dialog_object <ocaml attr="deriving make"> = {
   ?style : style nullable;
 }
 
-type options = [
-  | Option_object of option_object
-  | Option_group of option_group
-] <ocaml repr = "classic">
+(* type options = [ *)
+(*   | Option_object of option_object *)
+(*   | Option_group  of option_group *)
+(* ] <ocaml repr = "classic"> *)
 
 type option_object <ocaml attr="deriving make"> = {
   text : text_object;

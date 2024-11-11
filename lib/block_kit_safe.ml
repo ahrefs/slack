@@ -65,16 +65,15 @@ let make_multi_static_select_menu ?action_id ~(options : option_object list)
       )
       place_holder
   in
-  let initial_option = Option.map (fun v -> List.map (fun o -> Option_object o) v) initial_option in
   Block_kit_j.(
     Multi_static_select_menu
-      (make_multi_static_select_menu ?action_id ~options ?inital_options:initial_option ?confirm ?max_selected_items
-         ?focus_on_load ?place_holder ()
+      (make_multi_static_select_menu ?action_id ~options ?initial_option ?confirm ?max_selected_items ?focus_on_load
+         ?place_holder ()
       )
   )
 
 let make_multi_static_select_menu_group ?action_id ~(option_groups : option_group list)
-  ?(initial_option : option_group list option) ?confirm ?max_selected_items ?focus_on_load
+  ?(initial_option : option_object list option) ?confirm ?max_selected_items ?focus_on_load
   ?(place_holder : plain_text option) ()
   =
   let place_holder =
@@ -86,11 +85,10 @@ let make_multi_static_select_menu_group ?action_id ~(option_groups : option_grou
       )
       place_holder
   in
-  let initial_option = Option.map (fun v -> List.map (fun o -> Option_group o) v) initial_option in
   Block_kit_j.(
     Multi_static_select_menu
-      (make_multi_static_select_menu ?action_id ~option_groups ?inital_options:initial_option ?confirm
-         ?max_selected_items ?focus_on_load ?place_holder ()
+      (make_multi_static_select_menu ?action_id ~option_groups ?initial_option ?confirm ?max_selected_items
+         ?focus_on_load ?place_holder ()
       )
   )
 
@@ -107,14 +105,13 @@ let make_static_select_menu ?action_id ~(options : option_object list) ?(initial
       )
       place_holder
   in
-  let initial_option = Option.map (fun o -> Option_object o) initial_option in
   Block_kit_j.(
     Static_select_menu
       (make_static_select_menu ?action_id ~options ?initial_option ?confirm ?focus_on_load ?place_holder ())
   )
 
 let make_static_select_menu_group ?action_id ~(option_groups : option_group list)
-  ?(initial_option : option_group option) ?confirm ?focus_on_load ?(place_holder : plain_text option) ()
+  ?(initial_option : option_object option) ?confirm ?focus_on_load ?(place_holder : plain_text option) ()
   =
   if List.length option_groups > 100 then raise (Invalid_argument "option objects limit 100 exceeded");
   let place_holder =
@@ -126,7 +123,6 @@ let make_static_select_menu_group ?action_id ~(option_groups : option_group list
       )
       place_holder
   in
-  let initial_option = Option.map (fun o -> Option_group o) initial_option in
   Block_kit_j.(
     Static_select_menu
       (make_static_select_menu ?action_id ~option_groups ?initial_option ?confirm ?focus_on_load ?place_holder ())
