@@ -6,9 +6,15 @@ let make_plain_text' ~text ?emoji () = Block_kit_j.(Plain_text (make_plain_text 
 let make_mrkdwn_text' ~text ?verbatim () = Block_kit_j.(Mrkdwn (make_mrkdwn_text ~text ?verbatim ()))
 
 let make_option_group ~(label : plain_text) ?(options : option_object list option) =
+  if String.length label.text > 75 then
+    raise (Invalid_argument (Printf.sprintf "text limit 75char exceeded: %s" label.text));
   Block_kit_j.make_option_group ~label:(Plain_text label) ?options
 
 let make_option_object ~text ~value ?(description : plain_text option) url =
+  ( match text with
+  | Plain_text { text; _ } | Mrkdwn { text; _ } ->
+    if String.length text > 75 then raise (Invalid_argument (Printf.sprintf "text limit 75char exceeded: %s" text))
+  );
   let description = Option.map (fun v -> Plain_text v) description in
   Block_kit_j.make_option_object ~text ~value ?description url
 
