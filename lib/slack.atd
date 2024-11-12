@@ -435,7 +435,7 @@ type remove_bookmark_res = {
 type bookmark = {
   id: string;
   channel_id: string;
-  title: string;
+  ?title: string nullable;
   link: string;
 }
 
