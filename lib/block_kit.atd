@@ -138,7 +138,7 @@ type option_group <ocaml attr="deriving make"> = {
 
 type text_object = [
   | Plain_text <json name = "plain_text"> of plain_text
-  | Mrkdwn <json name = "markdwn"> of mrkdwn_text
+  | Mrkdwn <json name = "mrkdwn"> of mrkdwn_text
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type plain_text <ocaml attr="deriving make"> = {
