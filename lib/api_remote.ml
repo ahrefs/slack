@@ -285,66 +285,74 @@ let list_users ~(ctx : Context.t) ~(req : Slack_t.list_users_req) =
     ~ctx `GET api_path Slack_j.read_list_users_res
 
 let add_bookmark ~(ctx : Context.t) ~(req : Slack_t.add_bookmark_req) =
-  log#info "adding bookmark %s" @@ Slack_j.string_of_add_bookmark_req req;
+  log#info "adding bookmark %s in %s" req.title req.channel_id;
   let data = Slack_j.string_of_add_bookmark_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "bookmark.add" in
   request_token_auth
-    ~name:(sprintf "bookmark.add (%s)" @@ Slack_j.string_of_add_bookmark_req req)
+    ~name:(sprintf "bookmark.add (%s, %s)" req.title req.channel_id)
     ~ctx ~body `POST api_path Slack_j.read_add_bookmark_res
 
 let edit_bookmark ~(ctx : Context.t) ~(req : Slack_t.edit_bookmark_req) =
-  log#info "editting bookmark %s" @@ Slack_j.string_of_edit_bookmark_req req;
+  log#info "editting bookmark %s in %s" req.bookmark_id req.channel_id;
   let data = Slack_j.string_of_edit_bookmark_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "bookmark.edit" in
   request_token_auth
-    ~name:(sprintf "bookmark.edit (%s)" @@ Slack_j.string_of_edit_bookmark_req req)
+    ~name:(sprintf "bookmark.edit (%s, %s)" req.bookmark_id req.channel_id)
     ~ctx ~body `POST api_path Slack_j.read_edit_bookmark_res
 
 let list_bookmarks ~(ctx : Context.t) ~(req : Slack_t.list_bookmarks_req) =
-  log#info "getting bookmarks %s" @@ Slack_j.string_of_list_bookmarks_req req;
+  log#info "listing bookmarks in %s" req.channel_id;
   let data = Slack_j.string_of_list_bookmarks_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "bookmarks.list" in
   request_token_auth
-    ~name:(sprintf "bookmarks.list (%s)" @@ Slack_j.string_of_list_bookmarks_req req)
+    ~name:(sprintf "bookmarks.list (%s)" req.channel_id)
     ~ctx ~body `POST api_path Slack_j.read_list_bookmarks_res
 
 let remove_bookmark ~(ctx : Context.t) ~(req : Slack_t.remove_bookmark_req) =
-  log#info "removing bookmark %s" @@ Slack_j.string_of_remove_bookmark_req req;
+  log#info "removing bookmark %s from %s" req.bookmark_id req.channel_id;
   let data = Slack_j.string_of_remove_bookmark_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "bookmark.remove" in
   request_token_auth
-    ~name:(sprintf "bookmark.remove (%s)" @@ Slack_j.string_of_remove_bookmark_req req)
+    ~name:(sprintf "bookmark.remove (%s, %s)" req.bookmark_id req.channel_id)
     ~ctx ~body `POST api_path Slack_j.read_remove_bookmark_res
 
+let get_or_null = Option.default "NULL"
+
 let open_views ~(ctx : Context.t) ~(req : Slack_t.open_views_req) =
-  log#info "opening views %s" @@ Slack_j.string_of_open_views_req req;
+  log#info "opening views with trigger_id %s and interactivity_pointer %s" (get_or_null req.trigger_id)
+    (get_or_null req.interactivity_pointer);
   let data = Slack_j.string_of_open_views_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "views.open" in
   request_token_auth
-    ~name:(sprintf "views.open (%s)" @@ Slack_j.string_of_open_views_req req)
+    ~name:(sprintf "views.open (tr: %s, ip: %s)" (get_or_null req.trigger_id) (get_or_null req.interactivity_pointer))
     ~ctx ~body `POST api_path Slack_j.read_open_views_res
 
 let push_views ~(ctx : Context.t) ~(req : Slack_t.push_views_req) =
-  log#info "pushing views %s" @@ Slack_j.string_of_push_views_req req;
+  log#info "pushing views with trigger_id %s and interactivity_pointer %s" (get_or_null req.trigger_id)
+    (get_or_null req.interactivity_pointer);
   let data = Slack_j.string_of_push_views_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "views.push" in
   request_token_auth
-    ~name:(sprintf "views.push (%s)" @@ Slack_j.string_of_push_views_req req)
+    ~name:(sprintf "views.push (tr: %s, ip: %s)" (get_or_null req.trigger_id) (get_or_null req.interactivity_pointer))
     ~ctx ~body `POST api_path Slack_j.read_push_views_res
 
 let update_views ~(ctx : Context.t) ~(req : Slack_t.update_views_req) =
-  log#info "updating views %s" @@ Slack_j.string_of_update_views_req req;
+  log#info "updating views with external_id %s, view_id %s, hash %s" (get_or_null req.external_id)
+    (get_or_null req.view_id) (get_or_null req.hash);
   let data = Slack_j.string_of_update_views_req req in
   let body = `Raw ("application/json", data) in
   let api_path = sprintf "views.update" in
   request_token_auth
-    ~name:(sprintf "views.update (%s)" @@ Slack_j.string_of_update_views_req req)
+    ~name:
+      (sprintf "views.update (ext_id: %s, view: %s, hash %s)" (get_or_null req.external_id) (get_or_null req.view_id)
+         (get_or_null req.hash)
+      )
     ~ctx ~body `POST api_path Slack_j.read_update_views_res
 
 let send_auth_test ~(ctx : Context.t) () =
