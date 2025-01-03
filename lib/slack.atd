@@ -694,7 +694,7 @@ type interaction_channel = {
 }
 
 type interaction_message = {
-  user : string;
+  ?user : string nullable;
   ts : string;
   text : string;
 }
