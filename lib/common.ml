@@ -21,5 +21,4 @@ let get_sorted_files_from dir =
   Array.sort String.compare files;
   Array.to_list files
 
-let sign_string_sha256 ~key ~basestring =
-  Cstruct.of_string basestring |> Nocrypto.Hash.SHA256.hmac ~key:(Cstruct.of_string key) |> Hex.of_cstruct |> Hex.show
+let sign_string_sha256 ~key ~basestring = Digestif.SHA256.(hmac_string ~key basestring |> to_hex)
