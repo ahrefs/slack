@@ -9,6 +9,7 @@ module type S = sig
   val send_message_webhook : ctx:Context.t -> url:string -> msg:post_message_req -> unit slack_response Lwt.t
   val update_message : ctx:Context.t -> msg:update_message_req -> update_message_res slack_response Lwt.t
   val upload_file : ctx:Context.t -> file:files_upload_req -> files_upload_res slack_response Lwt.t
+  val get_permalink : ctx:Context.t -> req:get_permalink_req -> get_permalink_res slack_response Lwt.t
 
   (* conversations *)
   val get_replies :

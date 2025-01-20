@@ -747,3 +747,13 @@ type update_views_res = {
   ok : bool;
   view: view;
 }
+
+type get_permalink_req <ocaml attr="deriving make"> = {
+     channel: string;
+     message_ts: string;
+}
+
+type get_permalink_res = {
+     channel: string;
+     permalink: string;
+}

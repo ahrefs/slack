@@ -65,6 +65,10 @@ let upload_file ~ctx:_ ~file =
     Lwt.return_ok { default_files_upload_res with file = { default_files_res with channels = [ channels ] } }
   | None -> Lwt.return_error (`Other "invalid file upload")
 
+let get_permalink ~ctx:_ ~(req : Slack_t.get_permalink_req) =
+  printf "getting permalink for channel_id #%s and message_ts %s...\n" req.channel req.message_ts;
+  Lwt.return_ok Slack_t.{ channel = req.channel; permalink = "SOME PERMALINK" }
+
 let join_conversation ~ctx:_ ~(channel : Slack_t.conversations_join_req) =
   printf "joining #%s...\n" channel.channel;
   let url = Filename.concat cache_dir (sprintf "%s_join" channel.channel) in

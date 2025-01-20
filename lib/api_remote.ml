@@ -105,6 +105,14 @@ let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
     ~name:(sprintf "file.upload (%s)" @@ Option.default "<NO CHANNEL>" file.channels)
     ~body `POST "files.upload" Slack_j.read_files_upload_res
 
+let get_permalink ~(ctx : Context.t) ~(req : Slack_t.get_permalink_req) =
+  log#info "getting permalink for channel %s, message_ts %s" req.channel req.message_ts;
+  let args = Web.make_url_args [ "channel", req.channel; "message_ts", req.message_ts ] in
+  let api_path = sprintf "chat.getPermalink?%s" args in
+  request_token_auth
+    ~name:(sprintf "chat.getPermalink (%s, %s)" req.channel req.message_ts)
+    ~ctx `GET api_path Slack_j.read_get_permalink_res
+
 (** [join_conversation ctx channel ] will join the token owner
     [ctx.secrets.slack_access_token] to the [channel]. *)
 let join_conversation ~(ctx : Context.t) ~(channel : Slack_t.conversations_join_req) =
