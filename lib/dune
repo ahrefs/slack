@@ -6,12 +6,10 @@
   atdgen-runtime
   biniou
   cmarkit
-  cstruct
   devkit
+  digestif
   extlib
-  hex
   lwt
-  nocrypto
   re2
   uri
   yojson)
