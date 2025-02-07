@@ -38,6 +38,9 @@ let default_files_res : Slack_t.file =
 
 let default_files_upload_res : Slack_t.files_upload_res = { ok = true; file = default_files_res }
 
+let default_files_upload_res_v2 : Slack_t.complete_upload_ext_res =
+  { ok = true; files = [ { id = default_files_res.id; title = default_files_res.title } ] }
+
 let send_message ~ctx:_ ~msg =
   let json = msg |> Slack_j.string_of_post_message_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
   printf "will notify #%s\n" msg.channel;
@@ -68,6 +71,23 @@ let upload_file ~ctx:_ ~file =
 let get_permalink ~ctx:_ ~(req : Slack_t.get_permalink_req) =
   printf "getting permalink for channel_id #%s and message_ts %s...\n" req.channel req.message_ts;
   Lwt.return_ok Slack_t.{ channel = req.channel; permalink = "SOME PERMALINK" }
+
+let get_upload_url_external ~ctx:_ ~(req : Slack_t.get_upload_url_ext_req) =
+  let json =
+    req |> Slack_j.string_of_get_upload_url_ext_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+  in
+  printf "getting upload url for %s\n" req.filename;
+  printf "%s\n" json;
+  Lwt.return_ok Slack_t.{ ok = true; upload_url = "http://fake-upload-url.com"; file_id = "file_id" }
+
+let complete_upload_external ~ctx:_ ~(req : Slack_t.complete_upload_ext_req) =
+  let json =
+    req |> Slack_j.string_of_complete_upload_ext_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+  in
+  printf "complete upload for %s in channel:%s or ts:%s\n" (Slack_j.string_of_files_v2 req.files)
+    (Option.default "NULL" req.channel_id) (Option.default "NULL" req.thread_ts);
+  printf "%s\n" json;
+  Lwt.return_ok default_files_upload_res_v2
 
 let join_conversation ~ctx:_ ~(channel : Slack_t.conversations_join_req) =
   printf "joining #%s...\n" channel.channel;

@@ -130,7 +130,7 @@ type files_upload_req <ocaml attr="deriving make"> = {
   ?title: string nullable;
 }
 
-type file = {
+type file <ocaml attr="deriving make"> = {
   id: string;
   ?name: string nullable;
   ?title: string nullable;
@@ -149,6 +149,39 @@ type file = {
 type files_upload_res = {
   ok: bool;
   file: file;
+}
+
+type file_v2 = {
+  id: string;
+  ?title : string nullable
+}
+
+type files_v2 = file_v2 list
+
+type get_upload_url_ext_req <ocaml attr="deriving make"> = {
+  filename: string;
+  length: int;
+  ?alt_txt: string nullable;
+  ?snippet_type: string nullable
+}
+
+type get_upload_url_ext_res = {
+  ok: bool;
+  upload_url: string;
+  file_id: string
+}
+
+type complete_upload_ext_req <ocaml attr="deriving make"> = {
+  files: files_v2;
+  ?channel_id : string nullable;
+  ?channels : string nullable;
+  ?initial_comment: string nullable;
+  ?thread_ts: string nullable
+}
+
+type complete_upload_ext_res = {
+  ok: bool;
+  files: files_v2;
 }
 
 type conversations_info_req <ocaml attr="deriving make"> = {

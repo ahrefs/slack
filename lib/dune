@@ -2,7 +2,6 @@
  (name slack_lib)
  (public_name slack.lib)
  (libraries
-  atdgen
   atdgen-runtime
   biniou
   cmarkit
