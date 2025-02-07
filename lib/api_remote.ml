@@ -148,10 +148,8 @@ let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
       ( match%lwt http_request ~ua:ctx.ua ~body `POST upload_url with
       | Error e -> slack_lib_fail "upload file failed with: %s" e
       | Ok _ ->
-        let files : Slack_t.files_v2 = [{ id = file_id; title = file.title }] in
-        let req =
-          Slack_j.make_complete_upload_ext_req ~files ?channels:file.channels ?thread_ts:file.thread_ts ()
-        in
+        let files : Slack_t.files_v2 = [ { id = file_id; title = file.title } ] in
+        let req = Slack_j.make_complete_upload_ext_req ~files ?channels:file.channels ?thread_ts:file.thread_ts () in
         ( match%lwt complete_upload_external ~ctx ~req with
         | Error e -> Lwt.return_error e
         | Ok { files; _ } ->
