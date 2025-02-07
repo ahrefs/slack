@@ -71,6 +71,7 @@ let upload_file ~ctx:_ ~file =
 let get_permalink ~ctx:_ ~(req : Slack_t.get_permalink_req) =
   printf "getting permalink for channel_id #%s and message_ts %s...\n" req.channel req.message_ts;
   Lwt.return_ok Slack_t.{ channel = req.channel; permalink = "SOME PERMALINK" }
+
 let get_upload_url_external ~ctx:_ ~(req : Slack_t.get_upload_url_ext_req) =
   let json =
     req |> Slack_j.string_of_get_upload_url_ext_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
@@ -97,7 +98,7 @@ let upload_file_v2 ~ctx:_ ~(file : Slack_t.files_upload_req) =
     else (
       printf "will update #%s\n" channels;
       printf "%s\n" json;
-      Lwt.return_ok { default_files_upload_res with file = { default_files_res with channels = [ channels ] }}
+      Lwt.return_ok { default_files_upload_res with file = { default_files_res with channels = [ channels ] } }
     )
   | None -> Lwt.return_error (`Other "invalid file upload")
 

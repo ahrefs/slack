@@ -112,6 +112,7 @@ let get_permalink ~(ctx : Context.t) ~(req : Slack_t.get_permalink_req) =
   request_token_auth
     ~name:(sprintf "chat.getPermalink (%s, %s)" req.channel req.message_ts)
     ~ctx `GET api_path Slack_j.read_get_permalink_res
+
 let www_form_of_get_upload_url_ext (req : Slack_t.get_upload_url_ext_req) =
   let fields =
     [
