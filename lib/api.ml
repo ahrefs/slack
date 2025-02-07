@@ -8,25 +8,8 @@ module type S = sig
   val send_message : ctx:Context.t -> msg:post_message_req -> post_message_res slack_response Lwt.t
   val send_message_webhook : ctx:Context.t -> url:string -> msg:post_message_req -> unit slack_response Lwt.t
   val update_message : ctx:Context.t -> msg:update_message_req -> update_message_res slack_response Lwt.t
-
   val upload_file : ctx:Context.t -> file:files_upload_req -> files_upload_res slack_response Lwt.t
-  [@@deprecated
-    "Use get_upload_url_external with complete_upload_external as per \
-     https://api.slack.com/messaging/files#uploading_files. Otherwise, there is upload_file_v2 convenience function"]
-
   val get_permalink : ctx:Context.t -> req:get_permalink_req -> get_permalink_res slack_response Lwt.t
-
-  val get_upload_url_external :
-     ctx:Context.t ->
-    req:get_upload_url_ext_req ->
-    get_upload_url_ext_res slack_response Lwt.t
-
-  val complete_upload_external :
-     ctx:Context.t ->
-    req:complete_upload_ext_req ->
-    complete_upload_ext_res slack_response Lwt.t
-
-  val upload_file_v2 : ctx:Context.t -> file:files_upload_req -> files_upload_res slack_response Lwt.t
 
   (* conversations *)
   val get_replies :

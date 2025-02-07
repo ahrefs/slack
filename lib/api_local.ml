@@ -89,19 +89,6 @@ let complete_upload_external ~ctx:_ ~(req : Slack_t.complete_upload_ext_req) =
   printf "%s\n" json;
   Lwt.return_ok default_files_upload_res_v2
 
-let upload_file_v2 ~ctx:_ ~(file : Slack_t.files_upload_req) =
-  let json = file |> Slack_j.string_of_files_upload_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
-  match file.channels with
-  | Some channels ->
-    if List.length (String.split_on_char ',' channels) <> 1 then
-      Lwt.return_error (`Other "only allowed to specify 1 channel")
-    else (
-      printf "will update #%s\n" channels;
-      printf "%s\n" json;
-      Lwt.return_ok { default_files_upload_res with file = { default_files_res with channels = [ channels ] } }
-    )
-  | None -> Lwt.return_error (`Other "invalid file upload")
-
 let join_conversation ~ctx:_ ~(channel : Slack_t.conversations_join_req) =
   printf "joining #%s...\n" channel.channel;
   let url = Filename.concat cache_dir (sprintf "%s_join" channel.channel) in

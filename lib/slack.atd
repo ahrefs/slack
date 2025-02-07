@@ -174,6 +174,7 @@ type get_upload_url_ext_res = {
 type complete_upload_ext_req <ocaml attr="deriving make"> = {
   files: files_v2;
   ?channel_id : string nullable;
+  ?channels : string nullable;
   ?initial_comment: string nullable;
   ?thread_ts: string nullable
 }

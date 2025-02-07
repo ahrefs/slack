@@ -92,19 +92,6 @@ let www_form_of_files_upload_req (file : Slack_t.files_upload_req) =
   in
   list_filter_opt fields
 
-(** [upload_file ctx file] upload [file] to channels noted in [file.channels]
-      with content [file.content]; Not supporting file upload through form using
-      `file` currently
-      uses web API with access token *)
-let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
-  let args = www_form_of_files_upload_req file in
-  let data = Web.make_url_args args in
-  let body = `Raw ("application/x-www-form-urlencoded", data) in
-  log#info "data to upload file: %s" data;
-  request_token_auth ~ctx
-    ~name:(sprintf "file.upload (%s)" @@ Option.default "<NO CHANNEL>" file.channels)
-    ~body `POST "files.upload" Slack_j.read_files_upload_res
-
 let get_permalink ~(ctx : Context.t) ~(req : Slack_t.get_permalink_req) =
   log#info "getting permalink for channel %s, message_ts %s" req.channel req.message_ts;
   let args = Web.make_url_args [ "channel", req.channel; "message_ts", req.message_ts ] in
@@ -143,8 +130,11 @@ let complete_upload_external ~(ctx : Context.t) ~(req : Slack_t.complete_upload_
     ~name:(sprintf "files.completeUploadExternal (%s)" @@ Slack_j.string_of_files_v2 req.files)
     ~body `POST "files.completeUploadExternal" Slack_j.read_complete_upload_ext_res
 
-(** NOTE: this api only can specify one channel_id unlike in the deprecated version *)
-let upload_file_v2 ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
+(** [upload_file ctx file] upload [file] to channels noted in [file.channels]
+      with content [file.content]; Not supporting file upload through form using
+      `file` currently
+      uses web API with access token *)
+let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
   match file.filename, file.content with
   | None, _ | _, None -> Exn.fail "need to supply both filename and content"
   | Some filename, Some content ->
@@ -153,13 +143,14 @@ let upload_file_v2 ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
     ( match%lwt get_upload_url_external ~ctx ~req with
     | Error e -> Lwt.return_error e
     | Ok { upload_url; file_id; _ } ->
-      let body = `Form [ "file", filename ] in
+      let raw_file_contents = In_channel.with_open_bin filename (fun ic -> input_all ic) in
+      let body = `Raw ("", raw_file_contents) in
       ( match%lwt http_request ~ua:ctx.ua ~body `POST upload_url with
       | Error e -> slack_lib_fail "upload file failed with: %s" e
       | Ok _ ->
-        let files : Slack_t.file_v2 = { id = file_id; title = file.title } in
+        let files : Slack_t.files_v2 = [{ id = file_id; title = file.title }] in
         let req =
-          Slack_j.make_complete_upload_ext_req ~files:[ files ] ?channel_id:file.channels ?thread_ts:file.thread_ts ()
+          Slack_j.make_complete_upload_ext_req ~files ?channels:file.channels ?thread_ts:file.thread_ts ()
         in
         ( match%lwt complete_upload_external ~ctx ~req with
         | Error e -> Lwt.return_error e
