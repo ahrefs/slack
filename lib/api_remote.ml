@@ -78,20 +78,6 @@ let update_message ~(ctx : Context.t) ~(msg : Slack_t.update_message_req) =
     ~name:(sprintf "chat.update (%s,%s)" msg.ts msg.channel)
     ~ctx ~body `POST "chat.update" Slack_j.read_update_message_res
 
-let www_form_of_files_upload_req (file : Slack_t.files_upload_req) =
-  let fields =
-    [
-      string_field_val file.channels "channels";
-      string_field_val file.content "content";
-      string_field_val file.filename "filename";
-      string_field_val file.filetype "filetype";
-      string_field_val file.initial_comment "initial_comment";
-      string_field_val file.thread_ts "thread_ts";
-      string_field_val file.title "title";
-    ]
-  in
-  list_filter_opt fields
-
 let get_permalink ~(ctx : Context.t) ~(req : Slack_t.get_permalink_req) =
   log#info "getting permalink for channel %s, message_ts %s" req.channel req.message_ts;
   let args = Web.make_url_args [ "channel", req.channel; "message_ts", req.message_ts ] in
@@ -100,22 +86,19 @@ let get_permalink ~(ctx : Context.t) ~(req : Slack_t.get_permalink_req) =
     ~name:(sprintf "chat.getPermalink (%s, %s)" req.channel req.message_ts)
     ~ctx `GET api_path Slack_j.read_get_permalink_res
 
-let www_form_of_get_upload_url_ext (req : Slack_t.get_upload_url_ext_req) =
-  let fields =
+let get_upload_url_external ~(ctx : Context.t) ~(req : Slack_t.get_upload_url_ext_req) =
+  log#info "getting upload url for %s" req.filename;
+  let args =
     [
       Some ("filename", req.filename);
       Some ("length", Int.to_string req.length);
       string_field_val req.alt_txt "alt_txt";
       string_field_val req.snippet_type "snippet_type";
     ]
+    |> list_filter_opt
   in
-  list_filter_opt fields
-
-let get_upload_url_external ~(ctx : Context.t) ~(req : Slack_t.get_upload_url_ext_req) =
-  log#info "getting upload url for %s" req.filename;
-  let args = www_form_of_get_upload_url_ext req in
   let data = Web.make_url_args args in
-  let body = `Raw ("application/x-www-form-urlencoded", data) in
+  let body = `Form [ "application/x-www-form-urlencoded", data ] in
   log#info "data to upload req: %s" data;
   request_token_auth ~ctx
     ~name:(sprintf "files.getUploadURLExternal (%s)" req.filename)
@@ -134,22 +117,22 @@ let complete_upload_external ~(ctx : Context.t) ~(req : Slack_t.complete_upload_
       with content [file.content]; Not supporting file upload through form using
       `file` currently
       uses web API with access token *)
-let upload_file ~(ctx : Context.t) ~(file : Slack_t.files_upload_req) =
-  match file.filename, file.content with
+let upload_file ~(ctx : Context.t) ~(req : Slack_t.files_upload_req) =
+  match req.filename, req.content with
   | None, _ | _, None -> Exn.fail "need to supply both filename and content"
   | Some filename, Some content ->
     let length = String.length content in
-    let req = Slack_j.make_get_upload_url_ext_req ~filename ~length () in
-    ( match%lwt get_upload_url_external ~ctx ~req with
+    let req' = Slack_j.make_get_upload_url_ext_req ~filename ~length () in
+    ( match%lwt get_upload_url_external ~ctx ~req:req' with
     | Error e -> Lwt.return_error e
     | Ok { upload_url; file_id; _ } ->
       let raw_file_contents = In_channel.with_open_bin filename (fun ic -> input_all ic) in
-      let body = `Raw ("", raw_file_contents) in
+      let body = `Raw ("text/plain", raw_file_contents) in
       ( match%lwt http_request ~ua:ctx.ua ~body `POST upload_url with
       | Error e -> slack_lib_fail "upload file failed with: %s" e
       | Ok _ ->
-        let files : Slack_t.files_v2 = [ { id = file_id; title = file.title } ] in
-        let req = Slack_j.make_complete_upload_ext_req ~files ?channels:file.channels ?thread_ts:file.thread_ts () in
+        let files : Slack_t.files_v2 = [ { id = file_id; title = req.title } ] in
+        let req = Slack_j.make_complete_upload_ext_req ~files ?channels:req.channels ?thread_ts:req.thread_ts () in
         ( match%lwt complete_upload_external ~ctx ~req with
         | Error e -> Lwt.return_error e
         | Ok { files; _ } ->
