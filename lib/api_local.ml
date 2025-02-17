@@ -59,9 +59,9 @@ let update_message ~ctx:_ ~msg =
   printf "%s\n" json;
   Lwt.return_ok { default_update_message_res with channel = msg.channel }
 
-let upload_file ~ctx:_ ~file =
-  let json = file |> Slack_j.string_of_files_upload_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
-  match file.channels with
+let upload_file ~ctx:_ ~req =
+  let json = req |> Slack_j.string_of_files_upload_req |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
+  match req.channels with
   | Some channels ->
     printf "will update #%s\n" channels;
     printf "%s\n" json;
