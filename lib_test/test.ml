@@ -138,8 +138,8 @@ let file_list =
 let process_upload_file (channels, content) =
   Printf.printf "upload_file_to--------channels: %s--------\n" channels;
   let ctx = Context.empty_ctx () in
-  let file : Slack_t.files_upload_req = Slack_j.make_files_upload_req ~channels ~content () in
-  match%lwt Api.upload_file ~ctx ~file with
+  let req : Slack_t.files_upload_req = Slack_j.make_files_upload_req ~channels ~content () in
+  match%lwt Api.upload_file ~ctx ~req with
   | Ok res ->
     let json = res |> Slack_j.string_of_files_upload_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string in
     print_endline json;
