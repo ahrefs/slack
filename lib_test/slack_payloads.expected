@@ -822,6 +822,23 @@ update_views----------------
 failed to update views: "Both external_id and view_id found"
 update_views----------------
 failed to update views: "Both external_id and view_id not found"
+===== file mock-slack-events/channel_created.json =====
+{
+  "token": "puV5BWN70KQkKRkp8YrXHQpt",
+  "team_id": "T07MUBTEWGP",
+  "api_app_id": "A07NBG6PMRA",
+  "event": {
+    "type": "channel_created",
+    "channel": {
+      "id": "C08G4KZN1V3",
+      "name": "test",
+      "created": 1741157669,
+      "creator": "U07NBD2PZ36"
+    }
+  },
+  "event_id": "Ev08FS99QKST",
+  "event_time": 1741157669
+}
 ===== file mock-slack-events/link_shared.json =====
 {
   "token": "",

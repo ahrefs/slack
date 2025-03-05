@@ -1,0 +1,51 @@
+{
+  "token": "puV5BWN70KQkKRkp8YrXHQpt",
+  "team_id": "T07MUBTEWGP",
+  "api_app_id": "A07NBG6PMRA",
+  "event": {
+    "type": "channel_created",
+    "channel": {
+      "id": "C08G4KZN1V3",
+      "name": "test",
+      "is_channel": true,
+      "is_group": false,
+      "is_im": false,
+      "is_mpim": false,
+      "is_private": false,
+      "created": 1741157669,
+      "is_archived": false,
+      "is_general": false,
+      "unlinked": 0,
+      "name_normalized": "test",
+      "is_shared": false,
+      "is_frozen": false,
+      "is_org_shared": false,
+      "is_pending_ext_shared": false,
+      "pending_shared": [],
+      "context_team_id": "T07MUBTEWGP",
+      "updated": 1741157669876,
+      "parent_conversation": null,
+      "creator": "U07NBD2PZ36",
+      "is_ext_shared": false,
+      "shared_team_ids": [ "T07MUBTEWGP" ],
+      "pending_connected_team_ids": [],
+      "topic": { "value": "", "creator": "", "last_set": 0 },
+      "purpose": { "value": "", "creator": "", "last_set": 0 },
+      "previous_names": []
+    },
+    "event_ts": "1741157669.001000"
+  },
+  "type": "event_callback",
+  "event_id": "Ev08FS99QKST",
+  "event_time": 1741157669,
+  "authorizations": [
+    {
+      "enterprise_id": null,
+      "team_id": "T07MUBTEWGP",
+      "user_id": "U07NMN2LQUR",
+      "is_bot": true,
+      "is_enterprise_install": false
+    }
+  ],
+  "is_ext_shared_channel": false
+}
