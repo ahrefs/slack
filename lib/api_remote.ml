@@ -97,12 +97,11 @@ let get_upload_url_external ~(ctx : Context.t) ~(req : Slack_t.get_upload_url_ex
     ]
     |> list_filter_opt
   in
-  let data = Web.make_url_args args in
-  let body = `Form [ "application/x-www-form-urlencoded", data ] in
-  log#info "data to upload req: %s" data;
+  let args = Web.make_url_args args in
+  let api_path = sprintf "files.getUploadURLExternal?%s" args in
   request_token_auth ~ctx
     ~name:(sprintf "files.getUploadURLExternal (%s)" req.filename)
-    ~body `POST "files.getUploadURLExternal" Slack_j.read_get_upload_url_ext_res
+    `POST api_path Slack_j.read_get_upload_url_ext_res
 
 let complete_upload_external ~(ctx : Context.t) ~(req : Slack_t.complete_upload_ext_req) =
   log#info "completing upload url for %s" @@ Slack_j.string_of_files_v2 req.files;

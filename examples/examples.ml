@@ -37,6 +37,14 @@ let text =
   let doc = "text to send" in
   Arg.(value & opt string "" & info [ "t"; "text" ] ~docv:"TEXT" ~doc)
 
+let content =
+  let doc = "content/snippet to send" in
+  Arg.(value & opt (some string) None & info [ "ct"; "content" ] ~docv:"CONTENT" ~doc)
+
+let filename =
+  let doc = "filename identifier" in
+  Arg.(required & opt (some string) None & info [ "f"; "filename" ] ~docv:"FILENAME" ~doc)
+
 let update =
   let doc = "text to update first message" in
   Arg.(value & opt string "" & info [ "u"; "update" ] ~docv:"UPDATE" ~doc)
@@ -75,9 +83,9 @@ let send =
   Cmd.v info term
 
 let send_file =
-  let doc = "upload a file using Slack APIs example" in
+  let doc = "upload a file or snippet using Slack APIs example" in
   let info = Cmd.info "send_file" ~doc in
-  let term = Term.(const Sender.send_file $ channels_opt $ text) in
+  let term = Term.(const Sender.send_file $ content $ channels_opt $ filename) in
   Cmd.v info term
 
 let send_update =
