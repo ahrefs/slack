@@ -118,39 +118,35 @@ let complete_upload_external ~(ctx : Context.t) ~(req : Slack_t.complete_upload_
     access token. Snippet can also be sent instead by filling the
     content value *)
 let upload_file ~(ctx : Context.t) ~(req : Slack_t.files_upload_req) =
-  match req.filename with
-  | None -> Exn.fail "need to supply filename"
-  | Some filename ->
-    let contents, length =
-      match req.content with
-      | Some v -> v, String.length v
-      | None ->
-        let raw_file_contents = In_channel.with_open_bin filename (fun ic -> input_all ic) in
-        raw_file_contents, String.length raw_file_contents
-    in
-    let req' = Slack_j.make_get_upload_url_ext_req ~filename ~length () in
-    ( match%lwt get_upload_url_external ~ctx ~req:req' with
-    | Error e -> Lwt.return_error e
-    | Ok { upload_url; file_id; _ } ->
-      let body = `Raw ("text/plain", contents) in
-      ( match%lwt http_request ~ua:ctx.ua ~body `POST upload_url with
-      | Error e -> slack_lib_fail "upload file failed with: %s" e
-      | Ok _ ->
-        let files : Slack_t.files_v2 = [ { id = file_id; title = req.title } ] in
-        let req' = Slack_j.make_complete_upload_ext_req ~files ?channels:req.channels ?thread_ts:req.thread_ts () in
-        ( match%lwt complete_upload_external ~ctx ~req:req' with
-        | Error e -> Lwt.return_error e
-        | Ok { files; _ } ->
-          let f =
-            match files with
-            | [] -> slack_lib_fail "empty files on complete_upload_external response"
-            | [ f ] -> f
-            | f :: _ ->
-              log#warn "got more than 1 file in response, returning top";
-              f
-          in
-          Lwt.return_ok Slack_t.{ ok = true; file = Slack_j.make_file ~id:f.id ?title:f.title () }
-        )
+  let contents, length =
+    match req.content with
+    | Some v -> v, String.length v
+    | None ->
+      let raw_file_contents = In_channel.with_open_bin req.filename (fun ic -> input_all ic) in
+      raw_file_contents, String.length raw_file_contents
+  in
+  let req' = Slack_j.make_get_upload_url_ext_req ~filename:req.filename ~length () in
+  match%lwt get_upload_url_external ~ctx ~req:req' with
+  | Error e -> Lwt.return_error e
+  | Ok { upload_url; file_id; _ } ->
+    let body = `Raw ("text/plain", contents) in
+    ( match%lwt http_request ~ua:ctx.ua ~body `POST upload_url with
+    | Error e -> slack_lib_fail "upload file failed with: %s" e
+    | Ok _ ->
+      let files : Slack_t.files_v2 = [ { id = file_id; title = req.title } ] in
+      let req' = Slack_j.make_complete_upload_ext_req ~files ?channels:req.channels ?thread_ts:req.thread_ts () in
+      ( match%lwt complete_upload_external ~ctx ~req:req' with
+      | Error e -> Lwt.return_error e
+      | Ok { files; _ } ->
+        let f =
+          match files with
+          | [] -> slack_lib_fail "empty files on complete_upload_external response"
+          | [ f ] -> f
+          | f :: _ ->
+            log#warn "got more than 1 file in response, returning top";
+            f
+        in
+        Lwt.return_ok Slack_t.{ ok = true; file = Slack_j.make_file ~id:f.id ?title:f.title () }
       )
     )
 

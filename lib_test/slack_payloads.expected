@@ -371,7 +371,11 @@ joining #C049XFXK286...
 }
 upload_file_to--------channels: C049XFXK286--------
 will update #C049XFXK286
-{ "channels": "C049XFXK286", "content": "some file content here" }
+{
+  "channels": "C049XFXK286",
+  "content": "some file content here",
+  "filename": "test"
+}
 {
   "ok": true,
   "file": { "id": "SOME_FILE_ID", "channels": [ "C049XFXK286" ] }
@@ -380,7 +384,8 @@ upload_file_to--------channels: C04CXBYNC68--------
 will update #C04CXBYNC68
 {
   "channels": "C04CXBYNC68",
-  "content": "some file content there weird characters 1i0134uuuoqiwejfm_()/,sadlk.asd\\slqwep[ofjvn"
+  "content": "some file content there weird characters 1i0134uuuoqiwejfm_()/,sadlk.asd\\slqwep[ofjvn",
+  "filename": "test"
 }
 {
   "ok": true,

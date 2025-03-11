@@ -123,7 +123,7 @@ type files_upload_req <ocaml attr="deriving make"> = {
   *)
   ?channels: string nullable;
   ?content: string nullable;
-  ?filename: string nullable;
+  filename: string;
   ?filetype: string nullable;
   ?initial_comment: string nullable;
   ?thread_ts: string nullable;
