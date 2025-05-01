@@ -147,6 +147,7 @@ let make_button ~(text : plain_text) ?action_id ?url ?value ?style ?confirm ?acc
 
 (******************* Blocks ***********************)
 
+let make_actions ~elements ?block_id () = Block_kit_j.(Actions (make_actions ~elements ?block_id ()))
 let make_divider ?block_id () = Block_kit_j.(Divider (make_divider ?block_id ()))
 
 let make_input ~(label : plain_text) ~element ?dispatch_action ?block_id ?(hint : plain_text option) ?optional () =

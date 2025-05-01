@@ -701,23 +701,25 @@ type 'ok slack_response = ('ok, slack_api_error) http_response
 
 
 type interaction = [
-| Shortcut <json name="shortcut"> of interaction_payload
-| Message_actions <json name="message_action"> of interaction_payload
-| Block_actions <json name="block_actions"> of interaction_payload
-| View_submission <json name="view_submission"> of json
-| View_closed <json name="view_closed"> of json
+  | Shortcut <json name="shortcut"> of interaction_payload
+  | Message_actions <json name="message_action"> of interaction_payload
+  | Block_actions <json name="block_actions"> of interaction_payload
+  | View_submission <json name="view_submission"> of json
+  | View_closed <json name="view_closed"> of json
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type interaction_payload = {
   trigger_id: string;
   token: string;
   team: interaction_team;
+  ?container : json nullable;   (* Only available in block_actions *)
   ?callback_id: string nullable;
   ?response_url: string nullable;
   ?message: interaction_message nullable;
   ?user: interaction_user nullable;
   ?channel : interaction_channel nullable;
   ?actions : interaction_action list nullable;
+  ?view : view nullable;
   ?state : json nullable
 }
 
@@ -761,11 +763,18 @@ type open_views_req <ocaml attr="deriving make"> = {
   ?interactivity_pointer : string nullable;
 }
 
+type view_res = {
+  id : string;
+  team_id : string;
+  hash : string
+  (* https://api.slack.com/methods/views.open#examples *)
+}
+
 type open_views_res = {
   ok : bool;
-  view : view;
+  view : view_res;
   ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
-}
+                     }
 
 type push_views_req <ocaml attr="deriving make"> = {
   view: view;
@@ -794,11 +803,11 @@ type update_views_res = {
 }
 
 type get_permalink_req <ocaml attr="deriving make"> = {
-     channel: string;
-     message_ts: string;
+  channel: string;
+  message_ts: string;
 }
 
 type get_permalink_res = {
-     channel: string;
-     permalink: string;
+  channel: string;
+  permalink: string;
 }

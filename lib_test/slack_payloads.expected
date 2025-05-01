@@ -642,30 +642,9 @@ opening views at trigger_id #ref1...
 {
   "ok": true,
   "view": {
-    "type": "modal",
-    "title": { "type": "plain_text", "text": "Quite a plain modal" },
-    "blocks": [
-      {
-        "type": "input",
-        "label": {
-          "type": "plain_text",
-          "text": "A simple label",
-          "emoji": true
-        },
-        "element": {
-          "type": "plain_text_input",
-          "action_id": "an_action_id"
-        },
-        "block_id": "a_block_id",
-        "optional": false
-      }
-    ],
-    "submit": { "type": "plain_text", "text": "Create" },
-    "private_metadata": "Shh it is a secret",
-    "callback_id": "identify_your_modals",
-    "clear_on_close": false,
-    "notify_on_close": false,
-    "external_id": ""
+    "id": "VMHU10V25",
+    "team_id": "T8N4K1JN",
+    "hash": "156772938.1827394"
   }
 }
 open_views----------------
@@ -673,30 +652,9 @@ opening views at interactivity_pointer #ref1...
 {
   "ok": true,
   "view": {
-    "type": "modal",
-    "title": { "type": "plain_text", "text": "Quite a plain modal" },
-    "blocks": [
-      {
-        "type": "input",
-        "label": {
-          "type": "plain_text",
-          "text": "A simple label",
-          "emoji": true
-        },
-        "element": {
-          "type": "plain_text_input",
-          "action_id": "an_action_id"
-        },
-        "block_id": "a_block_id",
-        "optional": false
-      }
-    ],
-    "submit": { "type": "plain_text", "text": "Create" },
-    "private_metadata": "Shh it is a secret",
-    "callback_id": "identify_your_modals",
-    "clear_on_close": false,
-    "notify_on_close": false,
-    "external_id": ""
+    "id": "VMHU10V25",
+    "team_id": "T8N4K1JN",
+    "hash": "156772938.1827394"
   }
 }
 open_views----------------
@@ -1021,7 +979,202 @@ failed to update views: "Both external_id and view_id not found"
       "type": "button",
       "action_ts": "1571318425.267782"
     }
-  ]
+  ],
+  "view": {
+    "type": "home",
+    "id": "V0PKB1ZFV",
+    "team_id": "T9TK3CUKW",
+    "blocks": [
+      {
+        "type": "section",
+        "block_id": "8ZG",
+        "text": {
+          "type": "mrkdwn",
+          "text": "A stack of blocks for the sample Block Kit Home tab.",
+          "verbatim": false
+        }
+      },
+      {
+        "type": "actions",
+        "block_id": "7fhg",
+        "elements": [
+          {
+            "type": "button",
+            "action_id": "XRX",
+            "text": {
+              "type": "plain_text",
+              "text": "Action A",
+              "emoji": true
+            }
+          },
+          {
+            "type": "button",
+            "action_id": "GFBew",
+            "text": {
+              "type": "plain_text",
+              "text": "Action B",
+              "emoji": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "block_id": "6evU",
+        "text": {
+          "type": "mrkdwn",
+          "text": "And now it's slightly more complex.",
+          "verbatim": false
+        }
+      }
+    ],
+    "private_metadata": "",
+    "callback_id": "",
+    "state": { "values": {} },
+    "hash": "1571318366.2468e46f",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "close": null,
+    "submit": null,
+    "previous_view_id": null,
+    "root_view_id": "V0PKB1ZFV",
+    "app_id": "AABA1ABCD",
+    "external_id": "",
+    "app_installed_team_id": "T9TK3CUKW",
+    "bot_id": "B0B00B00"
+  }
+}
+===== file mock-slack-interactions/block_action3.json =====
+{
+  "type": "block_actions",
+  "trigger_id": "8825442710374.7742401506567.d50a6567e3e761b35c23b33e8975c20f",
+  "token": "mZOEdN6ZG3zk2CFJtuNRWCYj",
+  "team": { "id": "T07MUBTEWGP", "domain": "testworkspace-jrm5644" },
+  "user": {
+    "id": "U07NBD2PZ36",
+    "name": "koonwen.lee",
+    "username": "koonwen.lee",
+    "team_id": "T07MUBTEWGP"
+  },
+  "actions": [
+    {
+      "action_id": "plain_text_input-action",
+      "block_id": "todo_desc",
+      "type": "plain_text_input",
+      "action_ts": "1746093859.242959",
+      "value": "koonwen.​lee: <https://3.basecamp.com/3963735/buckets/35747700/todos/8479712634>\n\nhttps://testworkspace-jrm5644.slack.com/archives/C080AE0USE7/p1746061724649999"
+    }
+  ],
+  "view": {
+    "type": "modal",
+    "title": { "type": "plain_text", "text": "Create task", "emoji": true },
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "Check out these <https://git.ahrefs.com/ahrefs/monorepo/blob/develop/backend/slack_of_basecamp/README.md#I-can't-find-the-todolist-I-want-to-create-the-Basecamp-task-in-the-dropdown|instructions> on how to add your preferred Basecamp todolist if you don't see yours here",
+          "verbatim": false
+        },
+        "block_id": "TTDcT"
+      },
+      {
+        "type": "input",
+        "label": { "type": "plain_text", "text": "Todo-list", "emoji": true },
+        "element": {
+          "type": "static_select",
+          "action_id": "static_select_menu-action",
+          "options": [
+            {
+              "text": {
+                "type": "plain_text",
+                "text": "Midend > slack_of_basecamp > Inbox",
+                "emoji": true
+              },
+              "value": "35747700.7263090634"
+            },
+            {
+              "text": {
+                "type": "plain_text",
+                "text": "Midend > slack_of_basecamp > Backlog",
+                "emoji": true
+              },
+              "value": "35747700.7047967089"
+            }
+          ],
+          "initial_option": {
+            "text": {
+              "type": "plain_text",
+              "text": "Midend > slack_of_basecamp > Inbox",
+              "emoji": true
+            },
+            "value": "35747700.7263090634"
+          }
+        },
+        "dispatch_action": false,
+        "block_id": "todolist",
+        "optional": false
+      },
+      {
+        "type": "input",
+        "label": { "type": "plain_text", "text": "Assign", "emoji": true },
+        "element": {
+          "type": "multi_users_select",
+          "action_id": "multi_users_select-action",
+          "initial_users": [ "U07NBD2PZ36" ]
+        },
+        "dispatch_action": false,
+        "block_id": "assign_users",
+        "optional": false
+      },
+      {
+        "type": "input",
+        "label": { "type": "plain_text", "text": "Name", "emoji": true },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "plain_text_input-action",
+          "dispatch_action_config": {
+            "trigger_actions_on": [ "on_enter_pressed" ]
+          }
+        },
+        "dispatch_action": false,
+        "block_id": "todo_name",
+        "optional": false
+      },
+      {
+        "type": "input",
+        "label": {
+          "type": "plain_text",
+          "text": "Description",
+          "emoji": true
+        },
+        "element": {
+          "type": "plain_text_input",
+          "action_id": "plain_text_input-action",
+          "initial_value": "koonwen.​lee: <https://3.basecamp.com/3963735/buckets/35747700/todos/8479712634>\n\nhttps://testworkspace-jrm5644.slack.com/archives/C080AE0USE7/p1746061724649999",
+          "multiline": true,
+          "dispatch_action_config": {
+            "trigger_actions_on": [ "on_enter_pressed" ]
+          }
+        },
+        "dispatch_action": true,
+        "block_id": "todo_desc",
+        "hint": {
+          "type": "plain_text",
+          "text": "Generate LLM Summary",
+          "emoji": true
+        },
+        "optional": false
+      }
+    ],
+    "close": { "type": "plain_text", "text": "Close", "emoji": true },
+    "submit": { "type": "plain_text", "text": "Submit", "emoji": true },
+    "private_metadata": "C080AE0USE7.1746061724.649999",
+    "callback_id": "",
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "external_id": ""
+  }
 }
 ===== file mock-slack-interactions/global_shortcut.json =====
 {

@@ -2,6 +2,7 @@ type json <ocaml module="Yojson.Basic" t="t"> = abstract
 
 type view = [
   | Modal <json name="modal"> of modal
+  | Home <json name="home"> of json
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type modal <ocaml attr="deriving make"> = {
@@ -22,10 +23,16 @@ type modal <ocaml attr="deriving make"> = {
 type blocks = block list
 
 type block = [
+  | Actions <json name = "actions"> of actions
   | Divider <json name = "divider"> of divider
   | Input <json name = "input"> of input
   | Section <json name = "section"> of section
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+
+type actions <ocaml attr="deriving make"> = {
+  elements : element list <ocaml valid="fun l -> List.length l <= 25">;
+  ?block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">
+}
 
 type divider <ocaml attr="deriving make"> = {
   block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">
@@ -54,7 +61,7 @@ type element = [
   | Button <json name = "button"> of button
   | Plain_text_input <json name = "plain_text_input"> of plain_text_input
   | Multi_static_select_menu <json name = "multi_static_select"> of multi_static_select_menu
-  | Multi_users_select_menu <json name = "multi_users_select_menu"> of multi_users_select_menu
+  | Multi_users_select_menu <json name = "multi_users_select"> of multi_users_select_menu
   | Static_select_menu <json name = "static_select"> of static_select_menu
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
@@ -92,7 +99,7 @@ type multi_static_select_menu <ocaml attr="deriving make"> = {
 
 type multi_users_select_menu <ocaml attr="deriving make"> = {
   ?action_id : string nullable <ocaml valid="fun s -> String.length s <= 255">;
-  ?initial_users : string nullable;
+  ?initial_users : string list nullable;
   ?confirm : confirmation_dialog_object nullable;
   ?max_selected_items : int nullable <ocaml valid="fun i -> i >= 1">;
   ?focus_on_load : bool nullable;

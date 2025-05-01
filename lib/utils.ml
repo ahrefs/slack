@@ -56,7 +56,7 @@ let process_slack_interaction (ctx : Context.t) headers body ~interaction_handle
   | [] -> Lwt.return_error "Empty payload"
   | payload :: _ ->
   match interaction_of_string payload with
-  | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s" e)
+  | exception Yojson.Json_error e -> Lwt.return_error (sprintf "Invalid interaction: %s, payload: %s" e payload)
   | interaction ->
   match validate_signature ?signing_key:ctx.secrets.slack_signing_secret ~headers body with
   | Error e -> Lwt.return_error (sprintf "signature not validated: %s" e)
