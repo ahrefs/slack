@@ -144,6 +144,7 @@ type file <ocaml attr="deriving make"> = {
   ~groups <ocaml default="[]">: string list;
   ?permalink: string nullable;
   ?permalink_public: string nullable;
+  ?url_private: string nullable;
 }
 
 type files_upload_res = {
@@ -515,6 +516,7 @@ type message_event = {
   ts: string;
   ?bot_id: string option;
   ?thread_ts: string option;
+  ?files: file list nullable;
 }
 
 type link_shared_link = {
