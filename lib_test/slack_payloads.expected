@@ -866,7 +866,22 @@ failed to update views: "Both external_id and view_id not found"
     "channel": "C049XFXK286",
     "user": "U04A3C2LC6N",
     "text": "",
-    "ts": "1671595066.592719"
+    "ts": "1671595066.592719",
+    "files": [
+      {
+        "id": "F04FPJE4ES3",
+        "name": "-.txt",
+        "title": "Untitled",
+        "mimetype": "text/plain",
+        "filetype": "text",
+        "pretty_type": "Plain Text",
+        "user": "U04A3C2LC6N",
+        "size": 6458,
+        "permalink": "https://test-bot2-server.slack.com/files/SOME_FILE_URLtxt",
+        "permalink_public": "https://slack-files.com/SOME_FILE_URL",
+        "url_private": "https://files.slack.com/files-pri/SOME_FILE_URL/-.txt"
+      }
+    ]
   },
   "event_id": "Ev04G41LD735",
   "event_time": 1671595066

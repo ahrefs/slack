@@ -34,6 +34,7 @@ let default_files_res : Slack_t.file =
     groups = [];
     permalink = None;
     permalink_public = None;
+    url_private = None;
   }
 
 let default_files_upload_res : Slack_t.files_upload_res = { ok = true; file = default_files_res }
