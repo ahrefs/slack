@@ -35,7 +35,7 @@ type actions <ocaml attr="deriving make"> = {
 }
 
 type divider <ocaml attr="deriving make"> = {
-  block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">
+  ?block_id : string nullable <ocaml valid="fun s -> String.length s <= 255">
 }
 
 type input <ocaml attr="deriving make"> = {
