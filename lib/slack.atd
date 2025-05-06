@@ -553,11 +553,26 @@ type channel_created_event = {
   channel: channel_obj;
 }
 
+type item = {
+  type_ <json name="type"> : string;
+  ?channel : string nullable;
+  ?ts : string nullable;
+}
+
+type reaction_event = {
+  user : string;
+  reaction : string;
+  item : item;
+  event_ts : string
+}
+
 type event = [
 | Message <json name="message"> of message_event
 | App_mention <json name="app_mention"> of message_event
 | Link_shared <json name="link_shared"> of link_shared_event
 | Channel_created <json name="channel_created"> of channel_created_event
+| Reaction_added <json name="reaction_added"> of reaction_event
+| Reaction_removed <json name="reaction_removed"> of reaction_event
 ] <ocaml repr="classic"> <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
 
 type event_callback_notification = {
