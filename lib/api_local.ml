@@ -118,6 +118,11 @@ let get_conversations_info ~ctx:_ ~(conversation : Slack_t.conversations_info_re
   let url = Filename.concat cache_dir conversation.channel in
   with_cache_file url Slack_j.conversations_info_res_of_string
 
+let list_conversations ~ctx:_ ~(req : Slack_t.conversations_list_req) =
+  printf "listing conversations...\n";
+  let url = Filename.concat cache_dir (sprintf "%s_list_conversations" (Option.default "default" req.types)) in
+  with_cache_file url Slack_j.conversations_list_res_of_string
+
 let get_user ~ctx:_ ~(user : Slack_t.user_info_req) =
   let url = Filename.concat cache_dir user.user in
   with_cache_file url Slack_j.user_info_res_of_string

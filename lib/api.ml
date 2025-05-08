@@ -27,6 +27,7 @@ module type S = sig
     conversation:conversations_info_req ->
     conversations_info_res slack_response Lwt.t
 
+  val list_conversations : ctx:Context.t -> req:conversations_list_req -> conversations_list_res slack_response Lwt.t
   val join_conversation : ctx:Context.t -> channel:conversations_join_req -> conversations_join_res slack_response Lwt.t
 
   (* usergroups *)

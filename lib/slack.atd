@@ -366,6 +366,20 @@ type conversations_join_res = {
   ~response_metadata <ocaml default="[]">: (string * json) list <json repr="object">;
 }
 
+type conversations_list_req <ocaml attr="deriving make"> = {
+  ?cursor: string nullable;
+  ?exclude_archived: bool nullable;
+  ?limit: int nullable;
+  ?team_id: string nullable;
+  ?types: string nullable;
+}
+
+type conversations_list_res = {
+  ok: bool;
+  channels: conversation list;
+  ?response_metadata: json nullable;
+}
+
 type update_usergroups_users_req <ocaml attr="deriving make"> = {
   usergroup: string;
   users: string list;

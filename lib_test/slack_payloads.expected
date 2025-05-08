@@ -599,6 +599,74 @@ listing at cursor #dXNlcjpVMDQ2WE4wTTJSNQ==...
   ],
   "response_metadata": { "next_cursor": "" }
 }
+list_conversations--------types: public_channel--------
+listing conversations...
+{
+  "ok": true,
+  "channels": [
+    {
+      "id": "C012AB3CD",
+      "name": "general",
+      "is_channel": true,
+      "is_member": true,
+      "num_members": 4,
+      "topic": {
+        "value": "Company-wide announcements and work-based matters",
+        "creator": "",
+        "last_set": 0
+      },
+      "purpose": {
+        "value": "This channel is for team-wide communication and announcements. All team members are in this channel.",
+        "creator": "",
+        "last_set": 0
+      }
+    },
+    {
+      "id": "C061EG9T2",
+      "name": "random",
+      "is_channel": true,
+      "is_member": true,
+      "num_members": 4,
+      "topic": {
+        "value": "Non-work banter and water cooler conversation",
+        "creator": "",
+        "last_set": 0
+      },
+      "purpose": {
+        "value": "A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels.",
+        "creator": "",
+        "last_set": 0
+      }
+    }
+  ],
+  "response_metadata": { "next_cursor": "dGVhbTpDMDYxRkE1UEI=" }
+}
+list_conversations--------types: im,mpim--------
+listing conversations...
+{
+  "ok": true,
+  "channels": [
+    {
+      "id": "G0AKFJBEU",
+      "name": "mpdm-mr.banks--slactions-jackson--beforebot-1",
+      "is_group": true,
+      "is_member": true,
+      "topic": {
+        "value": "Group messaging",
+        "creator": "U061F7AUR",
+        "last_set": 1493657761
+      },
+      "purpose": {
+        "value": "Group messaging with: @mr.banks @slactions-jackson @beforebot",
+        "creator": "U061F7AUR",
+        "last_set": 1493657761
+      }
+    },
+    { "id": "D0C0F7S8Y", "is_im": true, "user": "U0BS9U4SV" },
+    { "id": "D0BSHH4AD", "is_im": true, "user": "U0C0NS9HN" }
+  ],
+  "response_metadata": { "next_cursor": "aW1faWQ6RDBCSDk1RExI" }
+}
 add_bookmark_to_channel_id_of--------channel_id: C1RQ000--------
 adding bookmark (title bookmark-1, type link) to channel_id #C1RQ000...
 {

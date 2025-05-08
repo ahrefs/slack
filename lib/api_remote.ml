@@ -295,6 +295,27 @@ let get_conversations_info ~(ctx : Context.t) ~(conversation : Slack_t.conversat
     ~name:(sprintf "conversations.info (%s)" conversation.channel)
     ~ctx `GET api_path Slack_j.read_conversations_info_res
 
+let www_form_of_conversations_list_req (req : Slack_t.conversations_list_req) =
+  let fields =
+    [
+      string_field_val req.cursor "cursor";
+      bool_field_val req.exclude_archived "exclude_archived";
+      int_field_val req.limit "limit";
+      string_field_val req.team_id "team_id";
+      string_field_val req.types "types";
+    ]
+  in
+  list_filter_opt fields
+
+(** [list_conversations ctx req] lists all channels in a workspace;
+    uses web API with access token *)
+let list_conversations ~(ctx : Context.t) ~(req : Slack_t.conversations_list_req) =
+  log#info "listing conversations %s" @@ Slack_j.string_of_conversations_list_req req;
+  let data = www_form_of_conversations_list_req req in
+  let args = Web.make_url_args data in
+  let api_path = sprintf "conversations.list?%s" args in
+  request_token_auth ~name:"conversations.list" ~ctx `GET api_path Slack_j.read_conversations_list_res
+
 let www_form_of_user_info_req = function
   | ({ user; include_locale = Some include_locale } : Slack_t.user_info_req) ->
     [ "user", user; "include_locale", Bool.to_string include_locale ]

@@ -285,6 +285,23 @@ let process_remove_bookmark (bookmark_id, channel_id) =
       (Slack_j.string_of_slack_api_error e);
     Lwt.return_unit
 
+let list_conversations_types_list = [ "public_channel"; "im,mpim" ]
+
+let process_list_conversations types =
+  Printf.printf "list_conversations--------types: %s--------\n" types;
+  let ctx = Context.empty_ctx () in
+  let req : Slack_t.conversations_list_req = Slack_j.make_conversations_list_req ~types () in
+  match%lwt Api.list_conversations ~ctx ~req with
+  | Ok res ->
+    let json =
+      res |> Slack_j.string_of_conversations_list_res |> Yojson.Basic.from_string |> Yojson.Basic.pretty_to_string
+    in
+    print_endline json;
+    Lwt.return_unit
+  | Error e ->
+    log#error "failed to list conversations: %s" (Slack_j.string_of_slack_api_error e);
+    Lwt.return_unit
+
 let views_list =
   let title = Slack_lib.Block_kit_safe.make_plain_text ~text:"dummy" () in
   let view = Slack_lib.Block_kit_safe.make_modal ~title ~blocks:[] () in
@@ -416,6 +433,7 @@ let () =
      let%lwt () = Lwt_list.iter_s process_list_usergroups list_usergroups_team_id_list in
      let%lwt () = Lwt_list.iter_s process_list_usergroup_users list_usergroup_users_usergroup_id_list in
      let%lwt () = Lwt_list.iter_s process_list_users list_users_cursors_list in
+     let%lwt () = Lwt_list.iter_s process_list_conversations list_conversations_types_list in
      let%lwt () = Lwt_list.iter_s process_add_bookmark add_bookmarks_list in
      let%lwt () = Lwt_list.iter_s process_edit_bookmark edit_bookmarks_id_list in
      let%lwt () = Lwt_list.iter_s process_list_bookmarks list_bookmarks_id_list in
