@@ -9,6 +9,7 @@ type token =
   | UrlLink of string * string option (* URL, label *)
   | InlineCode of string
   | CodeBlock of string (* block *)
+  | Colon
 [@@deriving show]
 
 exception EOF
@@ -16,7 +17,10 @@ exception EOF
 
 let white = [' ' '\t']+
 let newline = '\r' | '\n' | "\r\n"
-let word = [^ ' ' '\t' '\n' '\r' ]+
+let letter   = ['A'-'Z' 'a'-'z']
+let digit    = ['0'-'9']
+let id_char  = letter | digit | '_'
+let word = id_char+
 let emoji = ':' [^':'' ' ]+ ':'
 
 rule read =
@@ -32,4 +36,6 @@ rule read =
   | '<' ([^'>''|']+ as link) ( "|" ([^'>']+ as text) )? '>' { UrlLink(link, text) }
   | emoji as e { Emoji e }
   | word as w  { Word w }
+  | ':'        { Colon }
   | eof { raise EOF }
+  | _ {read lexbuf}

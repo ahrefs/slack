@@ -405,8 +405,10 @@ let test_lexer () =
 <http://example.com>
 <#C0838UC2D|general>
 <@UNIOCDINAO>
+to:<@UNIOCDINAO>
 <!subteam^UIAOBCD>
 <!special mention> :star-struck: smile `inline code`
+this`inline code`rocks
 ```codeblock
 type poly = [ `Foo | `Bar ]
 ```|}
