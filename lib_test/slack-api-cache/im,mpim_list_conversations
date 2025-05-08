@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "channels": [
+    {
+      "id": "G0AKFJBEU",
+      "name": "mpdm-mr.banks--slactions-jackson--beforebot-1",
+      "is_channel": false,
+      "is_group": true,
+      "is_im": false,
+      "created": 1493657761,
+      "creator": "U061F7AUR",
+      "is_archived": false,
+      "is_general": false,
+      "unlinked": 0,
+      "name_normalized": "mpdm-mr.banks--slactions-jackson--beforebot-1",
+      "is_shared": false,
+      "is_ext_shared": false,
+      "is_org_shared": false,
+      "pending_shared": [],
+      "is_pending_ext_shared": false,
+      "is_member": true,
+      "is_private": true,
+      "is_mpim": true,
+      "is_open": true,
+      "updated": 1678229664302,
+      "topic": {
+        "value": "Group messaging",
+        "creator": "U061F7AUR",
+        "last_set": 1493657761
+      },
+      "purpose": {
+        "value": "Group messaging with: @mr.banks @slactions-jackson @beforebot",
+        "creator": "U061F7AUR",
+        "last_set": 1493657761
+      },
+      "priority": 0
+    },
+    {
+      "id": "D0C0F7S8Y",
+      "created": 1498500348,
+      "is_im": true,
+      "is_org_shared": false,
+      "user": "U0BS9U4SV",
+      "is_user_deleted": false,
+      "priority": 0
+    },
+    {
+      "id": "D0BSHH4AD",
+      "created": 1498511030,
+      "is_im": true,
+      "is_org_shared": false,
+      "user": "U0C0NS9HN",
+      "is_user_deleted": false,
+      "priority": 0
+    }
+  ],
+  "response_metadata": {
+    "next_cursor": "aW1faWQ6RDBCSDk1RExI"
+  }
+}
